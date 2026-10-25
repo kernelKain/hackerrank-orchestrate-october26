@@ -7,8 +7,8 @@ Planning: Prompt 1 COMPLETE; all 14 sections APPROVED; CHECK: READY.
 Execution: E03 COMPLETE on main. E04 is not authorized.
 Current harness: Codex Desktop; handoff target: Cursor.
 Current verified runtime model: gpt-5.6-sol.
-Current baseline: main / acc586ce61029a6449a107ff0c79eaba4a45be51.
-Verified remote state: origin/main / acc586ce61029a6449a107ff0c79eaba4a45be51.
+Verified implementation baseline: E03 / acc586ce61029a6449a107ff0c79eaba4a45be51.
+Verified implementation remote: origin/main contains E03 / acc586ce61029a6449a107ff0c79eaba4a45be51.
 Remote policy: push verified step commits directly to origin/main; verify its SHA after every push.
 Legacy branch: build/erasecase is retired by this consolidation after origin/main verification.
 Implementation units: E01 COMMITTED; E02 COMMITTED; E03 COMMITTED; E04–E07 NOT_STARTED.
