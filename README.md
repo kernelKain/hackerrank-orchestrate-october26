@@ -8,13 +8,12 @@ audit cutoff and produces the required findings, remediation and verification.
 
 ## Current status
 
-**Prompt 1 is complete. E01 is implemented and verified; E02 awaits A1 authorization.**
+**E01–E05 are implemented on main. E06, the final 518-row run, awaits authorization.**
 
-The canonical plan is docs/ENGINEERING_BLUEPRINT.md, version 1.3. It contains the
-complete specification, execution directive and readiness manifest. E01 established
-the application foundation, protected local configuration, strict contracts,
-preflight checks, OpenRouter boundaries, persistent run state and offline tests.
-Fixture UX, audit logic, evaluation, the final run and packaging remain unfinished.
+The canonical plan is docs/ENGINEERING_BLUEPRINT.md, version 1.4. E05 adds offline
+public and fictional-case evaluation, intent coverage for the previously unresolved
+phrases, the source packager, and measured reports. Root `output.csv` is not written
+until the final run.
 
 | Document | Purpose |
 | --- | --- |
@@ -78,9 +77,9 @@ E01 must document the tested platform-specific setup and PDF utility installatio
 
 ## Planned commands
 
-The `fixtures` command is available and publishes a labeled synthetic review.
-It does not read evaluation requests, call OpenRouter, or write `output.csv`.
-The other commands below remain later units.
+`fixtures` publishes a labeled synthetic review and does not write `output.csv`.
+`evaluation.main` scores the public sample and fictional cases offline.
+`package.py` writes the source archive. `run` and `validate` remain the final-run unit.
 
 Use the virtual environment's Python from the repository root:
 
@@ -159,15 +158,12 @@ The full contract remains in problem_statement.md and AGENTS.md.
 
 ## Evaluation and usage reports
 
-The following files are currently **unfilled report templates**:
+Measured reports:
 
-- [Evaluation report](code/evaluation/evaluation_report.md)
-- [Usage report](code/evaluation/usage_report.md)
+- [Evaluation report](code/evaluation/evaluation_report.md) records the public 32 and fictional cases.
+- [Usage report](code/evaluation/usage_report.md) preserves E01 charges and the E05 zero-call evaluation.
 
-E05 must report measured public/custom status, step, field, sequence and full-row
-accuracy, at least three fictional custom cases, failures and improvements.
-E06 must report actual final-run providers/models, calls, input/output tokens,
-totals/averages, costs, retries and cache/preparation attribution.
+E06 must replace the final-run rows with the actual 518-request providers, tokens, and costs.
 
 Targets are not measurements. Hidden-set accuracy remains unknown.
 Do not put essential explanations only in raw data that the judge may ignore.
@@ -199,7 +195,6 @@ Submission page:
 
 ## Next action
 
-Remain in documentation-only mode until the user starts Prompt 2. Then read the
-approved handoff and current state, verify reality, and obtain E01 authorization
-unless it was already explicitly supplied. Planning approval alone is not permission
-to begin implementation.
+E05 is the current evaluation and packaging unit. E06 is the final full-dataset run
+and is not started until its own authorization. Do not treat the public sequence
+score as a hidden-set result.

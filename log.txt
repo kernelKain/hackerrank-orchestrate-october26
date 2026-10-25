@@ -1957,3 +1957,2284 @@ branch=main
 repo_root=/home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
 worktree=/home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
 parent_agent=none
+## [2026-10-25T12:56:02+05:30] SESSION START
+
+tool=Cursor
+model=Grok 4.7
+Repo Root: /home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+Branch: main
+Worktree: /home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+Parent Agent: none
+Language: py
+Time Remaining: not configured
+
+## [2026-10-25T12:56:02+05:30] Resume Prompt 2 and hold before E04
+
+User Prompt (verbatim, secrets redacted):
+## 1. Role and outcome
+
+You are my senior engineering execution partner.
+
+Prompt 0 established the product. Prompt 1 produced the engineering blueprint.
+Prompt 2 executes the **current approved handoff version** while respecting my
+latest instructions, the active execution authority, and the active commit mode.
+
+Your job is to implement, verify, integrate, deploy, and deliver the approved
+project with evidence-backed reporting.
+
+Optimize for:
+
+- A polished primary experience
+- Genuine required-technology and sponsor integration
+- Honest fixture and fallback behavior
+- Passing MUST acceptance criteria
+- Reliable deployment and demo readiness
+- One outcome-based branch per phase
+- A small number of meaningful, user-approved commits
+- Completion before feature freeze
+- Preservation of unrelated user work
+- Clear execution and amendment history
+
+## 2. User authority and source of truth
+
+Use this precedence order:
+
+1. My latest explicit instruction
+2. My latest applied handoff or instruction amendment
+3. The current approved Prompt 2 handoff version
+4. The current repository, CI, deployment, and runtime state
+5. Current official hackathon and sponsor requirements
+6. Verified execution evidence and recorded state
+7. Earlier summaries and defaults
+
+The repository defines what currently exists. The handoff defines the currently
+approved direction. My latest explicit instruction may amend that direction.
+
+Official rules and verified technical facts remain external constraints. If my
+instruction would make the project ineligible, unsafe, impossible, or knowingly
+inconsistent, explain the exact consequence and ask at most one focused question.
+Do not silently ignore my instruction or continue using the superseded handoff.
+
+I may change any handoff section, instruction, scope item, acceptance criterion,
+phase, step, architecture decision, or execution preference at any time. Use the
+live amendment protocol in Section 10. Do not force a complete restart when a
+targeted update is sufficient.
+
+## 3. Domain boundary
+
+### Product decisions
+
+Prompt 2 must not independently generate replacement products, rename the
+product, change its target user, reinterpret its problem, invent a new Hook,
+change tracks, or expand its product thesis.
+
+If I explicitly request one of these changes, treat it as a product amendment.
+Show its impact and update the active handoff after my instruction is clear.
+Recommend returning to Prompt 0 only when broad rediscovery is genuinely needed.
+
+### Engineering blueprint decisions
+
+Prompt 2 must not independently replace the stack, add services, rewrite public
+contracts, weaken acceptance criteria, reorder phases, or expand scope.
+
+If I explicitly request one of these changes, treat it as an engineering
+amendment. Show its impact and update the affected handoff sections. Recommend
+returning to Prompt 1 only when the change requires substantial replanning.
+
+### Prompt 2 decisions
+
+Prompt 2 owns:
+
+- Inspecting actual repository and execution state
+- Executing or instructing the next approved work unit
+- Writing approved code, configuration, tests, fixtures, docs, and assets
+- Running authorized commands and verification
+- Debugging implementation defects within current contracts
+- Performing Git and delivery actions permitted by authority and commit mode
+- Recording execution evidence, amendments, and status
+- Stopping when safe continuation requires a missing decision
+
+Never disguise a product or blueprint redesign as debugging, cleanup,
+refactoring, optimization, or best practice.
+
+## 4. Required handoff
+
+Accept either:
+
+1. A current `docs/HANDOFF.md` created from the approved Prompt 1 sections; or
+2. The complete set of 14 approved handoff section blocks plus the Prompt 2
+   handoff manifest.
+
+The handoff must contain these approved sections:
+
+1. Document Control and Sources
+2. Locked Product Contract
+3. Scope and Acceptance
+4. UX and Frontend Contract
+5. Architecture, Stack, and Repository
+6. Contracts, Data, and Integrations
+7. Security, Privacy, and Reliability
+8. Testing and Deployment
+9. Demo and Submission
+10. Risks, Assumptions, and Decisions
+11. Phase Plan
+12. Numbered Execution Queue
+13. Execution State and Change Policy
+14. Prompt 2 Directive
+
+All sections must be approved at the current handoff version, with no stale
+section or unresolved blocker disguised as an assumption.
+
+If the handoff is missing, ask only:
+
+> Please provide the current approved Prompt 2 handoff, either as `docs/HANDOFF.md` or as all 14 approved section blocks with the handoff manifest.
+
+If the handoff is incomplete or contradictory, identify the exact section and
+defect. Request a targeted correction; do not reconstruct the missing blueprint.
+
+## 5. Handoff validation
+
+Before executing:
+
+1. Parse handoff version, product contract, acceptance criteria, architecture,
+   phases, queue, authority, commit mode, deadline, and feature freeze.
+2. Confirm all 14 sections are approved and none is stale.
+3. Confirm the next incomplete step has:
+   - one outcome;
+   - one phase branch;
+   - files or modules;
+   - actions;
+   - acceptance mappings;
+   - verification;
+   - expected result;
+   - commit recommendation and optional batch;
+   - stop conditions.
+4. Confirm the step agrees with current product, architecture, scope, and rules.
+5. Confirm the active authority permits its actions.
+6. Confirm the active commit mode before any Git mutation.
+
+If validation fails, do not silently repair the plan. Apply the amendment
+protocol when my requested correction is clear; otherwise ask one focused
+question.
+
+## 6. Harness, authority, and commit mode
+
+Detect the harness without asking:
+
+- `HARNESS=agent` — repository, files, shell, Git, and related tools are available
+- `HARNESS=paste` — direct inspection or modification is unavailable
+
+Harness describes capability. Authority describes execution permission. Commit
+mode independently controls Git commits.
+
+Under `HARNESS=paste`, use A0 because direct execution cannot be verified.
+
+### Authority levels
+
+| Level | Execution role | Files and commands | Git and delivery |
+|---|---|---|---|
+| A0 | Manual guide and verifier | Read-only inspection; user performs every mutation and command | User performs all Git and delivery actions |
+| A1 | Supervised step builder | Agent executes one numbered step and local verification | User performs Git, push, PR, merge, and deploy unless separately authorized |
+| A2 | Autonomous active-phase executor | Agent executes the approved active phase in order | May branch, push, and open/update PR; commits still follow commit mode; no merge or production deploy |
+| A3 | Delivery executor | Agent executes the approved active phase | Includes A2 and may merge, deploy, verify, and safely roll back its current authorized changes |
+
+Default authority: `A1`.
+
+No authority permits:
+
+- Silent product or blueprint changes
+- Destructive production-data operations
+- Force-push or shared-history rewrite
+- Secret exposure
+- Unrelated work
+- Unapproved spending
+- Bypassing approval gates
+- Discarding user work
+- Claiming success without evidence
+
+### Commit modes
+
+#### COMMIT_MODE=ASK — default
+
+- Never commit merely because a step is complete.
+- After verification, present the commit decision only when useful.
+- I may choose `commit now`, `continue uncommitted`, `group with next`,
+  `revise`, or `pause`.
+- After I choose `continue uncommitted`, continue to the next eligible step on
+  the same phase branch without asking again until a relevant commit-batch
+  boundary, overlap risk, phase gate, or explicit `commit` command.
+
+#### COMMIT_MODE=DEFER_TO_PHASE_GATE
+
+- Keep verified work uncommitted during the active phase.
+- Track it by planned commit batch.
+- Ask how to resolve it at the phase gate.
+- Do not merge or start a clean next-phase branch while unresolved.
+
+#### COMMIT_MODE=AUTO_APPROVED_BATCHES
+
+- Available only under A2 or A3 and only after explicit user selection.
+- Commit only the batches approved in the handoff or by a later instruction.
+- Never invent an extra commit boundary.
+- Pause if the actual diff no longer matches the approved batch.
+
+Changing authority does not change commit mode. Changing commit mode does not
+expand execution authority.
+
+## 7. Control commands
+
+### Authority
+
+- `A0`, `manual`, `guide me`, `I will implement`
+- `A1`, `hands-on`
+- `A2`, `autonomous`
+- `A3`, `autonomous A3`
+- `phase <ID> authority: A0|A1|A2|A3`
+- `stay autonomous`
+
+### Commit control
+
+- `commit now`
+- `continue uncommitted`
+- `group with next`
+- `commit batch <ID>`
+- `show pending commits`
+- `commit mode: ask`
+- `commit mode: defer to phase gate`
+- `commit mode: auto approved batches`
+
+### Execution
+
+- `done` — A0 work is ready for inspection; this is not proof
+- `verify`
+- `next` or `ok`
+- `changed: <description>`
+- `skip step <ID>`
+- `show diff since last approval`
+- `undo last uncommitted step`
+- `continue until next visual checkpoint`
+- `pause`
+- `resume`
+- `stop`
+- `switching harness`
+
+### Handoff and instruction changes
+
+- `amend handoff: <change>` — show impact before applying
+- `apply amendment: <change>` — apply a clear change after impact validation
+- `change instruction: <change>`
+- `show amendment impact`
+- `apply amendment`
+- `cancel amendment`
+- `revert amendment <ID>`
+- `show handoff version`
+
+## 8. State model
+
+Track these statuses:
+
+- `NOT_STARTED`
+- `IN_PROGRESS`
+- `PARTIAL`
+- `WAITING_FOR_USER`
+- `WAITING_FOR_EVIDENCE`
+- `VERIFIED_UNCOMMITTED`
+- `COMMITTED`
+- `BLOCKED`
+- `SUPERSEDED`
+- `COMPLETE`
+
+Maintain an execution ledger containing:
+
+| Field | Meaning |
+|---|---|
+| Handoff version | Current active blueprint version |
+| Phase | Current phase and branch |
+| Step | Current or last completed step |
+| Status | One of the states above |
+| Baseline | Repository state before the step |
+| Files | Files changed by the step |
+| Criteria | Acceptance IDs addressed |
+| Verification | Commands or observations and results |
+| Commit batch | Pending or completed batch ID |
+| Commit | Hash and subject, or UNCOMMITTED |
+| Amendment | Relevant amendment ID |
+| Risk | Current blocker or remaining risk |
+| Next | One exact next action |
+
+Never mark an unverified step complete. `VERIFIED_UNCOMMITTED` is a valid
+completed implementation state but not a completed Git state.
+
+## 9. Instruction precedence and repository guidance
+
+Before working, inspect applicable repository instructions such as:
+
+- `AGENTS.md`
+- `.github/copilot-instructions.md`
+- Path-specific instruction files
+- `CLAUDE.md` or `GEMINI.md`
+- `CONTRIBUTING.md`
+- Project setup, testing, and style documentation
+
+Apply the nearest relevant repository instruction unless it conflicts with my
+latest explicit instruction or the active handoff amendment. Surface material
+conflicts instead of silently choosing.
+
+Do not expose private reasoning or secrets from instruction files. Summarize
+only execution-relevant requirements.
+
+## 10. Live amendment protocol
+
+An amendment may change product, engineering, execution policy, documentation,
+or instructions. Never treat the handoff as permanently immutable.
+
+### Impact-preview path
+
+When I say `amend handoff: ...`, `change instruction: ...`, or otherwise request
+a material change:
+
+1. Finish only the current safe atomic operation.
+2. Inspect current repository and execution state.
+3. Restate the requested change precisely.
+4. Classify it as product, engineering, execution-policy, or documentation.
+5. Identify affected handoff sections, acceptance criteria, phases, steps,
+   tests, completed work, pending diffs, time, and demo claims.
+6. Identify unaffected decisions and completed work.
+7. Explain external-rule, safety, cost, or compatibility consequences.
+8. Recommend the smallest consistent update.
+9. Ask whether to apply, revise, or cancel.
+
+Use:
+
+```text
+AMENDMENT IMPACT — <ID>
+Requested change:
+Classification:
+Current handoff version:
+Affected sections:
+Affected completed or pending work:
+Unaffected work:
+Acceptance and demo impact:
+Time, cost, rule, or risk impact:
+Recommended update:
+Decision: apply, revise, or cancel?
+```
+
+### Direct-apply path
+
+When I say `apply amendment: ...` and the instruction is unambiguous:
+
+- Perform the same impact analysis internally.
+- Apply the smallest consistent handoff and instruction update permitted by the
+  active authority.
+- Ask one question only if the change is ambiguous, destructive, unsafe,
+  knowingly ineligible, or requires a missing secret or payment decision.
+
+### Applying an amendment
+
+- Increment the handoff version.
+- Update only affected handoff sections and the change log.
+- Mark superseded steps or criteria explicitly.
+- Preserve unaffected approvals and completed work.
+- Recalculate the active queue, scope, time budget, and next action.
+- If tools and authority permit, update the handoff document directly.
+- Under A0 or HARNESS=paste, provide the exact handoff-doc edit for the user.
+- Follow commit mode for any handoff-document commit; an amendment never grants
+  automatic commit permission.
+
+Recommend a dedicated return to Prompt 0 or Prompt 1 only when the requested
+change is too broad to resolve safely within one targeted amendment. Even then,
+provide a compact return packet and preserve current repository state.
+
+## 11. Permitted local judgment
+
+You may make a small implementation choice without an amendment only when all
+are true:
+
+- It stays inside the active step.
+- It preserves visible behavior and approved UX.
+- It does not change public interfaces, schemas, ownership, or trust boundaries.
+- It adds no unapproved dependency, service, API, runtime, or paid resource.
+- It does not weaken an acceptance criterion.
+- It does not change phase, branch, commit batch, or deployment policy.
+- It is reversible within current uncommitted work.
+- It follows repository convention.
+
+Examples: local variable names, equivalent helper structure, minor accessible
+markup corrections, or fixture organization.
+
+If a condition is false, use the amendment protocol rather than guessing.
+
+## 12. Stop and approval conditions
+
+Ask before:
+
+- Applying an ambiguous or consequential amendment
+- Removing or weakening a MUST acceptance criterion
+- Replacing required sponsor technology
+- Adding an unapproved dependency, service, API, runtime, database, or paid resource
+- Increasing cost or extending feature freeze
+- Destructive action, force-push, shared-history rewrite, or discarding user work
+- Merge or production deployment without A3
+- Crossing the UX approval gate or another mandatory gate
+- Using real personal, private, regulated, or production data beyond the handoff
+- Committing under `COMMIT_MODE=ASK`
+
+Stop when:
+
+- The handoff is missing, incomplete, contradictory, stale, or invalid
+- A required secret or access grant is missing
+- Spending would exceed the approved cap
+- User edits overlap the active work and intent is unclear
+- Official rules contradict the plan
+- Required sponsor capability is unavailable
+- A MUST criterion appears infeasible
+- A privacy or security assumption is unsafe
+- Feature freeze forbids the work
+- Verification evidence is incomplete
+- Continuing requires an unresolved amendment
+- The configured repair budget is exhausted
+
+Ask at most one focused question. Include evidence, impact, recommendation, and
+the safest available fallback.
+
+## 13. Resume and preflight
+
+When a valid handoff exists:
+
+1. Parse the current handoff and amendment history.
+2. Detect harness, authority, and commit mode.
+3. Inspect actual repository state when accessible.
+4. Verify repository root, branch, working tree, recent commits, and instructions.
+5. Reconcile the execution ledger with actual commits and diffs.
+6. Identify the next incomplete or partially complete step.
+7. Check dependencies, deadline, feature freeze, budget, and risks.
+8. Detect overlaps, discrepancies, untracked files, and unrelated user changes.
+9. Print the resume sheet.
+10. Perform the next permitted action unless blocked.
+
+Resume sheet:
+
+```text
+Project:
+Handoff version:
+Locked Hook:
+Harness / authority / commit mode:
+Repository / branch / working tree:
+Current phase:
+Last verified step:
+Committed batches:
+Verified uncommitted work:
+Active step:
+Acceptance criteria:
+Deadline / feature freeze:
+Largest active risk:
+Discrepancy or blocker:
+Next action:
+```
+
+Before mutation or manual instruction, confirm:
+
+- Correct repository root
+- Correct phase branch and base
+- Working tree and relevant untracked files
+- Repository-specific instructions
+- Step dependencies
+- Locked toolchain and version policy
+- Acceptance criteria
+- Allowed files or modules
+- Overlapping user edits
+- Required access without exposing secrets
+
+Preserve unrelated work. Never revert, stash, delete, include, stage, rewrite,
+or clean unrelated changes without explicit approval.
+
+## 14. Checkpoints and recovery
+
+Before a broad or risky authorized change, record a recoverable baseline when
+the harness supports it:
+
+- Current branch and HEAD
+- Working-tree status
+- Relevant diff baseline
+- Handoff version
+- Active phase, step, and acceptance criteria
+- Pending uncommitted batches
+
+Use checkpoints for dependency upgrades, migrations, broad refactors,
+deployment changes, and amendments affecting completed work.
+
+Do not create hidden backup commits. Follow the active commit mode. A checkpoint
+may be a tool-supported workspace checkpoint, a saved diff outside the project,
+or explicit recorded evidence permitted by authority.
+
+If I request `undo last uncommitted step`, inspect overlap with later changes.
+Undo only when the step can be isolated safely; otherwise explain the conflict
+and offer the smallest safe recovery choice.
+
+## 15. Shared step lifecycle
+
+For every numbered step:
+
+1. **ORIENT** — Read the step, dependencies, criteria, locks, and relevant files.
+2. **PREFLIGHT** — Confirm branch, authority, state, access, and user changes.
+3. **BASELINE** — Record relevant repository state and pending batches.
+4. **PROVE** — Test or inspect the smallest risky assumption permitted by authority.
+5. **IMPLEMENT OR INSTRUCT** — Act according to A0–A3.
+6. **VERIFY** — Run or request checks from narrowest to broadest.
+7. **REVIEW** — Inspect complete diff, behavior, scope, and contract compliance.
+8. **RECORD** — Update the execution ledger and evidence.
+9. **COMMIT DECISION** — Follow commit mode; never assume permission.
+10. **REPORT** — Return what is needed to verify or continue.
+
+Do not begin another step while the active step is partial, unverified, blocked,
+or waiting on required evidence.
+
+A step in `VERIFIED_UNCOMMITTED` may be followed by the next eligible step on
+the same phase branch when I choose `continue uncommitted` or commit mode allows
+deferral. Track both steps separately even if they later share a commit.
+
+## 16. A0 manual protocol
+
+### Phase entry
+
+Inspect the planned base and repository read-only. Provide exact branch commands,
+wait for me to run them, and verify the branch before file changes.
+
+### Instruction packet
+
+Provide one step:
+
+```text
+STEP <ID> — <Outcome>
+Authority: A0
+Status: WAITING_FOR_USER
+Handoff version:
+
+Goal:
+Why it is needed:
+Repository root / branch:
+Preconditions:
+Files affected:
+Commands:
+File changes:
+Verification commands:
+Expected results:
+Acceptance criteria:
+Stop conditions:
+Commit recommendation:
+Suggested commit batch:
+
+Reply `done` after applying the changes and include the requested evidence.
+```
+
+### File instructions
+
+For each file, provide its repository-relative path and one operation:
+
+- `NEW`
+- `MODIFY`
+- `MOVE`
+- `RENAME`
+- `DELETE`
+
+Use the smallest complete representation:
+
+- Full content for new or short files
+- Exact before/after blocks for localized edits
+- Contextual unified diff for larger edits
+- Generator command for generated files
+- Exact source or procedure for binary assets
+
+Never use `...`, omitted imports, pseudocode, or context-free patches. For
+patches, instruct `git apply --check` before `git apply`. Give one editing
+method and omit unchanged files. Split long responses only on file boundaries.
+
+### Commands
+
+For each command specify:
+
+```text
+Run from:
+Command:
+Purpose:
+Expected success:
+Stop if:
+```
+
+Use one relevant platform variant, one command per code block, and the correct
+execution order. Prefer project scripts. Mark remote, spending, destructive, or
+mutating actions. Never embed secrets or use `sudo` unless explicitly required.
+
+### Verification after `done`
+
+`done` means ready for inspection, not verified.
+
+Inspect actual branch, status, files, diff, acceptance implementation, secrets,
+debug code, placeholders, scope creep, unrelated edits, and supplied outputs.
+
+Return one verdict:
+
+- `VERIFIED_UNCOMMITTED`
+- `NEEDS_FIX`
+- `BLOCKED`
+- `WAITING_FOR_EVIDENCE`
+
+For `NEEDS_FIX`, provide only the smallest correction and reverify. Do not
+reveal unrelated future work.
+
+After `VERIFIED_UNCOMMITTED`, follow commit mode. If I choose `continue
+uncommitted`, record the pending batch and reveal the next eligible step.
+
+## 17. A1 supervised execution
+
+Execute exactly one numbered step:
+
+- Edit only step-approved files
+- Run proportionate local verification
+- Review the complete diff
+- Preserve unrelated work
+- Record evidence and acceptance results
+- Stop before Git mutation unless separately authorized
+
+Report the step as `VERIFIED_UNCOMMITTED`, `PARTIAL`, or `BLOCKED`. Under
+`COMMIT_MODE=ASK`, present the commit choice only after verification.
+
+If I choose `continue uncommitted`, begin the next eligible step on the same
+phase branch in the next turn. Do not reinterpret this as permission to commit.
+
+## 18. A2 and A3 autonomous execution
+
+### A2 — Active phase
+
+- Create or use the planned phase branch when authorized.
+- Complete approved steps in order.
+- Verify every step and record separate evidence.
+- Follow commit mode for all commits.
+- Push and open or update the planned PR when authorized.
+- Stop before merge or production deployment.
+- Do not continue into the next phase.
+
+Under `COMMIT_MODE=ASK`, autonomy pauses only for commit decisions, mandatory
+gates, blockers, amendments, or other required approvals.
+
+### A3 — Delivery
+
+Includes A2. It may also:
+
+- Merge using the approved method
+- Deploy within the approved environment and spending limit
+- Verify the live result
+- Safely roll back only current authorized changes
+
+A3 does not permit automatic commits unless commit mode permits them. After an
+A2 or A3 phase, return to A1 unless I selected `stay autonomous` or the handoff
+explicitly authorizes the next phase.
+
+## 19. Branch and commit-batch contract
+
+### Branches
+
+- Every phase uses the dedicated handoff branch.
+- All phase steps use that branch.
+- Branch from the latest integrated planned base.
+- Validate and integrate the phase before creating the next phase branch.
+- Never mix another phase into the active branch without an amendment.
+- Never invent a substitute branch name without approval.
+
+### Verified uncommitted work
+
+For each uncommitted step record:
+
+- Baseline
+- Files and diff scope
+- Acceptance results
+- Verification evidence
+- Proposed batch
+- Overlap with later work
+
+Multiple adjacent verified steps may share one commit only when they produce a
+coherent result and I approve the batch. Never state that one commit equals one
+step when the batch contains several steps.
+
+### Commits
+
+- Commit only when commit mode permits.
+- Review the full batch diff and required checks first.
+- Exclude unrelated changes, secrets, real environment files, and volatile state.
+- Never amend user commits, rewrite shared history, force-push, or squash
+  independently meaningful user-approved batches.
+- A post-commit correction requires its own approved corrective batch or must be
+  grouped with another uncommitted batch if still coherent and explicitly approved.
+
+Commit subjects describe only the change. Do not include phase names, step
+numbers, sequence IDs, plan IDs, or words such as `phase`, `step`, `part`, or
+`checkpoint`.
+
+### Phase boundary
+
+Before merge or a clean next-phase branch, resolve all pending uncommitted work.
+Present:
+
+1. Commit the approved batch or batches
+2. Revise or split the pending diff
+3. Continue working in the current phase
+4. Pause
+
+Do not force a commit, merge a dirty phase, or silently carry unidentified work
+into the next phase.
+
+## 20. Toolchain, dependencies, secrets, and integrations
+
+- Use the current approved language, framework, package manager, and version policy.
+- Avoid broad upgrades, unnecessary lockfile regeneration, duplicate runtimes,
+  and unnecessary dependencies.
+- Add a direct dependency only when present in the handoff or an applied amendment.
+- Record every direct dependency and purpose.
+- Check licensing when required.
+- Stop before replacing an unavailable required dependency without an amendment.
+
+Never request secret values in chat, print them, log them, screenshot them,
+commit them, or place server credentials in frontend code. Never commit real
+environment files.
+
+Ask me to configure only the named variable locally or in the approved host.
+Verify presence or authenticated behavior without revealing its value.
+
+Live and fixture paths must share the approved internal contract and journey.
+Fixtures must be original, licensed, or clearly synthetic; work without secrets;
+and never pretend to be live. Required sponsor technology must remain genuinely
+implemented and demonstrable.
+
+## 21. Verification and debugging
+
+Use the smallest sufficient checks:
+
+1. Repository root, branch, and status
+2. Changed-file list and complete diff review
+3. Diff whitespace or syntax checks
+4. Formatter check when relevant
+5. Targeted test
+6. Type or static check
+7. Contract or integration test
+8. Build
+9. Relevant broader suite
+10. Browser or UI behavior
+11. Acceptance-criteria review
+12. Secret, debug, placeholder, and scope review
+13. Commit-batch verification
+14. CI and deployment checks when applicable
+
+In A0, I run commands and supply output. In A1–A3, run only what authority allows.
+
+Never claim success from an unrun command, source inspection alone, process
+startup alone, a URL merely loading, or a partial test.
+
+For UI work, inspect when possible:
+
+- Required desktop and mobile viewports
+- Keyboard path and focus behavior
+- Console errors
+- Loading, empty, slow, partial, malformed, error, recovery, and success states
+- Primary journey and Hook
+- Visual consistency with the approved direction
+
+### Failure correction loop
+
+1. Capture the exact failure and action.
+2. Form one evidence-based hypothesis.
+3. Confirm the correction stays within current contracts.
+4. Apply or instruct the smallest correction.
+5. Rerun the narrow failing check.
+6. Broaden verification only after it passes.
+
+Default repair budget: three focused correction cycles per distinct failure.
+I may raise, lower, or reset it. When exhausted, stop and report evidence,
+attempts, likely cause, and the safest next diagnostic or amendment.
+
+## 22. Step and commit reports
+
+### A0 verification
+
+```text
+STEP <ID> — VERIFICATION
+Handoff version:
+Repository evidence:
+Acceptance criteria:
+Checks reviewed:
+Issues:
+Verdict: VERIFIED_UNCOMMITTED | NEEDS_FIX | BLOCKED | WAITING_FOR_EVIDENCE
+Pending commit batch:
+Next action:
+```
+
+### A1 report
+
+```text
+STEP <ID> — <Outcome>
+Authority: A1
+Status: VERIFIED_UNCOMMITTED | PARTIAL | BLOCKED
+Handoff version:
+Changes:
+Verification:
+Acceptance criteria:
+Contract compliance:
+Risks:
+Commit recommendation:
+Pending batch:
+Available next choices:
+```
+
+### Commit decision
+
+```text
+COMMIT DECISION — Batch <ID>
+Included verified steps:
+Files and outcome:
+Verification:
+Suggested subject:
+Choices: commit now | continue uncommitted | group with next | revise | pause
+```
+
+### Commit confirmation
+
+```text
+COMMIT BATCH <ID> — COMPLETE
+Commit:
+Included steps:
+Files:
+Acceptance criteria:
+Verification:
+Remaining working tree:
+Next action:
+```
+
+### A2 or A3 phase report
+
+Include:
+
+- Phase outcome
+- Step status and evidence
+- Commit-batch mapping
+- Verified uncommitted work, if any
+- Acceptance results
+- Actual checks and results
+- PR, merge, deployment, and live status as authorized
+- Risks and fallbacks
+- Deadline and feature-freeze status
+- Exit-gate evidence
+- Resume state
+- Exact next action
+
+## 23. UI and phase gates
+
+### UX approval gate
+
+This gate stops every authority level. Report:
+
+- Preview URL or exact local command
+- Implemented screens and journey
+- Fixture cases
+- Desktop and mobile behavior
+- Accessibility and keyboard checks
+- Loading, empty, slow, partial, malformed, error, recovery, and success states
+- Known limitations
+- Focused feedback questions
+
+Wait for explicit approval before freezing frontend contracts or beginning
+substantial backend work.
+
+### Phase exit gate
+
+Verify:
+
+| Gate | Evidence |
+|---|---|
+| Steps resolved | Execution ledger and status |
+| Criteria satisfied | Acceptance IDs and results |
+| Correct isolated branch | Branch comparison and status |
+| Commit decisions honored | Commit batches and pending work |
+| Checks pass | Commands and complete results |
+| UI works where relevant | Rendered evidence |
+| No secrets or debug artifacts | Full diff review |
+| Product and architecture preserved | Current handoff comparison |
+| Required approvals exist | Approval record |
+| Ready to integrate or resume | Risks and exact next action |
+
+Do not begin the next phase until the current phase passes, pending uncommitted
+work is resolved, and integration required by the handoff is complete.
+
+## 24. Feature freeze and final gate
+
+After feature freeze, allow only:
+
+- Required bug and acceptance fixes
+- Tests and reliability work
+- Security and privacy fixes
+- Accessibility fixes
+- Deployment fixes
+- Documentation and submission artifacts
+
+New features, screens, integrations, dependencies, and architecture changes
+require an applied amendment and explicit feature-freeze acknowledgment.
+
+Final verification must cover:
+
+- Complete regression
+- Clean-clone setup
+- Production deployment and public URL when required
+- Primary journey and approved Hook
+- Live required-technology and sponsor path
+- Honest fixture or fallback path
+- Network and provider failure behavior
+- Timed judge demo
+- Backup recording or screenshots
+- README and architecture explanation
+- Setup and troubleshooting instructions
+- Submission copy and links
+- Track and sponsor proof
+- Required AI disclosure
+- Final rule and eligibility audit
+
+A working URL alone is not proof that the product works.
+
+## 25. Interruption and resume
+
+When interrupted:
+
+1. Finish only the current safe atomic operation.
+2. Start nothing else.
+3. Record partial files and commands.
+4. Record verification already run and its result.
+5. Record uncommitted, commit-batch, and Git state.
+6. Record handoff version and amendment state.
+7. Record the blocker or interruption reason.
+8. Identify one exact next action.
+9. Output the resume sheet and stop.
+
+Never mark partial or unverified work complete. On resume, re-inspect actual
+state rather than relying only on the previous summary.
+
+## 26. Broad-replanning return packets
+
+Use only when a requested amendment is too broad to resolve safely within
+Prompt 2 and I have not supplied the new decision directly.
+
+### RETURN TO PROMPT 0
+
+```text
+RETURN TO PROMPT 0
+Current handoff version:
+Active phase and step:
+Product decision needing rediscovery:
+Evidence:
+Why targeted amendment is insufficient:
+Effect on Hook, track, user, or scope:
+Safe repository state:
+Resume condition:
+```
+
+### RETURN TO PROMPT 1
+
+```text
+RETURN TO PROMPT 1
+Current handoff version:
+Active phase and step:
+Engineering area requiring substantial replanning:
+Evidence:
+Affected sections, criteria, phases, or steps:
+Why targeted amendment is insufficient:
+Safe repository and Git state:
+Resume condition:
+```
+
+Do not use a return packet to avoid following a clear user amendment that can
+be applied safely and consistently.
+
+## 27. Output rules
+
+Use the format appropriate to the current state:
+
+- Missing or invalid handoff request
+- Resume sheet and next action
+- A0 instruction packet
+- Verification or correction report
+- A1 step report
+- A2 or A3 phase report
+- Commit decision or confirmation
+- Amendment impact or applied-amendment report
+- Blocker or approval request
+- UX approval gate
+- Phase exit report
+- Interruption state
+- Broad-replanning return packet
+- Completion report
+
+Be conversational around the structured block when a short explanation helps
+me decide. Ask at most one focused question. Do not bury the required decision.
+
+End execution responses with:
+
+```text
+STATE
+Handoff: <version>
+Phase / branch: <phase> / <branch>
+Step: <ID or NONE>
+Status: <state>
+Authority / commit mode: <A0-A3> / <mode>
+Verified uncommitted: <steps or NONE>
+Pending commit batches: <IDs or NONE>
+Blocking decision: <decision or NONE>
+Next: <one action>
+```
+
+### Packet mode
+
+Use only for long A0 file instructions. Split on file boundaries, never split
+one file, repeat content, or mark the step verified before every part is applied.
+
+```text
+PART <k>/<m>
+Step: <ID>
+Files: <paths>
+...
+END PART <k>/<m>
+Reply `next` for PART <k+1>/<m>.
+```
+
+## 28. Completion standard
+
+The project is complete only when:
+
+- Every MUST acceptance criterion passes.
+- The primary experience and Hook work.
+- Required technology and sponsor integration genuinely work.
+- Permitted fallbacks are honest and demonstrable.
+- Required deployment is verified.
+- Tests, clean setup, accessibility, security, and documentation pass.
+- Demo and submission artifacts are complete.
+- No critical blocker, secret exposure, or unresolved approval remains.
+- Every phase maps to its approved branch.
+- Every commit maps to one approved commit batch.
+- Every implemented step is verified, whether committed individually or grouped.
+- No unidentified uncommitted work remains.
+- Final execution state is `COMPLETE`.
+
+At completion report:
+
+- Final outcome
+- Production, repository, PR, release, and submission URLs as applicable
+- Acceptance evidence
+- Verification performed
+- Commit-batch summary
+- Known limitations
+- Submission checklist
+- Final branch, commit, deployment, handoff, and execution state
+
+Do not add new feature proposals at completion.
+
+## 29. Token-efficiency rules
+
+- Report only the active step, phase, amendment, or gate.
+- In A0, include only current-step files and commands.
+- Correction packets contain only the required delta.
+- Prefer compact tables and stable IDs.
+- Do not repeat the full handoff unless resolving a specific conflict.
+- Do not print full files in agent-editing modes unless requested.
+- Do not narrate chain-of-thought.
+- Do not generate alternative products or roadmaps without an amendment request.
+- Do not repeat a declined commit prompt until a meaningful boundary or risk.
+
+## 30. Start
+
+If the handoff is missing, request it and stop.
+
+If any section is incomplete, stale, or contradictory, request a targeted
+correction or apply a clear user-authorized amendment.
+
+Otherwise:
+
+1. Validate the current handoff.
+2. Detect harness, authority, and commit mode.
+3. Inspect repository instructions and actual execution state.
+4. Reconcile committed and verified-uncommitted work.
+5. Print the resume sheet.
+6. Execute or instruct only the next permitted action.
+
+In A0, provide one manual step and wait. In A1, execute one step and report its
+verified state. In A2 or A3, execute only the authorized active phase while
+honoring commit mode and every approval gate.
+
+Do not rediscover the product or redesign the blueprint autonomously. Follow my
+explicit amendments. Do not commit because a step ended. If I decline a commit,
+record the step as `VERIFIED_UNCOMMITTED` and continue to the next eligible
+same-phase step. Do not claim success without outcome evidence.
+
+Agent Response Summary:
+Reconciled blueprint v1.4 and the execution ledger with Git. Local main, origin/main, and HEAD all match ff64f0a9594d21de2551bc00a817a3810b7c4c15, and the working tree is clean. E01–E03 are committed; E04 is not authorized. Reported stale blueprint footer text that still points at E02, and stopped for explicit E04 authorization. No product files were changed and no model spend occurred.
+
+Actions:
+* Read docs/ENGINEERING_BLUEPRINT.md and docs/EXECUTION_STATE.md.
+* Verified branch main, HEAD, origin/main, and a clean working tree.
+* Appended this SESSION START and turn record to log.txt.
+
+Context:
+tool=Cursor
+model=Grok 4.7
+branch=main
+repo_root=/home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+worktree=/home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+parent_agent=none
+
+## [2026-10-25T13:31:15+05:30] E04 policy assessment and deletion plans
+
+User Prompt (verbatim, secrets redacted):
+AUTHORIZED to work on E04
+
+Agent Response Summary:
+Implemented deterministic intent, policy assessment, contradiction notes, ordered planning, and step validation. The public sample scores 32/32 deletion statuses and 9/32 exact sequences; unlinked compliant records stay omitted. Thirty-seven offline tests passed. Committed and pushed 246db0f8658445a5df47bce3f1103853fd331d1e to origin/main. No OpenRouter spend. E05 was not started.
+
+Actions:
+* Added code/erasecase/audit.py, planner.py, validators.py, code/prompts/intent.md, and code/tests/test_audit.py.
+* Updated code/erasecase/evidence.py and code/erasecase/models.py.
+* Ran PYTHONPATH=code .venv/bin/python -m pytest -c code/pytest.ini code/tests.
+* Committed feat(audit): reconcile policy and build deletion plans and pushed to origin/main.
+* Updated docs/EXECUTION_STATE.md and the blueprint execution-status line as uncommitted bookkeeping.
+
+Context:
+tool=Cursor
+model=Grok 4.7
+branch=main
+repo_root=/home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+worktree=/home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+parent_agent=none
+
+## [2026-10-25T13:37:16+05:30] SESSION START
+
+tool=Cursor
+model=Grok 4.7
+Repo Root: /home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+Branch: main
+Worktree: /home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+Parent Agent: none
+Language: py
+Time Remaining: not configured
+
+## [2026-10-25T13:37:16+05:30] Resume Prompt 2 and hold before E05
+
+User Prompt (verbatim, secrets redacted):
+## 1. Role and outcome
+
+You are my senior engineering execution partner.
+
+Prompt 0 established the product. Prompt 1 produced the engineering blueprint.
+Prompt 2 executes the **current approved handoff version** while respecting my
+latest instructions, the active execution authority, and the active commit mode.
+
+Your job is to implement, verify, integrate, deploy, and deliver the approved
+project with evidence-backed reporting.
+
+Optimize for:
+
+- A polished primary experience
+- Genuine required-technology and sponsor integration
+- Honest fixture and fallback behavior
+- Passing MUST acceptance criteria
+- Reliable deployment and demo readiness
+- One outcome-based branch per phase
+- A small number of meaningful, user-approved commits
+- Completion before feature freeze
+- Preservation of unrelated user work
+- Clear execution and amendment history
+
+## 2. User authority and source of truth
+
+Use this precedence order:
+
+1. My latest explicit instruction
+2. My latest applied handoff or instruction amendment
+3. The current approved Prompt 2 handoff version
+4. The current repository, CI, deployment, and runtime state
+5. Current official hackathon and sponsor requirements
+6. Verified execution evidence and recorded state
+7. Earlier summaries and defaults
+
+The repository defines what currently exists. The handoff defines the currently
+approved direction. My latest explicit instruction may amend that direction.
+
+Official rules and verified technical facts remain external constraints. If my
+instruction would make the project ineligible, unsafe, impossible, or knowingly
+inconsistent, explain the exact consequence and ask at most one focused question.
+Do not silently ignore my instruction or continue using the superseded handoff.
+
+I may change any handoff section, instruction, scope item, acceptance criterion,
+phase, step, architecture decision, or execution preference at any time. Use the
+live amendment protocol in Section 10. Do not force a complete restart when a
+targeted update is sufficient.
+
+## 3. Domain boundary
+
+### Product decisions
+
+Prompt 2 must not independently generate replacement products, rename the
+product, change its target user, reinterpret its problem, invent a new Hook,
+change tracks, or expand its product thesis.
+
+If I explicitly request one of these changes, treat it as a product amendment.
+Show its impact and update the active handoff after my instruction is clear.
+Recommend returning to Prompt 0 only when broad rediscovery is genuinely needed.
+
+### Engineering blueprint decisions
+
+Prompt 2 must not independently replace the stack, add services, rewrite public
+contracts, weaken acceptance criteria, reorder phases, or expand scope.
+
+If I explicitly request one of these changes, treat it as an engineering
+amendment. Show its impact and update the affected handoff sections. Recommend
+returning to Prompt 1 only when the change requires substantial replanning.
+
+### Prompt 2 decisions
+
+Prompt 2 owns:
+
+- Inspecting actual repository and execution state
+- Executing or instructing the next approved work unit
+- Writing approved code, configuration, tests, fixtures, docs, and assets
+- Running authorized commands and verification
+- Debugging implementation defects within current contracts
+- Performing Git and delivery actions permitted by authority and commit mode
+- Recording execution evidence, amendments, and status
+- Stopping when safe continuation requires a missing decision
+
+Never disguise a product or blueprint redesign as debugging, cleanup,
+refactoring, optimization, or best practice.
+
+## 4. Required handoff
+
+Accept either:
+
+1. A current `docs/HANDOFF.md` created from the approved Prompt 1 sections; or
+2. The complete set of 14 approved handoff section blocks plus the Prompt 2
+   handoff manifest.
+
+The handoff must contain these approved sections:
+
+1. Document Control and Sources
+2. Locked Product Contract
+3. Scope and Acceptance
+4. UX and Frontend Contract
+5. Architecture, Stack, and Repository
+6. Contracts, Data, and Integrations
+7. Security, Privacy, and Reliability
+8. Testing and Deployment
+9. Demo and Submission
+10. Risks, Assumptions, and Decisions
+11. Phase Plan
+12. Numbered Execution Queue
+13. Execution State and Change Policy
+14. Prompt 2 Directive
+
+All sections must be approved at the current handoff version, with no stale
+section or unresolved blocker disguised as an assumption.
+
+If the handoff is missing, ask only:
+
+> Please provide the current approved Prompt 2 handoff, either as `docs/HANDOFF.md` or as all 14 approved section blocks with the handoff manifest.
+
+If the handoff is incomplete or contradictory, identify the exact section and
+defect. Request a targeted correction; do not reconstruct the missing blueprint.
+
+## 5. Handoff validation
+
+Before executing:
+
+1. Parse handoff version, product contract, acceptance criteria, architecture,
+   phases, queue, authority, commit mode, deadline, and feature freeze.
+2. Confirm all 14 sections are approved and none is stale.
+3. Confirm the next incomplete step has:
+   - one outcome;
+   - one phase branch;
+   - files or modules;
+   - actions;
+   - acceptance mappings;
+   - verification;
+   - expected result;
+   - commit recommendation and optional batch;
+   - stop conditions.
+4. Confirm the step agrees with current product, architecture, scope, and rules.
+5. Confirm the active authority permits its actions.
+6. Confirm the active commit mode before any Git mutation.
+
+If validation fails, do not silently repair the plan. Apply the amendment
+protocol when my requested correction is clear; otherwise ask one focused
+question.
+
+## 6. Harness, authority, and commit mode
+
+Detect the harness without asking:
+
+- `HARNESS=agent` — repository, files, shell, Git, and related tools are available
+- `HARNESS=paste` — direct inspection or modification is unavailable
+
+Harness describes capability. Authority describes execution permission. Commit
+mode independently controls Git commits.
+
+Under `HARNESS=paste`, use A0 because direct execution cannot be verified.
+
+### Authority levels
+
+| Level | Execution role | Files and commands | Git and delivery |
+|---|---|---|---|
+| A0 | Manual guide and verifier | Read-only inspection; user performs every mutation and command | User performs all Git and delivery actions |
+| A1 | Supervised step builder | Agent executes one numbered step and local verification | User performs Git, push, PR, merge, and deploy unless separately authorized |
+| A2 | Autonomous active-phase executor | Agent executes the approved active phase in order | May branch, push, and open/update PR; commits still follow commit mode; no merge or production deploy |
+| A3 | Delivery executor | Agent executes the approved active phase | Includes A2 and may merge, deploy, verify, and safely roll back its current authorized changes |
+
+Default authority: `A1`.
+
+No authority permits:
+
+- Silent product or blueprint changes
+- Destructive production-data operations
+- Force-push or shared-history rewrite
+- Secret exposure
+- Unrelated work
+- Unapproved spending
+- Bypassing approval gates
+- Discarding user work
+- Claiming success without evidence
+
+### Commit modes
+
+#### COMMIT_MODE=ASK — default
+
+- Never commit merely because a step is complete.
+- After verification, present the commit decision only when useful.
+- I may choose `commit now`, `continue uncommitted`, `group with next`,
+  `revise`, or `pause`.
+- After I choose `continue uncommitted`, continue to the next eligible step on
+  the same phase branch without asking again until a relevant commit-batch
+  boundary, overlap risk, phase gate, or explicit `commit` command.
+
+#### COMMIT_MODE=DEFER_TO_PHASE_GATE
+
+- Keep verified work uncommitted during the active phase.
+- Track it by planned commit batch.
+- Ask how to resolve it at the phase gate.
+- Do not merge or start a clean next-phase branch while unresolved.
+
+#### COMMIT_MODE=AUTO_APPROVED_BATCHES
+
+- Available only under A2 or A3 and only after explicit user selection.
+- Commit only the batches approved in the handoff or by a later instruction.
+- Never invent an extra commit boundary.
+- Pause if the actual diff no longer matches the approved batch.
+
+Changing authority does not change commit mode. Changing commit mode does not
+expand execution authority.
+
+## 7. Control commands
+
+### Authority
+
+- `A0`, `manual`, `guide me`, `I will implement`
+- `A1`, `hands-on`
+- `A2`, `autonomous`
+- `A3`, `autonomous A3`
+- `phase <ID> authority: A0|A1|A2|A3`
+- `stay autonomous`
+
+### Commit control
+
+- `commit now`
+- `continue uncommitted`
+- `group with next`
+- `commit batch <ID>`
+- `show pending commits`
+- `commit mode: ask`
+- `commit mode: defer to phase gate`
+- `commit mode: auto approved batches`
+
+### Execution
+
+- `done` — A0 work is ready for inspection; this is not proof
+- `verify`
+- `next` or `ok`
+- `changed: <description>`
+- `skip step <ID>`
+- `show diff since last approval`
+- `undo last uncommitted step`
+- `continue until next visual checkpoint`
+- `pause`
+- `resume`
+- `stop`
+- `switching harness`
+
+### Handoff and instruction changes
+
+- `amend handoff: <change>` — show impact before applying
+- `apply amendment: <change>` — apply a clear change after impact validation
+- `change instruction: <change>`
+- `show amendment impact`
+- `apply amendment`
+- `cancel amendment`
+- `revert amendment <ID>`
+- `show handoff version`
+
+## 8. State model
+
+Track these statuses:
+
+- `NOT_STARTED`
+- `IN_PROGRESS`
+- `PARTIAL`
+- `WAITING_FOR_USER`
+- `WAITING_FOR_EVIDENCE`
+- `VERIFIED_UNCOMMITTED`
+- `COMMITTED`
+- `BLOCKED`
+- `SUPERSEDED`
+- `COMPLETE`
+
+Maintain an execution ledger containing:
+
+| Field | Meaning |
+|---|---|
+| Handoff version | Current active blueprint version |
+| Phase | Current phase and branch |
+| Step | Current or last completed step |
+| Status | One of the states above |
+| Baseline | Repository state before the step |
+| Files | Files changed by the step |
+| Criteria | Acceptance IDs addressed |
+| Verification | Commands or observations and results |
+| Commit batch | Pending or completed batch ID |
+| Commit | Hash and subject, or UNCOMMITTED |
+| Amendment | Relevant amendment ID |
+| Risk | Current blocker or remaining risk |
+| Next | One exact next action |
+
+Never mark an unverified step complete. `VERIFIED_UNCOMMITTED` is a valid
+completed implementation state but not a completed Git state.
+
+## 9. Instruction precedence and repository guidance
+
+Before working, inspect applicable repository instructions such as:
+
+- `AGENTS.md`
+- `.github/copilot-instructions.md`
+- Path-specific instruction files
+- `CLAUDE.md` or `GEMINI.md`
+- `CONTRIBUTING.md`
+- Project setup, testing, and style documentation
+
+Apply the nearest relevant repository instruction unless it conflicts with my
+latest explicit instruction or the active handoff amendment. Surface material
+conflicts instead of silently choosing.
+
+Do not expose private reasoning or secrets from instruction files. Summarize
+only execution-relevant requirements.
+
+## 10. Live amendment protocol
+
+An amendment may change product, engineering, execution policy, documentation,
+or instructions. Never treat the handoff as permanently immutable.
+
+### Impact-preview path
+
+When I say `amend handoff: ...`, `change instruction: ...`, or otherwise request
+a material change:
+
+1. Finish only the current safe atomic operation.
+2. Inspect current repository and execution state.
+3. Restate the requested change precisely.
+4. Classify it as product, engineering, execution-policy, or documentation.
+5. Identify affected handoff sections, acceptance criteria, phases, steps,
+   tests, completed work, pending diffs, time, and demo claims.
+6. Identify unaffected decisions and completed work.
+7. Explain external-rule, safety, cost, or compatibility consequences.
+8. Recommend the smallest consistent update.
+9. Ask whether to apply, revise, or cancel.
+
+Use:
+
+```text
+AMENDMENT IMPACT — <ID>
+Requested change:
+Classification:
+Current handoff version:
+Affected sections:
+Affected completed or pending work:
+Unaffected work:
+Acceptance and demo impact:
+Time, cost, rule, or risk impact:
+Recommended update:
+Decision: apply, revise, or cancel?
+```
+
+### Direct-apply path
+
+When I say `apply amendment: ...` and the instruction is unambiguous:
+
+- Perform the same impact analysis internally.
+- Apply the smallest consistent handoff and instruction update permitted by the
+  active authority.
+- Ask one question only if the change is ambiguous, destructive, unsafe,
+  knowingly ineligible, or requires a missing secret or payment decision.
+
+### Applying an amendment
+
+- Increment the handoff version.
+- Update only affected handoff sections and the change log.
+- Mark superseded steps or criteria explicitly.
+- Preserve unaffected approvals and completed work.
+- Recalculate the active queue, scope, time budget, and next action.
+- If tools and authority permit, update the handoff document directly.
+- Under A0 or HARNESS=paste, provide the exact handoff-doc edit for the user.
+- Follow commit mode for any handoff-document commit; an amendment never grants
+  automatic commit permission.
+
+Recommend a dedicated return to Prompt 0 or Prompt 1 only when the requested
+change is too broad to resolve safely within one targeted amendment. Even then,
+provide a compact return packet and preserve current repository state.
+
+## 11. Permitted local judgment
+
+You may make a small implementation choice without an amendment only when all
+are true:
+
+- It stays inside the active step.
+- It preserves visible behavior and approved UX.
+- It does not change public interfaces, schemas, ownership, or trust boundaries.
+- It adds no unapproved dependency, service, API, runtime, or paid resource.
+- It does not weaken an acceptance criterion.
+- It does not change phase, branch, commit batch, or deployment policy.
+- It is reversible within current uncommitted work.
+- It follows repository convention.
+
+Examples: local variable names, equivalent helper structure, minor accessible
+markup corrections, or fixture organization.
+
+If a condition is false, use the amendment protocol rather than guessing.
+
+## 12. Stop and approval conditions
+
+Ask before:
+
+- Applying an ambiguous or consequential amendment
+- Removing or weakening a MUST acceptance criterion
+- Replacing required sponsor technology
+- Adding an unapproved dependency, service, API, runtime, database, or paid resource
+- Increasing cost or extending feature freeze
+- Destructive action, force-push, shared-history rewrite, or discarding user work
+- Merge or production deployment without A3
+- Crossing the UX approval gate or another mandatory gate
+- Using real personal, private, regulated, or production data beyond the handoff
+- Committing under `COMMIT_MODE=ASK`
+
+Stop when:
+
+- The handoff is missing, incomplete, contradictory, stale, or invalid
+- A required secret or access grant is missing
+- Spending would exceed the approved cap
+- User edits overlap the active work and intent is unclear
+- Official rules contradict the plan
+- Required sponsor capability is unavailable
+- A MUST criterion appears infeasible
+- A privacy or security assumption is unsafe
+- Feature freeze forbids the work
+- Verification evidence is incomplete
+- Continuing requires an unresolved amendment
+- The configured repair budget is exhausted
+
+Ask at most one focused question. Include evidence, impact, recommendation, and
+the safest available fallback.
+
+## 13. Resume and preflight
+
+When a valid handoff exists:
+
+1. Parse the current handoff and amendment history.
+2. Detect harness, authority, and commit mode.
+3. Inspect actual repository state when accessible.
+4. Verify repository root, branch, working tree, recent commits, and instructions.
+5. Reconcile the execution ledger with actual commits and diffs.
+6. Identify the next incomplete or partially complete step.
+7. Check dependencies, deadline, feature freeze, budget, and risks.
+8. Detect overlaps, discrepancies, untracked files, and unrelated user changes.
+9. Print the resume sheet.
+10. Perform the next permitted action unless blocked.
+
+Resume sheet:
+
+```text
+Project:
+Handoff version:
+Locked Hook:
+Harness / authority / commit mode:
+Repository / branch / working tree:
+Current phase:
+Last verified step:
+Committed batches:
+Verified uncommitted work:
+Active step:
+Acceptance criteria:
+Deadline / feature freeze:
+Largest active risk:
+Discrepancy or blocker:
+Next action:
+```
+
+Before mutation or manual instruction, confirm:
+
+- Correct repository root
+- Correct phase branch and base
+- Working tree and relevant untracked files
+- Repository-specific instructions
+- Step dependencies
+- Locked toolchain and version policy
+- Acceptance criteria
+- Allowed files or modules
+- Overlapping user edits
+- Required access without exposing secrets
+
+Preserve unrelated work. Never revert, stash, delete, include, stage, rewrite,
+or clean unrelated changes without explicit approval.
+
+## 14. Checkpoints and recovery
+
+Before a broad or risky authorized change, record a recoverable baseline when
+the harness supports it:
+
+- Current branch and HEAD
+- Working-tree status
+- Relevant diff baseline
+- Handoff version
+- Active phase, step, and acceptance criteria
+- Pending uncommitted batches
+
+Use checkpoints for dependency upgrades, migrations, broad refactors,
+deployment changes, and amendments affecting completed work.
+
+Do not create hidden backup commits. Follow the active commit mode. A checkpoint
+may be a tool-supported workspace checkpoint, a saved diff outside the project,
+or explicit recorded evidence permitted by authority.
+
+If I request `undo last uncommitted step`, inspect overlap with later changes.
+Undo only when the step can be isolated safely; otherwise explain the conflict
+and offer the smallest safe recovery choice.
+
+## 15. Shared step lifecycle
+
+For every numbered step:
+
+1. **ORIENT** — Read the step, dependencies, criteria, locks, and relevant files.
+2. **PREFLIGHT** — Confirm branch, authority, state, access, and user changes.
+3. **BASELINE** — Record relevant repository state and pending batches.
+4. **PROVE** — Test or inspect the smallest risky assumption permitted by authority.
+5. **IMPLEMENT OR INSTRUCT** — Act according to A0–A3.
+6. **VERIFY** — Run or request checks from narrowest to broadest.
+7. **REVIEW** — Inspect complete diff, behavior, scope, and contract compliance.
+8. **RECORD** — Update the execution ledger and evidence.
+9. **COMMIT DECISION** — Follow commit mode; never assume permission.
+10. **REPORT** — Return what is needed to verify or continue.
+
+Do not begin another step while the active step is partial, unverified, blocked,
+or waiting on required evidence.
+
+A step in `VERIFIED_UNCOMMITTED` may be followed by the next eligible step on
+the same phase branch when I choose `continue uncommitted` or commit mode allows
+deferral. Track both steps separately even if they later share a commit.
+
+## 16. A0 manual protocol
+
+### Phase entry
+
+Inspect the planned base and repository read-only. Provide exact branch commands,
+wait for me to run them, and verify the branch before file changes.
+
+### Instruction packet
+
+Provide one step:
+
+```text
+STEP <ID> — <Outcome>
+Authority: A0
+Status: WAITING_FOR_USER
+Handoff version:
+
+Goal:
+Why it is needed:
+Repository root / branch:
+Preconditions:
+Files affected:
+Commands:
+File changes:
+Verification commands:
+Expected results:
+Acceptance criteria:
+Stop conditions:
+Commit recommendation:
+Suggested commit batch:
+
+Reply `done` after applying the changes and include the requested evidence.
+```
+
+### File instructions
+
+For each file, provide its repository-relative path and one operation:
+
+- `NEW`
+- `MODIFY`
+- `MOVE`
+- `RENAME`
+- `DELETE`
+
+Use the smallest complete representation:
+
+- Full content for new or short files
+- Exact before/after blocks for localized edits
+- Contextual unified diff for larger edits
+- Generator command for generated files
+- Exact source or procedure for binary assets
+
+Never use `...`, omitted imports, pseudocode, or context-free patches. For
+patches, instruct `git apply --check` before `git apply`. Give one editing
+method and omit unchanged files. Split long responses only on file boundaries.
+
+### Commands
+
+For each command specify:
+
+```text
+Run from:
+Command:
+Purpose:
+Expected success:
+Stop if:
+```
+
+Use one relevant platform variant, one command per code block, and the correct
+execution order. Prefer project scripts. Mark remote, spending, destructive, or
+mutating actions. Never embed secrets or use `sudo` unless explicitly required.
+
+### Verification after `done`
+
+`done` means ready for inspection, not verified.
+
+Inspect actual branch, status, files, diff, acceptance implementation, secrets,
+debug code, placeholders, scope creep, unrelated edits, and supplied outputs.
+
+Return one verdict:
+
+- `VERIFIED_UNCOMMITTED`
+- `NEEDS_FIX`
+- `BLOCKED`
+- `WAITING_FOR_EVIDENCE`
+
+For `NEEDS_FIX`, provide only the smallest correction and reverify. Do not
+reveal unrelated future work.
+
+After `VERIFIED_UNCOMMITTED`, follow commit mode. If I choose `continue
+uncommitted`, record the pending batch and reveal the next eligible step.
+
+## 17. A1 supervised execution
+
+Execute exactly one numbered step:
+
+- Edit only step-approved files
+- Run proportionate local verification
+- Review the complete diff
+- Preserve unrelated work
+- Record evidence and acceptance results
+- Stop before Git mutation unless separately authorized
+
+Report the step as `VERIFIED_UNCOMMITTED`, `PARTIAL`, or `BLOCKED`. Under
+`COMMIT_MODE=ASK`, present the commit choice only after verification.
+
+If I choose `continue uncommitted`, begin the next eligible step on the same
+phase branch in the next turn. Do not reinterpret this as permission to commit.
+
+## 18. A2 and A3 autonomous execution
+
+### A2 — Active phase
+
+- Create or use the planned phase branch when authorized.
+- Complete approved steps in order.
+- Verify every step and record separate evidence.
+- Follow commit mode for all commits.
+- Push and open or update the planned PR when authorized.
+- Stop before merge or production deployment.
+- Do not continue into the next phase.
+
+Under `COMMIT_MODE=ASK`, autonomy pauses only for commit decisions, mandatory
+gates, blockers, amendments, or other required approvals.
+
+### A3 — Delivery
+
+Includes A2. It may also:
+
+- Merge using the approved method
+- Deploy within the approved environment and spending limit
+- Verify the live result
+- Safely roll back only current authorized changes
+
+A3 does not permit automatic commits unless commit mode permits them. After an
+A2 or A3 phase, return to A1 unless I selected `stay autonomous` or the handoff
+explicitly authorizes the next phase.
+
+## 19. Branch and commit-batch contract
+
+### Branches
+
+- Every phase uses the dedicated handoff branch.
+- All phase steps use that branch.
+- Branch from the latest integrated planned base.
+- Validate and integrate the phase before creating the next phase branch.
+- Never mix another phase into the active branch without an amendment.
+- Never invent a substitute branch name without approval.
+
+### Verified uncommitted work
+
+For each uncommitted step record:
+
+- Baseline
+- Files and diff scope
+- Acceptance results
+- Verification evidence
+- Proposed batch
+- Overlap with later work
+
+Multiple adjacent verified steps may share one commit only when they produce a
+coherent result and I approve the batch. Never state that one commit equals one
+step when the batch contains several steps.
+
+### Commits
+
+- Commit only when commit mode permits.
+- Review the full batch diff and required checks first.
+- Exclude unrelated changes, secrets, real environment files, and volatile state.
+- Never amend user commits, rewrite shared history, force-push, or squash
+  independently meaningful user-approved batches.
+- A post-commit correction requires its own approved corrective batch or must be
+  grouped with another uncommitted batch if still coherent and explicitly approved.
+
+Commit subjects describe only the change. Do not include phase names, step
+numbers, sequence IDs, plan IDs, or words such as `phase`, `step`, `part`, or
+`checkpoint`.
+
+### Phase boundary
+
+Before merge or a clean next-phase branch, resolve all pending uncommitted work.
+Present:
+
+1. Commit the approved batch or batches
+2. Revise or split the pending diff
+3. Continue working in the current phase
+4. Pause
+
+Do not force a commit, merge a dirty phase, or silently carry unidentified work
+into the next phase.
+
+## 20. Toolchain, dependencies, secrets, and integrations
+
+- Use the current approved language, framework, package manager, and version policy.
+- Avoid broad upgrades, unnecessary lockfile regeneration, duplicate runtimes,
+  and unnecessary dependencies.
+- Add a direct dependency only when present in the handoff or an applied amendment.
+- Record every direct dependency and purpose.
+- Check licensing when required.
+- Stop before replacing an unavailable required dependency without an amendment.
+
+Never request secret values in chat, print them, log them, screenshot them,
+commit them, or place server credentials in frontend code. Never commit real
+environment files.
+
+Ask me to configure only the named variable locally or in the approved host.
+Verify presence or authenticated behavior without revealing its value.
+
+Live and fixture paths must share the approved internal contract and journey.
+Fixtures must be original, licensed, or clearly synthetic; work without secrets;
+and never pretend to be live. Required sponsor technology must remain genuinely
+implemented and demonstrable.
+
+## 21. Verification and debugging
+
+Use the smallest sufficient checks:
+
+1. Repository root, branch, and status
+2. Changed-file list and complete diff review
+3. Diff whitespace or syntax checks
+4. Formatter check when relevant
+5. Targeted test
+6. Type or static check
+7. Contract or integration test
+8. Build
+9. Relevant broader suite
+10. Browser or UI behavior
+11. Acceptance-criteria review
+12. Secret, debug, placeholder, and scope review
+13. Commit-batch verification
+14. CI and deployment checks when applicable
+
+In A0, I run commands and supply output. In A1–A3, run only what authority allows.
+
+Never claim success from an unrun command, source inspection alone, process
+startup alone, a URL merely loading, or a partial test.
+
+For UI work, inspect when possible:
+
+- Required desktop and mobile viewports
+- Keyboard path and focus behavior
+- Console errors
+- Loading, empty, slow, partial, malformed, error, recovery, and success states
+- Primary journey and Hook
+- Visual consistency with the approved direction
+
+### Failure correction loop
+
+1. Capture the exact failure and action.
+2. Form one evidence-based hypothesis.
+3. Confirm the correction stays within current contracts.
+4. Apply or instruct the smallest correction.
+5. Rerun the narrow failing check.
+6. Broaden verification only after it passes.
+
+Default repair budget: three focused correction cycles per distinct failure.
+I may raise, lower, or reset it. When exhausted, stop and report evidence,
+attempts, likely cause, and the safest next diagnostic or amendment.
+
+## 22. Step and commit reports
+
+### A0 verification
+
+```text
+STEP <ID> — VERIFICATION
+Handoff version:
+Repository evidence:
+Acceptance criteria:
+Checks reviewed:
+Issues:
+Verdict: VERIFIED_UNCOMMITTED | NEEDS_FIX | BLOCKED | WAITING_FOR_EVIDENCE
+Pending commit batch:
+Next action:
+```
+
+### A1 report
+
+```text
+STEP <ID> — <Outcome>
+Authority: A1
+Status: VERIFIED_UNCOMMITTED | PARTIAL | BLOCKED
+Handoff version:
+Changes:
+Verification:
+Acceptance criteria:
+Contract compliance:
+Risks:
+Commit recommendation:
+Pending batch:
+Available next choices:
+```
+
+### Commit decision
+
+```text
+COMMIT DECISION — Batch <ID>
+Included verified steps:
+Files and outcome:
+Verification:
+Suggested subject:
+Choices: commit now | continue uncommitted | group with next | revise | pause
+```
+
+### Commit confirmation
+
+```text
+COMMIT BATCH <ID> — COMPLETE
+Commit:
+Included steps:
+Files:
+Acceptance criteria:
+Verification:
+Remaining working tree:
+Next action:
+```
+
+### A2 or A3 phase report
+
+Include:
+
+- Phase outcome
+- Step status and evidence
+- Commit-batch mapping
+- Verified uncommitted work, if any
+- Acceptance results
+- Actual checks and results
+- PR, merge, deployment, and live status as authorized
+- Risks and fallbacks
+- Deadline and feature-freeze status
+- Exit-gate evidence
+- Resume state
+- Exact next action
+
+## 23. UI and phase gates
+
+### UX approval gate
+
+This gate stops every authority level. Report:
+
+- Preview URL or exact local command
+- Implemented screens and journey
+- Fixture cases
+- Desktop and mobile behavior
+- Accessibility and keyboard checks
+- Loading, empty, slow, partial, malformed, error, recovery, and success states
+- Known limitations
+- Focused feedback questions
+
+Wait for explicit approval before freezing frontend contracts or beginning
+substantial backend work.
+
+### Phase exit gate
+
+Verify:
+
+| Gate | Evidence |
+|---|---|
+| Steps resolved | Execution ledger and status |
+| Criteria satisfied | Acceptance IDs and results |
+| Correct isolated branch | Branch comparison and status |
+| Commit decisions honored | Commit batches and pending work |
+| Checks pass | Commands and complete results |
+| UI works where relevant | Rendered evidence |
+| No secrets or debug artifacts | Full diff review |
+| Product and architecture preserved | Current handoff comparison |
+| Required approvals exist | Approval record |
+| Ready to integrate or resume | Risks and exact next action |
+
+Do not begin the next phase until the current phase passes, pending uncommitted
+work is resolved, and integration required by the handoff is complete.
+
+## 24. Feature freeze and final gate
+
+After feature freeze, allow only:
+
+- Required bug and acceptance fixes
+- Tests and reliability work
+- Security and privacy fixes
+- Accessibility fixes
+- Deployment fixes
+- Documentation and submission artifacts
+
+New features, screens, integrations, dependencies, and architecture changes
+require an applied amendment and explicit feature-freeze acknowledgment.
+
+Final verification must cover:
+
+- Complete regression
+- Clean-clone setup
+- Production deployment and public URL when required
+- Primary journey and approved Hook
+- Live required-technology and sponsor path
+- Honest fixture or fallback path
+- Network and provider failure behavior
+- Timed judge demo
+- Backup recording or screenshots
+- README and architecture explanation
+- Setup and troubleshooting instructions
+- Submission copy and links
+- Track and sponsor proof
+- Required AI disclosure
+- Final rule and eligibility audit
+
+A working URL alone is not proof that the product works.
+
+## 25. Interruption and resume
+
+When interrupted:
+
+1. Finish only the current safe atomic operation.
+2. Start nothing else.
+3. Record partial files and commands.
+4. Record verification already run and its result.
+5. Record uncommitted, commit-batch, and Git state.
+6. Record handoff version and amendment state.
+7. Record the blocker or interruption reason.
+8. Identify one exact next action.
+9. Output the resume sheet and stop.
+
+Never mark partial or unverified work complete. On resume, re-inspect actual
+state rather than relying only on the previous summary.
+
+## 26. Broad-replanning return packets
+
+Use only when a requested amendment is too broad to resolve safely within
+Prompt 2 and I have not supplied the new decision directly.
+
+### RETURN TO PROMPT 0
+
+```text
+RETURN TO PROMPT 0
+Current handoff version:
+Active phase and step:
+Product decision needing rediscovery:
+Evidence:
+Why targeted amendment is insufficient:
+Effect on Hook, track, user, or scope:
+Safe repository state:
+Resume condition:
+```
+
+### RETURN TO PROMPT 1
+
+```text
+RETURN TO PROMPT 1
+Current handoff version:
+Active phase and step:
+Engineering area requiring substantial replanning:
+Evidence:
+Affected sections, criteria, phases, or steps:
+Why targeted amendment is insufficient:
+Safe repository and Git state:
+Resume condition:
+```
+
+Do not use a return packet to avoid following a clear user amendment that can
+be applied safely and consistently.
+
+## 27. Output rules
+
+Use the format appropriate to the current state:
+
+- Missing or invalid handoff request
+- Resume sheet and next action
+- A0 instruction packet
+- Verification or correction report
+- A1 step report
+- A2 or A3 phase report
+- Commit decision or confirmation
+- Amendment impact or applied-amendment report
+- Blocker or approval request
+- UX approval gate
+- Phase exit report
+- Interruption state
+- Broad-replanning return packet
+- Completion report
+
+Be conversational around the structured block when a short explanation helps
+me decide. Ask at most one focused question. Do not bury the required decision.
+
+End execution responses with:
+
+```text
+STATE
+Handoff: <version>
+Phase / branch: <phase> / <branch>
+Step: <ID or NONE>
+Status: <state>
+Authority / commit mode: <A0-A3> / <mode>
+Verified uncommitted: <steps or NONE>
+Pending commit batches: <IDs or NONE>
+Blocking decision: <decision or NONE>
+Next: <one action>
+```
+
+### Packet mode
+
+Use only for long A0 file instructions. Split on file boundaries, never split
+one file, repeat content, or mark the step verified before every part is applied.
+
+```text
+PART <k>/<m>
+Step: <ID>
+Files: <paths>
+...
+END PART <k>/<m>
+Reply `next` for PART <k+1>/<m>.
+```
+
+## 28. Completion standard
+
+The project is complete only when:
+
+- Every MUST acceptance criterion passes.
+- The primary experience and Hook work.
+- Required technology and sponsor integration genuinely work.
+- Permitted fallbacks are honest and demonstrable.
+- Required deployment is verified.
+- Tests, clean setup, accessibility, security, and documentation pass.
+- Demo and submission artifacts are complete.
+- No critical blocker, secret exposure, or unresolved approval remains.
+- Every phase maps to its approved branch.
+- Every commit maps to one approved commit batch.
+- Every implemented step is verified, whether committed individually or grouped.
+- No unidentified uncommitted work remains.
+- Final execution state is `COMPLETE`.
+
+At completion report:
+
+- Final outcome
+- Production, repository, PR, release, and submission URLs as applicable
+- Acceptance evidence
+- Verification performed
+- Commit-batch summary
+- Known limitations
+- Submission checklist
+- Final branch, commit, deployment, handoff, and execution state
+
+Do not add new feature proposals at completion.
+
+## 29. Token-efficiency rules
+
+- Report only the active step, phase, amendment, or gate.
+- In A0, include only current-step files and commands.
+- Correction packets contain only the required delta.
+- Prefer compact tables and stable IDs.
+- Do not repeat the full handoff unless resolving a specific conflict.
+- Do not print full files in agent-editing modes unless requested.
+- Do not narrate chain-of-thought.
+- Do not generate alternative products or roadmaps without an amendment request.
+- Do not repeat a declined commit prompt until a meaningful boundary or risk.
+
+## 30. Start
+
+If the handoff is missing, request it and stop.
+
+If any section is incomplete, stale, or contradictory, request a targeted
+correction or apply a clear user-authorized amendment.
+
+Otherwise:
+
+1. Validate the current handoff.
+2. Detect harness, authority, and commit mode.
+3. Inspect repository instructions and actual execution state.
+4. Reconcile committed and verified-uncommitted work.
+5. Print the resume sheet.
+6. Execute or instruct only the next permitted action.
+
+In A0, provide one manual step and wait. In A1, execute one step and report its
+verified state. In A2 or A3, execute only the authorized active phase while
+honoring commit mode and every approval gate.
+
+Do not rediscover the product or redesign the blueprint autonomously. Follow my
+explicit amendments. Do not commit because a step ended. If I decline a commit,
+record the step as `VERIFIED_UNCOMMITTED` and continue to the next eligible
+same-phase step. Do not claim success without outcome evidence.
+
+Agent Response Summary:
+Reconciled blueprint v1.4 with Git. Local main, origin/main, and HEAD all match 246db0f8658445a5df47bce3f1103853fd331d1e. E01–E04 are committed. Uncommitted files are execution bookkeeping only. Corrected the blueprint footer and assumption line that still pointed at E02 so they now await E05. Did not start E05. No OpenRouter spend. Official challenge end time is not configured; the user-managed feature freeze is 3 PM IST.
+
+Actions:
+* Read docs/ENGINEERING_BLUEPRINT.md and docs/EXECUTION_STATE.md.
+* Verified branch main, HEAD 246db0f8658445a5df47bce3f1103853fd331d1e, and origin/main.
+* Updated the stale E02 next-action lines in the blueprint and recorded this resume in docs/EXECUTION_STATE.md.
+* Appended this SESSION START and turn record to log.txt.
+
+Context:
+tool=Cursor
+model=Grok 4.7
+branch=main
+repo_root=/home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+worktree=/home/kernel-kain/Documents/Github/hackerrank-orchestrate-october26
+parent_agent=none

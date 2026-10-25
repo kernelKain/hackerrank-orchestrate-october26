@@ -40,9 +40,9 @@ _DELETION = re.compile(
     r"\b(delet\w*|eras\w*|remov\w*|forgotten|forget my)\b|"
     r"\bprofile is gone\b|\bcannot identify me\b|"
     r"\b(close|closed|closing)\b.{0,40}\b(account|profile|compte|cuenta|konto)\b|"
-    r"\b(eliminar|eliminación|supprimer|suppression|löschen|apagar|excluir|usuń|verwijder|"
+    r"\b(eliminar|eliminación|supprimer|suppression|löschen|apagar|excluir|exclusão|exclusao|usuń|verwijder|"
     r"cancellare|radera|slet|sil)\b|"
-    r"削除|删除|消去"
+    r"削除|删除|消去|삭제"
     r")",
     re.IGNORECASE,
 )
@@ -50,6 +50,7 @@ _REFUSAL = re.compile(
     r"("
     r"\b(do not|don't|dont|never)\b.{0,24}\b(delete|erase|remove|close)\b|"
     r"\b(keep|retain|conserve|conserver|mantener)\b.{0,32}\b(my |the )?(account|compte|cuenta)\b|"
+    r"\bleave (?:the |my )(?:account|profile)\b|"
     r"no eliminar|ne pas supprimer|nicht löschen"
     r")",
     re.IGNORECASE,
@@ -57,7 +58,9 @@ _REFUSAL = re.compile(
 _ACCESS_ONLY = re.compile(
     r"("
     r"\b(export|access|correct|rectify|portability|unsubscribe)\b|"
-    r"\bopt out\b|\bcopy of my data\b|\bdownload my data\b"
+    r"\bopt out\b|\bcopy of my data\b|\bdownload my data\b|"
+    r"\bchange the email address\b|\bcontinue using the service\b|"
+    r"\binvoices for my records\b"
     r")",
     re.IGNORECASE,
 )
@@ -374,6 +377,10 @@ def _posture(category: str, observations: tuple[Observation, ...]) -> str:
             return "EXPOSED"
         return "REDACTED"
     if category in {"SECURITY_AUDIT_LOG", "LEGAL_HOLD_RECORD"}:
+        if any(_explicit_absence(item) for item in observations) and not any(
+            _explicit_presence(item) for item in observations
+        ):
+            return "ABSENT"
         return "RETAINED"
     if category == "SUPPORT_ATTACHMENT":
         return "REMAINING"

@@ -312,6 +312,5 @@ def test_public_sample_evaluation_is_structurally_valid() -> None:
                 finding_evidence += bool(step.evidence_id)
     assert finding_evidence == finding_total
     assert status_hits == 32, f"public status {status_hits}/32 sequence {sequence_hits}/32"
-    # Sequence stays short where a compliant record has no supported identifier
-    # or appears only in a file captured after audit_at. E05 owns those misses.
+    # Remaining misses have no supported identifier, or their only file is after audit_at.
     assert sequence_hits >= 9, f"public sequence {sequence_hits}/32 status {status_hits}/32"

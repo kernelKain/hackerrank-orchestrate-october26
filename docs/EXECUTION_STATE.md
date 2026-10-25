@@ -1,18 +1,18 @@
 # EraseCase — Shared Execution and Tool Handoff Notes
 
-Updated: 25 October 2026, 12:51 IST
+Updated: 25 October 2026, 14:00 IST
 Blueprint version: 1.4; approved section content remains v1.1
 Canonical plan: [ENGINEERING_BLUEPRINT.md](ENGINEERING_BLUEPRINT.md)
 Planning: Prompt 1 COMPLETE; all 14 sections APPROVED; CHECK: READY.
-Execution: E03 COMPLETE on main. E04 is not authorized.
-Current harness: Codex Desktop; handoff target: Cursor.
-Current verified runtime model: gpt-5.6-sol.
-Verified implementation baseline: E03 / acc586ce61029a6449a107ff0c79eaba4a45be51.
-Verified implementation remote: origin/main contains E03 / acc586ce61029a6449a107ff0c79eaba4a45be51.
+Execution: E05 verified. Commit hash is recorded after this commit is created.
+Current harness: Cursor.
+Current verified runtime model: Grok 4.7.
+Verified implementation baseline: E04 / 246db0f8658445a5df47bce3f1103853fd331d1e until the E05 commit is confirmed.
+Verified implementation remote: origin/main contains E04 / 246db0f8658445a5df47bce3f1103853fd331d1e until the E05 push is confirmed.
 Remote policy: push verified step commits directly to origin/main; verify its SHA after every push.
 Legacy branch: build/erasecase is retired by this consolidation after origin/main verification.
-Implementation units: E01 COMMITTED; E02 COMMITTED; E03 COMMITTED; E04–E07 NOT_STARTED.
-Next action: switch to Cursor, reconcile this handoff, and obtain explicit E04 authorization.
+Implementation units: E01 COMMITTED; E02 COMMITTED; E03 COMMITTED; E04 COMMITTED; E05 VERIFIED; E06–E07 NOT_STARTED.
+Next action: KEEP CURSOR. After the E05 commit and push are verified, stop for explicit E06 authorization.
 
 ## A15 ownership amendment — 25 October 2026, 12:51 IST
 
@@ -23,6 +23,32 @@ accounting, documentation and final technical verification. Existing product,
 correctness, security, budget, A1 authorization and per-verified-step commit
 contracts remain unchanged. Cursor must verify and log its own exact runtime
 model before acting. This handoff does not itself authorize E04.
+
+## E04 verification — 25 October 2026, 13:31 IST
+
+The user authorized E04. Cursor implemented deterministic deletion intent,
+policy assessment, contradiction notes, ordered planning, strict step
+validation, and the unused strict intent-request builder. Models do not choose
+operations, order, or serialization. Activity rows stay claims. A resource
+enters a plan only from participant evidence linked by a supported identifier,
+or by a trace whose strong identifiers all belong to that subject.
+
+The initial public-sample evaluation scores 32/32 deletion statuses and 9/32
+exact step sequences. Every finding cites evidence. Future remediation and
+verification steps use an empty evidence id. The 23 sequence misses are
+compliant records with no supported identifier, or records whose only file was
+captured after `audit_at`. They are omitted rather than guessed. No reference
+labels are read during assessment. `sample_output.csv` is read only by the
+evaluation test. Root `output.csv` was not written.
+
+Thirty-seven offline tests pass. No OpenRouter call was made. Measured project
+spend remains the E01 total of $0.0014705, with a conservative ceiling remainder
+of at least $4.9934735. Funded balance is still unverified. The reviewed E04
+files were committed as `246db0f8658445a5df47bce3f1103853fd331d1e` with subject
+`feat(audit): reconcile policy and build deletion plans`. Local HEAD,
+origin/main and the remote main ref were verified equal after the push. This
+ledger update and the current log append are bookkeeping for the next commit
+boundary.
 
 ## E03 verification — 25 October 2026
 
@@ -65,15 +91,42 @@ The working tree was clean before this resume note. E01 remains the last verifie
 implementation unit. E02 is still NOT_STARTED. No fixture CLI, report, or test
 files were changed. The next action is explicit A1 authorization of E02.
 
+## E05 verification — 25 October 2026, 14:00 IST
+
+The user authorized E05. Cursor extended local intent coverage for Portuguese
+`exclusão`, Korean `삭제`, and three keep/correct phrases. All 518 request texts
+now resolve without a model. Public status stayed 32/32. Exact sequences stayed
+9/32, with 158 matched steps, 0 extra steps, and 35 omissions. Every omission
+lacks a supported identifier, is absent from the cited file, or appears only
+after `audit_at`. None is a linked record the planner dropped.
+
+Eight fictional cases cover the required replica, export, and compliant-tombstone
+scenarios plus exposed tombstone, reactivated flow, post-cutoff, unlinked
+analytics, and a zero-row retained audit. Five independently specified cases
+match exactly. A zero-row security audit is no longer verified as present.
+The packager writes 39 allowlisted members, duplicates the two reports at
+archive-root `evaluation/`, and excludes the run directory. An extracted archive
+imports. Forty-nine offline tests pass. Preflight passes. No OpenRouter call
+was made. The 518-request timing pass took 0.59 seconds to load and 35.64
+seconds to assess. Root `output.csv` was not written.
+
+## Cursor resume — 25 October 2026, 13:36 IST
+
+Cursor reconciled blueprint v1.4 with Git. Local main, origin/main and HEAD match
+`246db0f8658445a5df47bce3f1103853fd331d1e`. Uncommitted files are E04 bookkeeping
+plus this resume: the blueprint execution-status lines, this ledger, and log.txt.
+The footer next-action line still pointed at E02; it now points at E05. E05 was
+not started. No OpenRouter call was made.
+
 ## Latest action
 
-Completed and committed the authorized E03 unit. Commit
-`acc586ce61029a6449a107ff0c79eaba4a45be51` contains the strict participant-data
-loaders, temporal identity graph, safe multi-format evidence extraction,
-cutoff-aware indexes, durable storage and tests. Twenty-eight offline tests,
-compilation, dependency checks, offline preflight and staged-diff checks pass.
-The commit is pushed to origin/main and the local, tracking and remote refs match.
-No OpenRouter call, prediction, packaging or submission occurred. E04 was not started.
+Completed and committed the authorized E04 unit. Commit
+`246db0f8658445a5df47bce3f1103853fd331d1e` contains intent classification,
+policy assessment, ordered plans, validators, the intent prompt, and the
+trace-link evidence correction. Thirty-seven offline tests pass. The public
+sample scores 32/32 statuses and 9/32 exact sequences. The commit is pushed to
+origin/main and the local, tracking and remote refs match. No OpenRouter call,
+root output.csv, packaging or submission occurred. E05 was not started.
 
 Historical E01 record:
 
@@ -121,8 +174,8 @@ submission occurred.
 | E01 | COMPLETE ON MAIN — d85468763d46a25b8ec59139d87aa6cc9ca77acd | Codex | SWITCH TO CURSOR for E02 |
 | E02 | COMPLETE ON MAIN — 1acb93b81d6bacb624bac6e636a54c69aa199d3b | Cursor | SWITCH TO CODEX for E03 |
 | E03 | COMPLETE ON MAIN — acc586ce61029a6449a107ff0c79eaba4a45be51 | Codex | SWITCH TO CURSOR for E04 under A15 |
-| E04 | NOT_STARTED | Cursor | KEEP CURSOR for E05 |
-| E05 | NOT_STARTED | Cursor | KEEP CURSOR for E06 |
+| E04 | COMPLETE ON MAIN — 246db0f8658445a5df47bce3f1103853fd331d1e | Cursor | KEEP CURSOR for E05 |
+| E05 | VERIFIED — commit hash recorded after push | Cursor | KEEP CURSOR for E06 |
 | E06 | NOT_STARTED | Cursor | KEEP CURSOR for E07 |
 | E07 | NOT_STARTED | Cursor | Cursor completes final verification before the E07 commit |
 
@@ -165,17 +218,20 @@ PNG intake; replica preservation; availability/event-time filtering; strong-ID
 indexing without name-only joins; activity claims and links; durable index state;
 and representative original-artifact comparison. Twenty-eight tests pass.
 
-Not completed: public or custom-case execution, full-dataset audit, packaging,
-or submission. No generated root output.csv or code.zip exists. Report templates
-contain no measured evaluation results.
+Verified during E04: deletion versus non-deletion intent, including an
+unresolved stop for ambiguous text; policy actions for delete, redact,
+anonymize, retain, tombstone and active flow; contradiction notes; ordered
+steps with cited findings and empty future evidence ids. The initial public
+evaluation is 32/32 status and 9/32 sequence. Thirty-seven tests pass.
+
+Not completed: the 23 public sequence omissions remain, because they are not
+supported by a timely identifier. The 518-row `output.csv`, final usage totals,
+and submission are E06/E07 work. No root `output.csv` has been written.
 
 ## Resume boundary
 
-E03 is complete on main and local HEAD, origin/main and the remote main ref all
-match `acc586ce61029a6449a107ff0c79eaba4a45be51`. Stop at the A1 boundary.
-SWITCH TO CURSOR for E04 under A15. Cursor must read AGENTS.md, blueprint v1.4
-and this ledger, reconcile Git, record its exact runtime identity, and wait for
-explicit E04 authorization before implementation.
+E05 is verified locally. Commit and push it, confirm the SHA, then stop.
+KEEP CURSOR for E06. Do not start E06 until the user authorizes that unit.
 
 
 ## Baseline preservation and current E01 delta

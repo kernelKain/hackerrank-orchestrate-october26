@@ -52,6 +52,16 @@ class ProbeResult:
     value: str
 
 
+def require_known_cost(cost: float | None) -> float:
+    """Reject a missing or negative charge instead of treating it as free."""
+
+    if cost is None:
+        raise ProviderError("provider omitted the cost; a missing charge is not zero")
+    if cost < 0:
+        raise ProviderError("provider reported a negative cost")
+    return float(cost)
+
+
 def estimate_probe_cost(
     model: dict[str, Any], *, input_tokens: int, output_tokens: int, images: int = 0
 ) -> float:
