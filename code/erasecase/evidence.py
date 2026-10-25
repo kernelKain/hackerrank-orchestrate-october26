@@ -256,12 +256,24 @@ def _extract_text(
     except UnicodeDecodeError as exc:
         raise EvidenceError(f"{entry.file_id} is not valid UTF-8 text") from exc
     observations: list[Observation] = []
+    pending_by_trace: dict[str, dict[str, Any]] = {}
     for line_number, line in enumerate(text.splitlines(), start=1):
         event_at, payload = _parse_log_line(line)
         resource = payload.get("resource_id")
         if not isinstance(resource, str) or not resource:
+            resource = ""
+        trace = payload.get("trace_id")
+        if isinstance(trace, str) and trace and not resource:
+            stored = pending_by_trace.setdefault(trace, {})
+            for key, value in payload.items():
+                stored.setdefault(key, value)
+            continue
+        if not resource:
             match = RESOURCE_PATTERN.search(line)
             resource = match.group(0) if match else ""
+        if isinstance(trace, str) and trace in pending_by_trace:
+            for key, value in pending_by_trace[trace].items():
+                payload.setdefault(key, value)
         if not resource:
             continue
         payload.setdefault("raw_line", line)
@@ -583,10 +595,17 @@ def _strong_identifiers(facts: dict[str, Any]) -> set[tuple[str, str]]:
     identifiers: set[tuple[str, str]] = set()
     for key, raw in _walk_values(facts):
         lowered = key.casefold()
+        if lowered in {"raw_line", "details"} or lowered.startswith("_"):
+            continue
+        if raw.strip().casefold() in {"null", "none", "nil", "n/a", "undefined"}:
+            continue
         candidates: list[tuple[str, str]] = []
         candidates.extend(("email", match.group(0)) for match in EMAIL_PATTERN.finditer(raw))
         candidates.extend(("user_id", match.group(0)) for match in USER_PATTERN.finditer(raw))
-        if "email_hash" in lowered or ("hash" in lowered and HASH_PATTERN.fullmatch(raw)):
+        if "email_hash" in lowered or (
+            HASH_PATTERN.fullmatch(raw)
+            and ("hash" in lowered or lowered in {"correlation_key", "subject_key", "lookup_key"})
+        ):
             candidates.append(("email_hash", raw))
         elif "email" in lowered or lowered in {"lookup_key", "match_key", "matched_value", "subject_selector"}:
             candidates.extend(("email", match.group(0)) for match in EMAIL_PATTERN.finditer(raw))

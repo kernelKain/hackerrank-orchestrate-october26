@@ -203,6 +203,38 @@ class OpenRouterClient:
         )
 
 
+INTENT_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {"authorizes_deletion": {"type": "boolean"}},
+    "required": ["authorizes_deletion"],
+    "additionalProperties": False,
+}
+
+
+def intent_request_body(model: str, request_text: str) -> dict[str, Any]:
+    """Build a strict intent request. The caller must not log the request text."""
+
+    instructions = (ROOT / "code" / "prompts" / "intent.md").read_text(encoding="utf-8")
+    return {
+        "model": model,
+        "temperature": 0,
+        "max_completion_tokens": 256,
+        "usage": {"include": True},
+        "messages": [
+            {"role": "system", "content": instructions},
+            {"role": "user", "content": request_text},
+        ],
+        "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+                "name": "erasecase_intent",
+                "strict": True,
+                "schema": INTENT_SCHEMA,
+            },
+        },
+    }
+
+
 def synthetic_probe_image() -> str:
     image = Image.new("RGB", (256, 96), "white")
     ImageDraw.Draw(image).text((18, 34), "ERASECASE 42", fill="black")
