@@ -1,18 +1,28 @@
 # EraseCase — Shared Execution and Tool Handoff Notes
 
-Updated: 25 October 2026, 12:46 IST
-Blueprint version: 1.3; approved section content remains v1.1
+Updated: 25 October 2026, 12:51 IST
+Blueprint version: 1.4; approved section content remains v1.1
 Canonical plan: [ENGINEERING_BLUEPRINT.md](ENGINEERING_BLUEPRINT.md)
 Planning: Prompt 1 COMPLETE; all 14 sections APPROVED; CHECK: READY.
-Execution: E03 VERIFIED_PENDING_COMMIT on main. E04 is not authorized.
-Current harness: Codex Desktop.
+Execution: E03 COMPLETE on main. E04 is not authorized.
+Current harness: Codex Desktop; handoff target: Cursor.
 Current verified runtime model: gpt-5.6-sol.
-Current baseline: main / 1acb93b81d6bacb624bac6e636a54c69aa199d3b.
-Verified remote state: origin/main / 1acb93b81d6bacb624bac6e636a54c69aa199d3b.
+Current baseline: main / acc586ce61029a6449a107ff0c79eaba4a45be51.
+Verified remote state: origin/main / acc586ce61029a6449a107ff0c79eaba4a45be51.
 Remote policy: push verified step commits directly to origin/main; verify its SHA after every push.
 Legacy branch: build/erasecase is retired by this consolidation after origin/main verification.
-Implementation units: E01 COMMITTED; E02 COMMITTED; E03 VERIFIED_PENDING_COMMIT; E04–E07 NOT_STARTED.
-Next action: commit and push the verified E03 outcome, then stop before E04.
+Implementation units: E01 COMMITTED; E02 COMMITTED; E03 COMMITTED; E04–E07 NOT_STARTED.
+Next action: switch to Cursor, reconcile this handoff, and obtain explicit E04 authorization.
+
+## A15 ownership amendment — 25 October 2026, 12:51 IST
+
+The user reported that Codex usage is exhausted for now and directed that the
+remaining work be completed with Cursor. Cursor therefore owns E04–E07,
+including core implementation, model integration, evaluation, debugging,
+accounting, documentation and final technical verification. Existing product,
+correctness, security, budget, A1 authorization and per-verified-step commit
+contracts remain unchanged. Cursor must verify and log its own exact runtime
+model before acting. This handoff does not itself authorize E04.
 
 ## E03 verification — 25 October 2026
 
@@ -31,7 +41,9 @@ are explicitly queued for vision. Representative screenshots and rendered PDF
 pages were compared to extracted structure. Twenty-eight offline tests pass,
 dependency checks and offline preflight pass, and no OpenRouter call or charge
 was made. The reviewed E03 files plus prior expected handover/log bookkeeping
-are ready for the standalone commit and push.
+were committed as `acc586ce61029a6449a107ff0c79eaba4a45be51` with subject
+`feat(evidence): index time-aware identities and records`. Local HEAD,
+origin/main and the remote main ref were verified equal after the push.
 
 ## E02 verification — 25 October 2026
 
@@ -54,6 +66,16 @@ implementation unit. E02 is still NOT_STARTED. No fixture CLI, report, or test
 files were changed. The next action is explicit A1 authorization of E02.
 
 ## Latest action
+
+Completed and committed the authorized E03 unit. Commit
+`acc586ce61029a6449a107ff0c79eaba4a45be51` contains the strict participant-data
+loaders, temporal identity graph, safe multi-format evidence extraction,
+cutoff-aware indexes, durable storage and tests. Twenty-eight offline tests,
+compilation, dependency checks, offline preflight and staged-diff checks pass.
+The commit is pushed to origin/main and the local, tracking and remote refs match.
+No OpenRouter call, prediction, packaging or submission occurred. E04 was not started.
+
+Historical E01 record:
 
 Completed and committed the authorized E01 unit. The standalone commit
 d85468763d46a25b8ec59139d87aa6cc9ca77acd establishes root secret exclusions,
@@ -83,8 +105,8 @@ submission occurred.
 - PER_VERIFIED_STEP: a standalone commit after each verified step.
 - All implementation is committed and pushed directly to main; no new branches.
 - Each authorized, verified step receives its own commit and push to origin/main.
-- Codex owns core implementation, testing, debugging and final correctness.
-- Cursor owns CLI/report presentation and documentation; no web frontend.
+- Codex completed E01 and E03; its usage is currently exhausted.
+- Cursor owns all remaining E04–E07 implementation and final verification under A15; no web frontend.
 - The cumulative OpenRouter ceiling is $5; actual funded balance is unverified.
 - E01 establishes root .gitignore exclusions before local .env credential entry.
 - Runtime models are selected through a bounded project-specific pilot.
@@ -98,11 +120,11 @@ submission occurred.
 | --- | --- | --- | --- |
 | E01 | COMPLETE ON MAIN — d85468763d46a25b8ec59139d87aa6cc9ca77acd | Codex | SWITCH TO CURSOR for E02 |
 | E02 | COMPLETE ON MAIN — 1acb93b81d6bacb624bac6e636a54c69aa199d3b | Cursor | SWITCH TO CODEX for E03 |
-| E03 | VERIFIED_PENDING_COMMIT | Codex | KEEP CODEX for E04 |
-| E04 | NOT_STARTED | Codex | KEEP CODEX for E05 |
-| E05 | NOT_STARTED | Codex | KEEP CODEX for E06 |
-| E06 | NOT_STARTED | Codex | SWITCH TO CURSOR for E07 documentation |
-| E07 | NOT_STARTED | Cursor then Codex | SWITCH TO CODEX for final checks before the E07 commit |
+| E03 | COMPLETE ON MAIN — acc586ce61029a6449a107ff0c79eaba4a45be51 | Codex | SWITCH TO CURSOR for E04 under A15 |
+| E04 | NOT_STARTED | Cursor | KEEP CURSOR for E05 |
+| E05 | NOT_STARTED | Cursor | KEEP CURSOR for E06 |
+| E06 | NOT_STARTED | Cursor | KEEP CURSOR for E07 |
+| E07 | NOT_STARTED | Cursor | Cursor completes final verification before the E07 commit |
 
 ## Handover template
 
@@ -149,9 +171,11 @@ contain no measured evaluation results.
 
 ## Resume boundary
 
-E03 is verified and awaiting its standalone commit and push. After local HEAD
-and origin/main match the new commit, stop at the A1 boundary. KEEP CODEX is the
-recommended owner for E04, but E04 must not begin without explicit authorization.
+E03 is complete on main and local HEAD, origin/main and the remote main ref all
+match `acc586ce61029a6449a107ff0c79eaba4a45be51`. Stop at the A1 boundary.
+SWITCH TO CURSOR for E04 under A15. Cursor must read AGENTS.md, blueprint v1.4
+and this ledger, reconcile Git, record its exact runtime identity, and wait for
+explicit E04 authorization before implementation.
 
 
 ## Baseline preservation and current E01 delta

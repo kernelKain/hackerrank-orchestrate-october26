@@ -1,10 +1,10 @@
 # EraseCase — Approved Engineering Blueprint
 
-Version: 1.3
+Version: 1.4
 Approval: Sections 1–14 approved on 25 October 2026.
 Planning stage: Prompt 1 COMPLETE.
 Planning readiness: READY.
-Execution status: E01 COMPLETE; E02–E07 NOT_STARTED; E02 awaits A1 authorization.
+Execution status: E01–E03 COMPLETE; E04–E07 NOT_STARTED; E04 awaits A1 authorization.
 
 This is the canonical engineering blueprint. It consolidates the approved planning
 sections and user amendments. Planning is complete and E01 has established and
@@ -27,6 +27,7 @@ repository reality, and applicable official challenge/technical sources.
 | A12 | Frontend means CLI and reports | User selected CLI/report polish. No web interface or dashboard is added. |
 | A13 | User consolidated the complete approved plan into ENGINEERING_BLUEPRINT.md and removed the separate handoff file | Update references and manifest location; preserve all 14 approved section bodies and execution hold. |
 | A14 | Commit and push all work directly to main; delete build/erasecase and create no further branches | Continue the stepwise verified-commit policy on main, push each completed step to origin/main, and do not create implementation or handoff branches. |
+| A15 | Codex usage is exhausted for now; complete the remaining work with Cursor | Cursor owns E04–E07, including core implementation, model integration, evaluation, debugging, accounting, documentation and final technical verification. Existing contracts, A1 gates, spending limit and per-step commit policy remain unchanged. Cursor must verify and log its own runtime identity. |
 
 ## 1. Document Control and Sources
 
@@ -375,7 +376,7 @@ Main risks: access/funding, visual fact loss, false identity links, time leakage
 wrong retention/tombstone treatment, uncovered recreation paths, ordering conflicts,
 unsupported model claims, cost/latency overruns, artifact mismatch and tool-handoff
 drift. Required mitigations and triggers appear in Sections 3 and 5–9.
-Codex owns technical correctness. The user owns local secret entry, UX approval,
+Under A15, Cursor owns remaining technical correctness. The user owns local secret entry, UX approval,
 unit approvals, portal actions and the later interview.
 
 VERIFY-EARLY: usable credentials/funds, clean installation, endpoint/model
@@ -388,7 +389,7 @@ Technical execution gates remain even though deadline administration is user-own
 Decisions superseding old text:
 - One stepwise sequence directly on main, with individual verified-step commits and pushes.
 - A1 approval before each unit; no phase approvals or per-phase integration.
-- Codex is primary for important work, Cursor for presentation/documentation.
+- Cursor owns all remaining E04–E07 work while Codex usage is unavailable.
 - Root .env with explicit dotenv loading and Git/archive exclusion.
 - Quality-first project-specific model selection within a cumulative $5 ceiling.
 - Interview after 6 PM; build/submission target remains 5 PM.
@@ -406,11 +407,11 @@ step to origin/main, and do not create implementation, phase or handoff branches
 | --- | --- | --- | --- | --- |
 | E01 | Foundation, secret exclusions, contracts and feasibility | Codex | 45 min | Switch to Cursor for E02 |
 | E02 | Fixture CLI/report UX | Cursor | 25 min | Switch to Codex for E03 |
-| E03 | Evidence and identity indexing | Codex | 75 min | Stay in Codex |
-| E04 | Assessment, policy, challenge and output planning | Codex | 75 min | Stay in Codex |
-| E05 | Evaluation, debugging and release tooling | Codex | 85 min | Stay in Codex |
-| E06 | Final run, correctness and accounting | Codex | 70 min | Switch to Cursor for E07 documentation |
-| E07 | Documentation polish, final inspection and handover | Cursor then Codex | 20 min | Switch back to Codex within E07 for final checks; then user submits |
+| E03 | Evidence and identity indexing | Codex | 75 min | Switch to Cursor for E04 under A15 |
+| E04 | Assessment, policy, challenge and output planning | Cursor | 75 min | Stay in Cursor |
+| E05 | Evaluation, debugging and release tooling | Cursor | 85 min | Stay in Cursor |
+| E06 | Final run, correctness and accounting | Cursor | 70 min | Stay in Cursor |
+| E07 | Documentation polish, final inspection and handover | Cursor | 20 min | Cursor completes final checks; then user submits |
 | Total | Seven individually verified/committed outcomes | | 395 min | |
 
 The total removes the earlier 30-minute interview reservation. It includes
@@ -522,10 +523,9 @@ alternative before advancing. Ongoing log/handover metadata may change after
 the commit to record its ID; do not create another implementation commit solely
 for self-referential bookkeeping.
 
-Codex owns E01 and E03–E06, core audit/model work, tests, debugging, safety,
-accounting and final correctness. Cursor owns E02 CLI/report presentation and
-the documentation portion of E07. Codex performs E07's final technical checks
-before that step is committed. Cursor must preserve established semantics,
+Codex completed E01 and E03. Under A15, Cursor owns all remaining E04–E07 work,
+including core audit/model work, tests, debugging, safety, accounting,
+documentation and final correctness. Cursor must preserve established semantics,
 metrics and model decisions. No web frontend is authorized.
 
 After every completed step report its outcome, changed files, checks/results,
