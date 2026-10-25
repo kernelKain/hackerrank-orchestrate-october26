@@ -2,15 +2,23 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator
 
-from .contracts import CONTRACT_VERSION, ModelCallRecord
+from .contracts import (
+    CONTRACT_VERSION,
+    EvidenceExtraction,
+    IdentifierFact,
+    ModelCallRecord,
+    Observation,
+    ResourceLink,
+)
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 class RunStore:
@@ -32,6 +40,22 @@ class RunStore:
                 );
                 CREATE TABLE IF NOT EXISTS model_calls (
                     call_id TEXT PRIMARY KEY,
+                    payload_json TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS evidence_extractions (
+                    evidence_id TEXT PRIMARY KEY,
+                    payload_json TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS observations (
+                    observation_id TEXT PRIMARY KEY,
+                    payload_json TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS identifier_facts (
+                    fact_id TEXT PRIMARY KEY,
+                    payload_json TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS resource_links (
+                    link_id TEXT PRIMARY KEY,
                     payload_json TEXT NOT NULL
                 );
                 """
@@ -69,6 +93,51 @@ class RunStore:
                 "INSERT INTO model_calls(call_id, payload_json) VALUES (?, ?)",
                 (record.call_id, payload),
             )
+
+    @staticmethod
+    def _payload(value: object) -> str:
+        return json.dumps(value, sort_keys=True, separators=(",", ":"))
+
+    @staticmethod
+    def _content_id(prefix: str, payload: str) -> str:
+        return f"{prefix}:" + hashlib.sha256(payload.encode()).hexdigest()
+
+    def record_evidence(
+        self,
+        extractions: tuple[EvidenceExtraction, ...],
+        observations: tuple[Observation, ...],
+        links: tuple[ResourceLink, ...],
+    ) -> None:
+        with self.transaction() as connection:
+            for extraction in extractions:
+                payload = self._payload(extraction.model_dump(mode="json"))
+                connection.execute(
+                    "INSERT OR REPLACE INTO evidence_extractions(evidence_id, payload_json) VALUES (?, ?)",
+                    (extraction.evidence_id, payload),
+                )
+            for observation in observations:
+                payload = self._payload(observation.model_dump(mode="json"))
+                connection.execute(
+                    "INSERT OR REPLACE INTO observations(observation_id, payload_json) VALUES (?, ?)",
+                    (observation.observation_id, payload),
+                )
+            for link in links:
+                payload = self._payload(link.model_dump(mode="json"))
+                link_id = self._content_id("link", payload)
+                connection.execute(
+                    "INSERT OR REPLACE INTO resource_links(link_id, payload_json) VALUES (?, ?)",
+                    (link_id, payload),
+                )
+
+    def record_identifier_facts(self, facts: tuple[IdentifierFact, ...]) -> None:
+        with self.transaction() as connection:
+            for fact in facts:
+                payload = self._payload(fact.model_dump(mode="json"))
+                fact_id = self._content_id("identity", payload)
+                connection.execute(
+                    "INSERT OR REPLACE INTO identifier_facts(fact_id, payload_json) VALUES (?, ?)",
+                    (fact_id, payload),
+                )
 
     def close(self) -> None:
         self._connection.close()

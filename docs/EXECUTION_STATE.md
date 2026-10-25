@@ -1,18 +1,57 @@
 # EraseCase — Shared Execution and Tool Handoff Notes
 
-Updated: 25 October 2026
+Updated: 25 October 2026, 12:46 IST
 Blueprint version: 1.3; approved section content remains v1.1
 Canonical plan: [ENGINEERING_BLUEPRINT.md](ENGINEERING_BLUEPRINT.md)
 Planning: Prompt 1 COMPLETE; all 14 sections APPROVED; CHECK: READY.
-Execution: E01 COMPLETE; consolidated onto main; stopped at the A1 unit boundary before E02.
-Current harness: Codex.
+Execution: E03 VERIFIED_PENDING_COMMIT on main. E04 is not authorized.
+Current harness: Codex Desktop.
 Current verified runtime model: gpt-5.6-sol.
-Verified consolidation commit: main / a2de2cd21eed7f66eef3c561dccb464c52658ffd.
-Verified remote state: origin/main / a2de2cd21eed7f66eef3c561dccb464c52658ffd.
+Current baseline: main / 1acb93b81d6bacb624bac6e636a54c69aa199d3b.
+Verified remote state: origin/main / 1acb93b81d6bacb624bac6e636a54c69aa199d3b.
 Remote policy: push verified step commits directly to origin/main; verify its SHA after every push.
 Legacy branch: build/erasecase is retired by this consolidation after origin/main verification.
-Implementation units: E01 COMMITTED; E02–E07 NOT_STARTED.
-Next tool: SWITCH TO CURSOR for the authorized owner of E02; E02 still requires user authorization.
+Implementation units: E01 COMMITTED; E02 COMMITTED; E03 VERIFIED_PENDING_COMMIT; E04–E07 NOT_STARTED.
+Next action: commit and push the verified E03 outcome, then stop before E04.
+
+## E03 verification — 25 October 2026
+
+The user's `Execute this` instruction authorized the next eligible A1 outcome.
+Codex implemented strict participant-data ingestion, time-aware current and
+historical identity reconstruction, safe all-format evidence extraction,
+cutoff-aware evidence/resource indexes, and transactional persistence. SQL is
+executed only in restricted in-memory SQLite with filesystem, extension,
+trigger, view and virtual-table operations blocked. Images are validated and
+explicitly marked `VISION_REQUIRED` for E04 rather than treated as extracted facts.
+
+All 518 request emails resolve to exactly one supported subject. The full
+participant manifest produces 94 extraction outcomes, 8,125 observations,
+4,011 activity links and 4,556 identity facts; all are persistable and 11 PNGs
+are explicitly queued for vision. Representative screenshots and rendered PDF
+pages were compared to extracted structure. Twenty-eight offline tests pass,
+dependency checks and offline preflight pass, and no OpenRouter call or charge
+was made. The reviewed E03 files plus prior expected handover/log bookkeeping
+are ready for the standalone commit and push.
+
+## E02 verification — 25 October 2026
+
+The user approved the fixture review. Cursor committed and pushed
+`1acb93b81d6bacb624bac6e636a54c69aa199d3b` with subject
+`feat(cli): add fixture review and diagnostics`. Local HEAD and origin/main
+match that SHA. The commit contains the fixture adapter, presentation helpers,
+CLI wiring, fixture tests, and the README command note. Eighteen offline tests
+passed before the commit. Root `output.csv` was not created and OpenRouter was
+not called. `runs/` stays ignored. This ledger and the append-only log remain
+uncommitted bookkeeping. The next action is SWITCH TO CODEX for E03 after the
+user authorizes that unit.
+
+## Cursor resume — 25 October 2026, 12:19 IST
+
+Cursor read AGENTS.md, the approved blueprint and this ledger, then reconciled Git.
+`main` and `origin/main` both point to `44bc63b30e465c3949b188caac6333927a58dacc`.
+The working tree was clean before this resume note. E01 remains the last verified
+implementation unit. E02 is still NOT_STARTED. No fixture CLI, report, or test
+files were changed. The next action is explicit A1 authorization of E02.
 
 ## Latest action
 
@@ -58,8 +97,8 @@ submission occurred.
 | Unit | Status | Owner | Required recommendation |
 | --- | --- | --- | --- |
 | E01 | COMPLETE ON MAIN — d85468763d46a25b8ec59139d87aa6cc9ca77acd | Codex | SWITCH TO CURSOR for E02 |
-| E02 | NOT_STARTED | Cursor | SWITCH TO CODEX for E03 |
-| E03 | NOT_STARTED | Codex | KEEP CODEX for E04 |
+| E02 | COMPLETE ON MAIN — 1acb93b81d6bacb624bac6e636a54c69aa199d3b | Cursor | SWITCH TO CODEX for E03 |
+| E03 | VERIFIED_PENDING_COMMIT | Codex | KEEP CODEX for E04 |
 | E04 | NOT_STARTED | Codex | KEEP CODEX for E05 |
 | E05 | NOT_STARTED | Codex | KEEP CODEX for E06 |
 | E06 | NOT_STARTED | Codex | SWITCH TO CURSOR for E07 documentation |
@@ -94,18 +133,25 @@ proof, synthetic-image vision proof, complete staged-diff review and standalone
 commit verification. The workflow consolidation commits the approved documentation
 and shared log on main before the obsolete branch is removed.
 
-Not completed: E02 fixture CLI/report presentation, its mandatory UX approval
-gate, public or custom-case execution, full-dataset audit, packaging or
-submission. No generated output.csv/code.zip exists. Report templates contain
-no measured evaluation results.
+Completed during E02: fixture CLI, three synthetic verdicts, failure and
+recovery scenarios, 18 passing offline tests, UX approval, and the pushed
+commit 1acb93b81d6bacb624bac6e636a54c69aa199d3b.
+
+Verified during E03: strict CSV contracts; complete historical identity chains;
+one supported identity per evaluation request; safe JSON, text/log, SQL, PDF and
+PNG intake; replica preservation; availability/event-time filtering; strong-ID
+indexing without name-only joins; activity claims and links; durable index state;
+and representative original-artifact comparison. Twenty-eight tests pass.
+
+Not completed: public or custom-case execution, full-dataset audit, packaging,
+or submission. No generated root output.csv or code.zip exists. Report templates
+contain no measured evaluation results.
 
 ## Resume boundary
 
-E01 is complete and no further Codex implementation unit is authorized. Switch
-to Cursor for E02, have it read the canonical blueprint and this state, and
-authorize only E02. It must preserve the established contracts and stop at the
-mandatory UX APPROVAL GATE before substantial audit implementation. After E02's
-verified standalone commit and explicit UX approval, switch back to Codex for E03.
+E03 is verified and awaiting its standalone commit and push. After local HEAD
+and origin/main match the new commit, stop at the A1 boundary. KEEP CODEX is the
+recommended owner for E04, but E04 must not begin without explicit authorization.
 
 
 ## Baseline preservation and current E01 delta

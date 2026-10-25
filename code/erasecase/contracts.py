@@ -8,7 +8,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-CONTRACT_VERSION = "1"
+CONTRACT_VERSION = "2"
 
 
 class StrictModel(BaseModel):
@@ -102,7 +102,19 @@ class IdentifierFact(StrictModel):
     original_value: str = Field(min_length=1)
     valid_from: datetime | None = None
     valid_to: datetime | None = None
+    available_at: datetime | None = None
     source_id: str = Field(min_length=1)
+    source_location: str = Field(default="", max_length=512)
+
+    @model_validator(mode="after")
+    def validate_times(self) -> IdentifierFact:
+        for name in ("valid_from", "valid_to", "available_at"):
+            value = getattr(self, name)
+            if value is not None:
+                _require_aware(value, name)
+        if self.valid_from and self.valid_to and self.valid_from >= self.valid_to:
+            raise ValueError("identifier validity must increase")
+        return self
 
 
 class Observation(StrictModel):
@@ -114,6 +126,14 @@ class Observation(StrictModel):
     event_at: datetime | None = None
     state: str = Field(min_length=1)
     facts: dict[str, Any] = Field(default_factory=dict)
+    source_location: str = Field(default="", max_length=512)
+
+    @model_validator(mode="after")
+    def validate_times(self) -> Observation:
+        _require_aware(self.captured_at, "captured_at")
+        if self.event_at is not None:
+            _require_aware(self.event_at, "event_at")
+        return self
 
 
 class ResourceLink(StrictModel):
@@ -123,6 +143,102 @@ class ResourceLink(StrictModel):
     target_resource_id: str = Field(min_length=1)
     relationship: str = Field(min_length=1)
     evidence_id: str = Field(min_length=1)
+    event_at: datetime | None = None
+
+    @model_validator(mode="after")
+    def validate_time(self) -> ResourceLink:
+        if self.event_at is not None:
+            _require_aware(self.event_at, "event_at")
+        return self
+
+
+class IdentitySnapshot(StrictModel):
+    user_id: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    email: str = Field(min_length=3)
+    phone: str = Field(min_length=3)
+    email_hash: str = Field(min_length=1)
+    updated_at: datetime
+
+    @model_validator(mode="after")
+    def validate_time(self) -> IdentitySnapshot:
+        _require_aware(self.updated_at, "updated_at")
+        return self
+
+
+class IdentityAuditEvent(StrictModel):
+    audit_id: str = Field(min_length=1)
+    user_id: str = Field(min_length=1)
+    event_time: datetime
+    field_name: str = Field(min_length=1)
+    old_value: str = Field(min_length=1)
+    new_value: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_time(self) -> IdentityAuditEvent:
+        _require_aware(self.event_time, "event_time")
+        return self
+
+
+class SystemActivity(StrictModel):
+    activity_id: str = Field(min_length=1)
+    event_time: datetime
+    event_type: str = Field(min_length=1)
+    source_system: str = Field(min_length=1)
+    target_system: str = Field(min_length=1)
+    resource_id: str = Field(min_length=1)
+    reported_result: str = Field(min_length=1)
+    details: str
+
+    @model_validator(mode="after")
+    def validate_time(self) -> SystemActivity:
+        _require_aware(self.event_time, "event_time")
+        return self
+
+
+class DeletionRule(StrictModel):
+    rule_id: str = Field(min_length=1)
+    data_category: str = Field(min_length=1)
+    condition: str = Field(min_length=1)
+    required_action: str = Field(min_length=1)
+
+
+class EvidenceFile(StrictModel):
+    file_id: str = Field(min_length=1)
+    file_path: str = Field(min_length=1, max_length=512)
+    origin: str = Field(min_length=1)
+    captured_at: datetime
+
+    @model_validator(mode="after")
+    def validate_time(self) -> EvidenceFile:
+        _require_aware(self.captured_at, "captured_at")
+        return self
+
+
+class ExtractionStatus(StrEnum):
+    EXTRACTED = "EXTRACTED"
+    VISION_REQUIRED = "VISION_REQUIRED"
+
+
+class EvidenceExtraction(StrictModel):
+    evidence_id: str = Field(min_length=1)
+    file_path: str = Field(min_length=1, max_length=512)
+    origin: str = Field(min_length=1)
+    captured_at: datetime
+    media_type: str = Field(min_length=1)
+    sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    byte_count: int = Field(ge=0)
+    status: ExtractionStatus
+    text: str = ""
+    observation_count: int = Field(ge=0)
+    diagnostics: tuple[str, ...] = ()
+
+    @model_validator(mode="after")
+    def validate_extraction(self) -> EvidenceExtraction:
+        _require_aware(self.captured_at, "captured_at")
+        if self.status is ExtractionStatus.VISION_REQUIRED and self.media_type != "image/png":
+            raise ValueError("VISION_REQUIRED is reserved for PNG evidence")
+        return self
 
 
 class PolicyObligation(StrictModel):
