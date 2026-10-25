@@ -2,21 +2,27 @@
 
 ## EraseCase: Codex and Cursor
 
-The approved build uses Codex for important engineering/correctness work and
-Cursor for CLI/report presentation and documentation. Include relevant sessions
-from both tools in the separate trace export. Keep each harness in its own
-subdirectory and preserve original structured formats where available.
+Codex completed E01 and E03. Under amendment A15, Cursor completed E04–E07,
+including final inspection. Include the relevant sessions from both tools in
+the separate trace export. Keep each harness in its own subdirectory and
+preserve original structured formats where available.
 
 Both tools append genuine entries to the same root log.txt and maintain
 [shared handover notes](docs/EXECUTION_STATE.md). Read [AGENTS.md](AGENTS.md) and
 [the approved handoff](docs/ENGINEERING_BLUEPRINT.md) for exact tool/model logging and ownership.
 
-Prompt 1 is complete and all 14 engineering sections are approved; implementation
-and trace preparation have not run.
-At delivery, use the actual harness export paths/options. Cursor may use its
-available session export or the Other Harnesses procedure below; do not guess
-paths, fabricate an export, or copy unrelated application history. If an export
-is unavailable, document the limitation and available alternative truthfully.
+Prompt 1 is complete and E01–E07 are complete on main. The prepared export is
+the gitignored root file `agent-trace.zip`. It contains the two 25 October 2026
+Codex rollout JSONL files that name this repository, plus the Cursor JSONL
+transcripts and adjacent compaction files for this checkout. Older Codex
+rollouts are other work and are excluded. Authentication stores are excluded.
+Staged copies are scanned for local secret values, URL-encoded and standard
+Base64 forms of those values, and common key patterns. The scan does not catch
+every partial slice. The active Cursor session is a point-in-time copy.
+
+At delivery, use the actual harness export paths. Do not guess paths, fabricate
+an export, or copy unrelated application history. If an export is unavailable,
+document the limitation and the available alternative truthfully.
 
 Submit root log.txt as the development transcript. Keep agent-trace.zip separate
 from code.zip; never include credentials, authentication stores or nested archives

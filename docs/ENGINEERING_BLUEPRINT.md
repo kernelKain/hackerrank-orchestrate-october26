@@ -4,7 +4,7 @@ Version: 1.4
 Approval: Sections 1–14 approved on 25 October 2026.
 Planning stage: Prompt 1 COMPLETE.
 Planning readiness: READY.
-Execution status: E01–E06 COMPLETE; E07 NOT_STARTED; E07 awaits A1 authorization.
+Execution status: E01–E07 COMPLETE on main after the E07 commit is verified. The user submits.
 
 This is the canonical engineering blueprint. It consolidates the approved planning
 sections and user amendments. Planning is complete and E01 has established and
@@ -567,8 +567,8 @@ Accept latest explicit user amendments, record their impact/version and invalida
 only dependent work. Preserve unrelated files and the append-only shared log.
 User uploads and interview completion must be confirmed, never assumed.
 
-Assumptions and defaults: E01–E06 are complete on main; E07 remains NOT_STARTED; E07 begins
-in Cursor only after A1 authorization. Account access and the E01 semantic/vision
+Assumptions and defaults: E01–E07 are complete on main. Cursor executed E07 under A15
+after its A1 authorization. The user submits. Account access and the E01 semantic/vision
 model probes are verified; project-wide model quality remains unverified.
 VERIFY-EARLY: reconcile actual startup state, local secret exclusions, funded
 access, selected endpoints and feasible remaining capacity before dependent work.
@@ -622,6 +622,6 @@ Stale sections: NONE.
 Planning blockers: NONE.
 VERIFY-EARLY: credentials/funding, installation, endpoint support, extraction
 quality, runtime model selection, timing/cost forecast and session exports.
-Next Prompt 2 action: read this blueprint and instructions, verify actual state,
-then execute E07 only after its A1 authorization.
-CHECK: READY — E01–E06 complete; E07 awaits authorization.
+Next Prompt 2 action: the user submits output.csv, code.zip, log.txt, and the
+separate agent-trace.zip. Do not claim the portal upload without confirmation.
+CHECK: READY — E01–E07 complete; submission remains with the user.

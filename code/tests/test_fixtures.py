@@ -47,6 +47,8 @@ def test_synthetic_cases_cover_three_finished_verdicts() -> None:
 
 def test_success_publishes_isolated_artifacts(tmp_path: Path) -> None:
     destination = tmp_path / "fixtures"
+    submission = ROOT / "output.csv"
+    before = submission.read_bytes() if submission.exists() else None
     review = run_fixture_review(destination, ROOT)
     text = "\n".join(review.lines)
     assert "FIXTURE REVIEW" in text
@@ -71,7 +73,8 @@ def test_success_publishes_isolated_artifacts(tmp_path: Path) -> None:
                 "steps": json.loads(row["steps_json"]),
             }
         )
-    assert not (ROOT / "output.csv").exists()
+    after = submission.read_bytes() if submission.exists() else None
+    assert before == after
 
 
 def test_repository_and_dataset_paths_are_rejected(tmp_path: Path) -> None:

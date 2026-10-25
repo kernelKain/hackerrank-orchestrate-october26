@@ -24,6 +24,7 @@ def test_package_allowlist_excludes_secrets_and_duplicates_reports(tmp_path: Pat
     assert "code/evaluation/usage_report.md" in names
     assert "evaluation/usage_report.md" in names
     assert ".env.example" in names
+    assert ".gitignore" in names
     assert not any(name == ".env" or name.startswith("dataset/") or name.startswith("runs/") for name in names)
     assert not any(name.endswith(".zip") and name != "code.zip" for name in names)
     with zipfile.ZipFile(output) as archive:
@@ -32,6 +33,10 @@ def test_package_allowlist_excludes_secrets_and_duplicates_reports(tmp_path: Pat
         )
         assert b"OPENROUTER_API_KEY=replace-with-local-key" in archive.read(".env.example")
         assert b"do-not-pack" not in archive.read("README.md")
+        bundled = b"\n".join(archive.read(name) for name in archive.namelist())
+        assert b"sk-" + b"or-" not in bundled
+        assert b"BEGIN " + b"PRIVATE KEY" not in bundled
+        assert b"BEGIN " + b"OPENSSH PRIVATE KEY" not in bundled
 
 
 def test_package_rejects_a_missing_run_directory(tmp_path: Path) -> None:

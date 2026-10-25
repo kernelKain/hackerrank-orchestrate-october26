@@ -1,18 +1,18 @@
 # EraseCase — Shared Execution and Tool Handoff Notes
 
-Updated: 25 October 2026, 14:00 IST
+Updated: 25 October 2026, 14:40 IST
 Blueprint version: 1.4; approved section content remains v1.1
 Canonical plan: [ENGINEERING_BLUEPRINT.md](ENGINEERING_BLUEPRINT.md)
 Planning: Prompt 1 COMPLETE; all 14 sections APPROVED; CHECK: READY.
-Execution: E05 verified. Commit hash is recorded after this commit is created.
+Execution: E07 verified locally. The commit hash is recorded after the push.
 Current harness: Cursor.
 Current verified runtime model: Grok 4.7.
-Verified implementation baseline: E04 / 246db0f8658445a5df47bce3f1103853fd331d1e until the E05 commit is confirmed.
-Verified implementation remote: origin/main contains E04 / 246db0f8658445a5df47bce3f1103853fd331d1e until the E05 push is confirmed.
+Verified implementation baseline: E06 / 0fb883ff3a46bee441bfd66cc944fbd230a3b4c5.
+Verified implementation remote: origin/main contains E06 / 0fb883ff3a46bee441bfd66cc944fbd230a3b4c5.
 Remote policy: push verified step commits directly to origin/main; verify its SHA after every push.
 Legacy branch: build/erasecase is retired by this consolidation after origin/main verification.
-Implementation units: E01 COMMITTED; E02 COMMITTED; E03 COMMITTED; E04 COMMITTED; E05 VERIFIED; E06–E07 NOT_STARTED.
-Next action: KEEP CURSOR. After the E05 commit and push are verified, stop for explicit E06 authorization.
+Implementation units: E01 COMMITTED; E02 COMMITTED; E03 COMMITTED; E04 COMMITTED; E05 COMMITTED; E06 COMMITTED; E07 VERIFIED_PENDING_COMMIT.
+Next action: commit and push the verified E07 unit, record its SHA, then the user submits.
 
 ## A15 ownership amendment — 25 October 2026, 12:51 IST
 
@@ -175,9 +175,9 @@ submission occurred.
 | E02 | COMPLETE ON MAIN — 1acb93b81d6bacb624bac6e636a54c69aa199d3b | Cursor | SWITCH TO CODEX for E03 |
 | E03 | COMPLETE ON MAIN — acc586ce61029a6449a107ff0c79eaba4a45be51 | Codex | SWITCH TO CURSOR for E04 under A15 |
 | E04 | COMPLETE ON MAIN — 246db0f8658445a5df47bce3f1103853fd331d1e | Cursor | KEEP CURSOR for E05 |
-| E05 | VERIFIED — commit hash recorded after push | Cursor | KEEP CURSOR for E06 |
-| E06 | NOT_STARTED | Cursor | KEEP CURSOR for E07 |
-| E07 | NOT_STARTED | Cursor | Cursor completes final verification before the E07 commit |
+| E05 | COMPLETE ON MAIN — 3341e47788077f1291427adefdede781f2152c58 | Cursor | KEEP CURSOR for E06 |
+| E06 | COMPLETE ON MAIN — 0fb883ff3a46bee441bfd66cc944fbd230a3b4c5 | Cursor | KEEP CURSOR for E07 |
+| E07 | VERIFIED — commit hash recorded after push | Cursor | User submits after the push is verified |
 
 ## Handover template
 
@@ -225,13 +225,74 @@ steps with cited findings and empty future evidence ids. The initial public
 evaluation is 32/32 status and 9/32 sequence. Thirty-seven tests pass.
 
 Not completed: the 23 public sequence omissions remain, because they are not
-supported by a timely identifier. The 518-row `output.csv`, final usage totals,
-and submission are E06/E07 work. No root `output.csv` has been written.
+supported by a timely identifier. E06 wrote the gitignored 518-row root
+`output.csv` and the measured usage totals. Submission packaging and the E07
+inspection remain.
+
+## Cursor resume — 25 October 2026, 14:02 IST
+
+Cursor reconciled blueprint v1.4 with Git. Local main, origin/main, and HEAD match
+`3341e47788077f1291427adefdede781f2152c58`. Uncommitted files are E05 post-commit
+bookkeeping: this ledger and log.txt. E06 was not started. The official challenge
+end time is not configured. The user-managed feature freeze is 3 PM IST and the
+build target is 5 PM IST. No OpenRouter call was made.
+
+## E06 verification — 25 October 2026, 14:15 IST
+
+The user authorized E06. Cursor ran the frozen local auditor for all 518
+requests, validated the candidate, and published root `output.csv`. Status
+counts are COMPLETE 177, INCOMPLETE 335, and NOT_APPLICABLE 6. Output SHA-256
+is `6d28e09ea4308f2acaf4598b0c48554e858fb9ea5edd0b6d601e8d4c51f54c10`. The
+evidence fingerprint is `4a3d1956cbeac82dc72a3e67cabe599970ac5d37db961053134c252dbfa1c82f`.
+Validation re-hashed all 94 evidence files and matched both fingerprints.
+The run made 0 model calls and added $0. Eleven PNGs remain `VISION_REQUIRED`.
+Public re-score stayed 32/32 statuses and 9/32 exact sequences. Fifty-three
+offline tests passed. Preflight passed. The reviewed files were committed as
+`0fb883ff3a46bee441bfd66cc944fbd230a3b4c5` with subject
+`docs: record final audit results and usage`. Local HEAD, origin/main, and the
+remote main ref were verified equal after the push. Root `output.csv` and
+`runs/` stay ignored. E07 was not started.
 
 ## Resume boundary
 
-E05 is verified locally. Commit and push it, confirm the SHA, then stop.
-KEEP CURSOR for E06. Do not start E06 until the user authorizes that unit.
+E06 is complete on main. Local HEAD, origin/main, and the remote main ref all
+match `0fb883ff3a46bee441bfd66cc944fbd230a3b4c5`. Stop at the A1 boundary.
+KEEP CURSOR for E07. Do not start E07 until the user authorizes that unit.
+
+## Cursor resume — 25 October 2026, 14:18 IST
+
+Cursor reconciled blueprint v1.4 with Git. Local main, origin/main, and HEAD match
+`0fb883ff3a46bee441bfd66cc944fbd230a3b4c5`. Uncommitted files are post-E06
+bookkeeping: this ledger and log.txt. Root `output.csv` exists, has 519 lines,
+and is gitignored. E07 was not started. The official challenge end time is not
+configured. The user-managed feature freeze is 3 PM IST and the build target is
+5 PM IST. No OpenRouter call was made. A15 assigns E07 final inspection to
+Cursor; the older Codex review sentence in the E07 queue row does not restore a
+Codex gate while Codex usage is exhausted.
+
+## E07 verification — 25 October 2026, 14:40 IST
+
+The user authorized E07. Cursor polished the README and trace instructions to
+the measured E01–E06 facts, added `.gitignore` to the package allowlist, and
+ignored `agent-trace/` and `agent-trace.zip`. Fixture review now proves it does
+not change an existing root `output.csv`. The archive test rejects a provider-key
+prefix and a private-key banner without embedding those strings in source.
+
+Fifty-three offline tests passed. Offline preflight passed. `validate` matched
+output SHA-256 `6d28e09ea4308f2acaf4598b0c48554e858fb9ea5edd0b6d601e8d4c51f54c10`
+and evidence fingerprint `4a3d1956cbeac82dc72a3e67cabe599970ac5d37db961053134c252dbfa1c82f`.
+`code.zip` has 42 members. The two report copies are byte-identical. It contains
+no dataset, run directory, nested archive, or `.env` member. `.env` is untracked.
+A fresh extract with the participant dataset supplied by symlink installed from
+the pinned requirements, passed preflight, and passed the same 53 tests. No
+OpenRouter call was made.
+
+`agent-trace.zip` is gitignored and separate. It contains two 25 October 2026
+Codex rollouts that name this repository and the Cursor transcripts for this
+checkout, plus a short export note. The staged copies had one long provider-key
+token replaced. No local secret value, URL-encoded form, Base64 form, or long
+key token remains in the archive. Original harness files were not modified.
+Portal submission was not performed.
 
 
 ## Baseline preservation and current E01 delta
@@ -240,8 +301,8 @@ KEEP CURSOR for E06. Do not start E06 until the user authorizes that unit.
 - Historical planning/documentation changes remain present and unstaged.
 - Main contains the verified E01 application/configuration/test commit d854687.
 - Future work remains on main and is pushed directly to origin/main after verification.
-- A local ignored .venv exists; no root .env, output.csv or code.zip exists.
-- No prediction, packaging action or submission has occurred.
+- The E01 snapshot had a local ignored .venv and no root .env, output.csv, or code.zip.
+- E06 later wrote the gitignored root output.csv. Packaging and portal submission have still not occurred.
 - The current two turn records also appear once near the start of log.txt because
   an append patch matched an older anchor; canonical copies are at the file end.
   The earlier copies were preserved rather than rewriting append-only history.

@@ -14,6 +14,7 @@ REPORTS = (
 )
 ALLOWLIST = (
     Path("README.md"),
+    Path(".gitignore"),
     Path(".env.example"),
     Path("code/main.py"),
     Path("code/package.py"),
