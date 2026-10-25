@@ -420,3 +420,90 @@ Before responding to any user message, confirm:
 - [ ] I will not log secrets or real personal data.
 - [ ] I will use only participant-facing files for predictions.
 - [ ] I will preserve the Ghost Data Still Exists deletion-audit and output contract in §6.
+
+---
+
+## 10. EraseCase Approved Local Workflow
+
+This project addendum records the user's approved execution policy. It preserves
+all challenge, participant-data, logging and submission requirements above.
+Latest explicit user instructions take precedence.
+
+### 10.1 Canonical Documents and Current Hold
+
+Read docs/ENGINEERING_BLUEPRINT.md in full, then docs/EXECUTION_STATE.md, before implementation.
+All 14 engineering sections are approved; blueprint version 1.3 records the
+direct-to-main workflow amendment. Prompt 2 execution has started and E01 is
+complete. Do not start another implementation unit until the user authorizes the
+relevant A1 outcome. Mandatory logging and requested documentation updates remain
+authorized.
+
+docs/PRODUCT_BLUEPRINT.md records the product boundary and amendments.
+docs/ENGINEERING_BLUEPRINT.md is the complete canonical engineering specification,
+execution directive and readiness manifest. There is no separate handoff file.
+Reconcile docs/EXECUTION_STATE.md with actual Git/runtime state.
+
+### 10.2 A1, Stepwise Work and Separate Commits
+
+Use A1: the user approves one outcome at a time. Follow E01–E07 in order directly
+on main. Do not create implementation, phase or handoff branches, do not use phase
+merges, and do not group multiple implementation-step outcomes into one commit.
+
+The user's PER_VERIFIED_STEP policy supplies standing authorization for a separate
+commit and push to origin/main after each authorized step passes its checks and
+required gate. Stage only reviewed step files. Verify the actual local and remote
+commit ID before advancing. Do not ask again for commit or push permission already
+supplied by this policy.
+
+Preserve unrelated user work. Expected post-commit logging/handover updates should
+be included at the next authorized commit boundary. If a Git operation is blocked,
+report the real failure and verify the user-run alternative; never claim a commit
+or push exists without evidence. No pull request, merge, submission or purchase is
+authorized unless the user explicitly requests it.
+
+### 10.3 Codex and Cursor Ownership
+
+Codex owns core implementation, evidence/identity/policy logic, model integration,
+testing, debugging, evaluation, usage accounting and final correctness.
+Cursor owns E02 CLI/report presentation and E07 documentation polish.
+E07 returns to Codex for final technical verification before its separate commit.
+No web frontend is authorized.
+
+Use one editing harness at a time in the same checkout. After each completed
+step, explicitly recommend KEEP CODEX, SWITCH TO CURSOR or SWITCH TO CODEX.
+Update root log.txt and docs/EXECUTION_STATE.md with current tool/model, actual
+branch/HEAD/commit, changed files, checks, blockers, budget and next allowed action.
+Each harness must verify and record its own exact runtime identity under Section 5;
+do not fabricate another tool's session or infer its model.
+
+### 10.4 Local Secrets and OpenRouter Ceiling
+
+E01 must establish and verify root .gitignore exclusions before local .env
+credential entry. Load the root .env explicitly without overriding existing
+environment variables; read the key from the environment.
+Only a placeholder .env.example may be committed. Actual secret files must be
+ignored/untracked and independently excluded from packaging.
+Never expose credentials in chat, arguments, logs, reports or archives.
+
+OpenRouter usage has a cumulative maximum of $5 across probes, model selection,
+evaluation, retries and the final run, including work initiated by either harness.
+Actual funding must be checked. Select suitable explicit models through a small
+project-specific quality-first pilot; do not consume the cap unnecessarily.
+Preserve earlier charges and uncertain reservations across resumes.
+No automatic credit purchase is authorized.
+
+### 10.5 Gates, Reports and Delivery
+
+Retain E02's mandatory UX APPROVAL GATE and all essential evidence/correctness
+checks. A failed or partial unit is not completed or committed as done.
+Do not invent results or weaken tests to hide failures.
+
+Keep canonical evaluation/usage reports under code/evaluation/. The packager must
+also include byte-identical copies under archive-root evaluation/ to satisfy both
+documented report-path conventions. Report templates are not measured results.
+
+The user's build/submission target is 25 October 2026, 5 PM IST; the interview is
+planned after 6 PM. The user manages actual portal/interview deadlines. Do not
+present the user-reported extra interview allowance as a verified official rule.
+Prepare relevant sanitized Codex AND Cursor session traces separately from code.zip.
+Do not claim submission or interview completion without the user's confirmation.

@@ -1,157 +1,201 @@
-# HackerRank Orchestrate - October 2026
+# EraseCase
 
-## Ghost Data Still Exists
+**Every deletion, accounted for.**
 
-Build an AI agent that audits whether a user's personal data was actually deleted.
+EraseCase is the planned deletion-audit agent for HackerRank Orchestrate October
+2026: **Ghost Data Still Exists**. It reconstructs evidence at each request's
+audit cutoff and produces the required findings, remediation and verification.
 
-A deletion workflow may report **Complete** while data still exists in databases, logs, support attachments, exports, search indexes, archives, or backups. Sync and restore processes may also bring deleted data back.
+## Current status
 
-For each request, the agent must first determine whether deletion was actually requested. It then returns `COMPLETE`, `INCOMPLETE`, or `NOT_APPLICABLE`, reports any remaining data or recreation risk, and produces the ordered remediation and verification steps required to finish an authorized deletion safely.
+**Prompt 1 is complete. E01 is implemented and verified; E02 awaits A1 authorization.**
 
-Read [`problem_statement.md`](./problem_statement.md) for the complete challenge contract.
+The canonical plan is docs/ENGINEERING_BLUEPRINT.md, version 1.3. It contains the
+complete specification, execution directive and readiness manifest. E01 established
+the application foundation, protected local configuration, strict contracts,
+preflight checks, OpenRouter boundaries, persistent run state and offline tests.
+Fixture UX, audit logic, evaluation, the final run and packaging remain unfinished.
 
----
-
-## Quick Start
-
-Clone the repository and move into the project directory:
-
-```bash
-git clone https://github.com/interviewstreet/hackerrank-orchestrate-october26.git
-cd hackerrank-orchestrate-october26
-```
-
-Start your AI coding tool from the **repository root** so it automatically reads [`AGENTS.md`](./AGENTS.md) and logs your session turns to `log.txt` in the root directory.
-
-Build your solution in `code/main.py`, or use another language and document its setup and run command clearly in your README.
-
-Your solution must:
-
-- Read the input files from `dataset/`
-- Generate one prediction row for every request in `dataset/deletion_requests.csv`
-- Write the final predictions to `output.csv` in the repository root
-
-Run the starter Python entry point with:
-
-```bash
-python3 code/main.py
-```
-
-The blank template at `dataset/output.csv` is provided as a reference. Your final generated file for submission must be the root-level `output.csv`.
-
-
-## Dataset
-
-All participant-facing files are in `dataset/`:
-
-| File | Contents |
+| Document | Purpose |
 | --- | --- |
-| `deletion_requests.csv` | 518 requests |
-| `sample_deletion_requests.csv` | 32 sample requests |
-| `sample_output.csv` | Correct sample answers |
-| `user_identities.csv` | Current user identities |
-| `user_audit_log.csv` | Historical identity changes |
-| `system_activity.csv` | Activity across services and data processes |
-| `deletion_rules.csv` | Required treatment for each data category |
-| `evidence_files.csv` | Manifest of supplied evidence files |
-| `output.csv` | Blank output template |
+| [Approved engineering blueprint](docs/ENGINEERING_BLUEPRINT.md) | Complete specification, directive, step/tool map and readiness manifest |
+| [Product blueprint](docs/PRODUCT_BLUEPRINT.md) | Approved product boundary and amendments |
+| [Execution state](docs/EXECUTION_STATE.md) | Current unit, checks, commits, budget and tool handovers |
+| [AGENTS.md](AGENTS.md) | Mandatory instructions and shared logging contract |
+| [Problem statement](problem_statement.md) | Challenge input/output and policy contract |
+| [Trace instructions](agent_trace_instructions.md) | Relevant session-export requirements |
 
-Evidence is stored under `dataset/evidence/` and may include PDFs, images, logs, JSON, plain text, or SQL snapshot exports. SQL captures may contain a primary database, regional replicas, a reporting replica, or a failover replica so replication drift can be investigated directly. The `.sql` files are readable as text and executable with SQLite.
+## Approved build workflow
 
-Only `deletion_requests.csv` requires answers. The other files provide evidence and context.
+The user authorizes one outcome at a time under A1. Work is committed and pushed
+directly to `main`, with a separate commit after each verified step. Do not create
+implementation or phase branches, and do not group multiple step outcomes into
+one commit.
 
----
+| Step | Outcome | Tool |
+| --- | --- | --- |
+| E01 | Foundation, protected configuration, contracts and access proof | Codex |
+| E02 | Fixture CLI/report journey and mandatory UX approval | Cursor |
+| E03 | Evidence, historical identity and provenance | Codex |
+| E04 | Audit state, policy, challenge checks and ordered resolution | Codex |
+| E05 | Evaluation, debugging, safety and release tooling | Codex |
+| E06 | Final 518-case run and reconciled reports | Codex |
+| E07 | Documentation polish, then final technical inspection | Cursor, then Codex |
 
-## Output
+At every step boundary, record the commit, verification, remaining budget and
+whether to stay in Codex or switch tools. Both tools use the same checkout,
+root log.txt and execution notes. Only one edits at a time.
+Codex owns important engineering and correctness; Cursor handles presentation and
+documentation. No web frontend, dashboard, deployment, video or presentation is
+part of the approved scope.
 
-Create `output.csv` with these columns in this exact order:
+Working target: build and submit by **25 October 2026, 5 PM IST**. The user plans
+the interview after 6 PM and manages the actual portal/interview deadlines.
+This working target is not a verified official cutoff.
 
-```text
-case_id,deletion_status,steps_json
-```
+## Planned setup and local credentials
 
-Produce exactly one row per request. `deletion_status` is `COMPLETE`, `INCOMPLETE`, or `NOT_APPLICABLE`. `steps_json` is an ordered JSON array containing findings, remediation actions, and verification checks. Use an empty array (`[]`) for `NOT_APPLICABLE`. Evidence references may be a `file_id`, `activity_id`, or `audit_id`. Determine the resource state at `audit_at` from the available evidence; reported workflow statuses and operation results are claims. Use `dataset/sample_output.csv` as the format reference.
+Future runtime: Python 3.12–3.14, requests, Pydantic, Pillow, python-dotenv, SQLite
+and Poppler utilities. Pytest and offline CI protect the core contracts.
+Exact dependency pins and installation proofs belong to E01.
 
-The final file must contain 518 data rows sorted by `case_id` (plus the header row). The grader parses `steps_json` as JSON, so object-key order and whitespace do not matter; array order does. Order findings, remediation, and verification in that phase order. Within a phase, follow the operation order in the problem statement, then sort by `system_id` and `resource_id`.
+E01 must create and verify .gitignore exclusions before local secret entry.
+The project will load the root .env explicitly without overriding existing
+environment values. Credentials are then read from environment variables.
 
----
+Only a placeholder .env.example may be committed. Actual .env files and secret
+variants must be ignored, untracked, absent from logs and excluded independently
+from code.zip. Do not paste the OpenRouter key into chat.
 
-## Evaluation
+These E01 setup and preflight commands have been executed and verified locally:
 
-`output.csv` will be compared with hidden canonical answers. Scoring considers:
+    python3 -m venv .venv
+    .venv/bin/python -m pip install -r code/requirements-dev.txt
+    .venv/bin/python code/main.py preflight
 
-- deletion assessment accuracy;
-- current and historical identity resolution;
-- discovery of remaining data and recreation risks;
-- correct policy application and evidence references; and
-- completeness and ordering of remediation and verification steps.
+Windows uses the virtual environment's Scripts/python.exe equivalent.
+E01 must document the tested platform-specific setup and PDF utility installation.
 
-Your `code.zip` must include:
+## Planned commands
 
-```text
-code/evaluation/evaluation_report.md
-code/evaluation/usage_report.md
-```
+Use the virtual environment's Python from the repository root:
 
-- `evaluation_report.md` must cover case, row, field, and sequence accuracy, at least three additional evaluation cases created by you, failures found, and improvements made.
-- `usage_report.md` must cover the final full-dataset run, including model providers and names, model calls, input and output tokens, total and average tokens per request, and estimated total and per-request cost. Include per-model and overall totals when using multiple models.
+    python3 code/main.py preflight
+    python3 code/main.py preflight --online
+    python3 code/main.py fixtures --run-dir runs/fixtures
+    python3 code/main.py probe --budget-usd 0.25
+    python3 code/evaluation/main.py --suite all --run-dir runs/evaluation --budget-usd 0.75
+    python3 code/main.py run --run-dir runs/final --budget-usd 4
+    python3 code/main.py validate --input output.csv --run-dir runs/final
+    python3 code/package.py --output code.zip --run-dir runs/final
 
-**Important:** Place `evaluation_report.md` and `usage_report.md` inside `code/evaluation/` (matching `code/evaluation/main.py` in this starter layout), write your complete evaluation metrics, custom evaluation test cases, and token/cost breakdowns directly inside those Markdown files, and keep prompts in source code or Markdown files. Automated code evaluation ignores raw data files (`.csv`, `.tsv`, `.json`, `.jsonl`, `.sql`, `.log`), so content stored only in those formats will not be visible to the code judge or AI interviewer.
+No-argument code/main.py will default to the full evaluation-request audit.
+Resume and offline replay require compatible validated checkpoints/caches.
+An unfinished run must not replace a valid prior submission.
 
----
+## Runtime models and budget
 
-## Chat Transcript
+OpenRouter is the runtime gateway. **$5 is the cumulative project ceiling** across
+probes, model selection, evaluation, retries and the final run, including work
+initiated from either coding tool. Actual funded balance remains to be checked.
 
-This repository includes [`AGENTS.md`](./AGENTS.md), which instructs compatible AI coding tools to append conversation summaries to `log.txt` in the repository root:
+Use a small project-specific pilot to compare suitable semantic models such as
+GPT-6.1 Sol and Claude Sonnet 5.5. Gemini 3.8 Flash is the proposed visual extraction
+path. These are candidates, not measured winners. Record exact returned model
+IDs/providers, tokens and costs. Prefer correctness; avoid broad comparisons or
+running multiple full assessments without a concrete reason.
 
-| Platform | Path |
+Initial allocations: $0.25 probes, $0.75 evaluation/model selection/refinement,
+$4 final processing/retries. Unused allocation may be reassigned within $5 while
+preserving completion feasibility. Do not purchase credits automatically.
+
+## Participant data
+
+Only participant-facing files under dataset/ may inform predictions.
+
+| File | Role |
 | --- | --- |
-| macOS / Linux | `<repo root>/log.txt` |
-| Windows | `<repo root>\log.txt` |
+| deletion_requests.csv | 518 evaluation requests requiring answers |
+| sample_deletion_requests.csv | 32 public sample requests |
+| sample_output.csv | Reference answers for evaluation only |
+| user_identities.csv | Current identity snapshots |
+| user_audit_log.csv | Historical identity changes |
+| system_activity.csv | Global operational activity and claims |
+| deletion_rules.csv | Required treatment and retention policy |
+| evidence_files.csv | Manifest for 94 evidence artifacts |
+| dataset/output.csv | Blank format template, not the final output |
 
-- Always launch your AI coding agent from the repository root (or explicitly ask it to read `./AGENTS.md` first) so every turn is logged to `log.txt` with the required `User Prompt`, `Agent Response Summary`, `Actions`, and `Context` sections.
-- Upload `log.txt` directly as your `chat_transcript` submission on HackerRank.
-- Do not include API keys, tokens, credentials, or secrets in prompts, code, configuration, or `log.txt`.
+Evidence formats: logs, JSON, text, PNG, SQL and PDF. Inspect content, identity
+links and time; manifest filenames alone do not establish case membership.
+Compare relevant primary and replica tables. Workflow success is a claim rather
+than proof of compliance. Never use organizer-only truth or case-family shortcuts.
 
----
+## Required output
 
-## Packaging `code.zip` and Submission
+Write the final output.csv at the repository root:
 
-| Item | Description |
+    case_id,deletion_status,steps_json
+
+It must contain exactly 518 data rows, one per expected case, sorted by case_id.
+Allowed statuses are COMPLETE, INCOMPLETE and NOT_APPLICABLE. Non-deletion requests
+require an empty JSON array.
+
+Each step contains exactly step_no, phase, system_id, resource_id, operation,
+state and evidence_id. Use only the allowed phase/operation/state combinations.
+Number consecutively from 1. Sort by required phase and operation ordering,
+then system_id and resource_id.
+
+Findings and COMPLETE verification cite timely supporting file_id, activity_id
+or audit_id values. INCOMPLETE remediation/future verification use empty
+evidence IDs. Reconcile ordering with required flow/restore prerequisites;
+investigate unsupported or conflicting plans before publication.
+
+Preserve policy-required records and permitted stable tombstone references.
+The full contract remains in problem_statement.md and AGENTS.md.
+
+## Evaluation and usage reports
+
+The following files are currently **unfilled report templates**:
+
+- [Evaluation report](code/evaluation/evaluation_report.md)
+- [Usage report](code/evaluation/usage_report.md)
+
+E05 must report measured public/custom status, step, field, sequence and full-row
+accuracy, at least three fictional custom cases, failures and improvements.
+E06 must report actual final-run providers/models, calls, input/output tokens,
+totals/averages, costs, retries and cache/preparation attribution.
+
+Targets are not measurements. Hidden-set accuracy remains unknown.
+Do not put essential explanations only in raw data that the judge may ignore.
+
+Canonical reports live under code/evaluation/. The planned packager also includes
+byte-identical copies under archive-root evaluation/ to satisfy both documented
+path conventions. Verify equality.
+
+## Submission and traces
+
+| Item | Delivery |
 | --- | --- |
-| `code.zip` | Runnable solution, prompts, configuration, `README.md`, and `evaluation/` reports |
-| `output.csv` | One answer row for each of the 518 requests in `dataset/deletion_requests.csv` |
-| `chat_transcript` | The root `log.txt` file generated by your coding agent |
-| AI interview | Live explanation of your architecture, approach, and evaluation |
+| output.csv | Final validated predictions |
+| code.zip | Runnable source, prompts, pins, README, tests and reports |
+| log.txt | Genuine shared development transcript |
+| agent-trace.zip | Relevant sanitized Codex and Cursor session exports, separately prepared |
+| AI interview | User explains actual architecture, evidence, results and limitations |
 
-You may use any programming language, model, framework, or retrieval approach. Include clear setup and execution instructions in `README.md` inside `code.zip`.
+Package only the explicit allowlist. Exclude supplied dataset/, environments,
+dependency caches, runs/, Git metadata, credentials, raw provider responses and
+nested archives. Submit predictions and transcripts separately from code.zip.
 
-To package `code.zip` from the repository root without bundling the dataset:
+Before submission verify all rows/steps/citations, report/run consistency, archive
+integrity, identical report copies, clean setup and absence of prohibited content.
+Do not submit template metrics or claim a test/model run that did not happen.
 
-**macOS / Linux:**
+Submission page:
+[https://www.hackerrank.com/contests/hackerrank-orchestrate-october26/challenges/ghost-data-still-exists](https://www.hackerrank.com/contests/hackerrank-orchestrate-october26/challenges/ghost-data-still-exists)
 
-```bash
-zip -r code.zip README.md code -x "*/__pycache__/*" "*/.venv/*" "*/venv/*" "*/node_modules/*" "*/.git/*" "*/.DS_Store"
-```
+## Next action
 
-**Windows (PowerShell):**
-
-```powershell
-Compress-Archive -Path README.md, code -DestinationPath code.zip -Force
-```
-
-When packaging `code.zip`:
-
-- Keep your evaluation reports in `code/evaluation/` so they are bundled automatically with `code` (or add `evaluation` to the archive command above if you placed them in a top-level `evaluation/` directory).
-- Do **not** include `dataset/`, virtual environments (`.venv`, `venv`, `node_modules`), or build caches (`__pycache__`). On Windows, keep `.venv` at the repository root (outside `code/`) and remove any `code/__pycache__` folders before running `Compress-Archive`.
-- Do **not** include nested archives (`.zip`, `.tar`, `.gz`, `.tgz`, `.7z`, `.rar`) inside `code.zip` — submissions containing nested archive files will be rejected.
-
-Before submitting, confirm that:
-
-- `output.csv` has the exact header `case_id,deletion_status,steps_json` and contains all 518 data rows sorted by `case_id`;
-- every `steps_json` value is a valid JSON array with consecutive step numbers starting at `1`;
-- findings cite valid evidence IDs, and `COMPLETE` verification steps cite evidence proving the current state;
-- proposed remediation and future verification steps use an empty `evidence_id` (`""`);
-- `code.zip` includes your runnable code, `README.md`, `code/evaluation/evaluation_report.md`, and `code/evaluation/usage_report.md`;
-- `log.txt` follows the `AGENTS.md` turn format and is uploaded to the `chat_transcript` slot; and
-- no API keys, credentials, real personal data, or sensitive configuration values are included.
+Remain in documentation-only mode until the user starts Prompt 2. Then read the
+approved handoff and current state, verify reality, and obtain E01 authorization
+unless it was already explicitly supplied. Planning approval alone is not permission
+to begin implementation.

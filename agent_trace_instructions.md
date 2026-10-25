@@ -1,5 +1,27 @@
 # Agent Trace Instructions
 
+## EraseCase: Codex and Cursor
+
+The approved build uses Codex for important engineering/correctness work and
+Cursor for CLI/report presentation and documentation. Include relevant sessions
+from both tools in the separate trace export. Keep each harness in its own
+subdirectory and preserve original structured formats where available.
+
+Both tools append genuine entries to the same root log.txt and maintain
+[shared handover notes](docs/EXECUTION_STATE.md). Read [AGENTS.md](AGENTS.md) and
+[the approved handoff](docs/ENGINEERING_BLUEPRINT.md) for exact tool/model logging and ownership.
+
+Prompt 1 is complete and all 14 engineering sections are approved; implementation
+and trace preparation have not run.
+At delivery, use the actual harness export paths/options. Cursor may use its
+available session export or the Other Harnesses procedure below; do not guess
+paths, fabricate an export, or copy unrelated application history. If an export
+is unavailable, document the limitation and available alternative truthfully.
+
+Submit root log.txt as the development transcript. Keep agent-trace.zip separate
+from code.zip; never include credentials, authentication stores or nested archives
+in the code submission. The general export instructions follow unchanged.
+
 Please submit the complete agent trace for the work you did on this challenge as a **ZIP file**. A trace helps us understand the prompts, model responses, tool calls, and work performed during the session and improve our evaluation from the next time.
 
 Include every session you used for this challenge, including sessions in which you planned, coded, debugged, or reviewed the solution. If you used more than one agent harness, include traces from each one. Keep the original files and folder structure where practical; do not convert JSONL, SQLite, or other structured logs into screenshots or summaries.
