@@ -6,7 +6,14 @@ import csv
 import io
 import json
 
-from .contracts import CaseAssessment, OutputStep
+from .contracts import (
+    CaseAssessment,
+    DeletionRequest,
+    EvidenceFile,
+    IdentityAuditEvent,
+    OutputStep,
+    SystemActivity,
+)
 from .presentation import STEP_KEY_ORDER
 
 
@@ -57,3 +64,30 @@ def parse_output_csv(text: str, *, expected_ids: tuple[str, ...] | None = None) 
     if expected_ids is not None and ids != tuple(sorted(expected_ids)):
         raise ValidationFailure("output rows must match the requested case ids")
     return tuple(cases)
+
+
+def check_citation_provenance(
+    cases: tuple[CaseAssessment, ...],
+    requests: tuple[DeletionRequest, ...],
+    evidence_files: tuple[EvidenceFile, ...],
+    activities: tuple[SystemActivity, ...],
+    audits: tuple[IdentityAuditEvent, ...],
+) -> None:
+    """Reject citations that are missing or available only after the case cutoff."""
+
+    by_case = {item.case_id: item for item in requests}
+    available_at = {item.file_id: item.captured_at for item in evidence_files}
+    available_at.update({item.activity_id: item.event_time for item in activities})
+    available_at.update({item.audit_id: item.event_time for item in audits})
+    for case in cases:
+        request = by_case.get(case.case_id)
+        if request is None:
+            raise ValidationFailure(f"{case.case_id} is not an evaluation request")
+        for step in case.steps:
+            if not step.evidence_id:
+                continue
+            captured = available_at.get(step.evidence_id)
+            if captured is None:
+                raise ValidationFailure(f"{case.case_id} cites unknown evidence {step.evidence_id}")
+            if captured > request.audit_at:
+                raise ValidationFailure(f"{case.case_id} cites {step.evidence_id} after audit_at")

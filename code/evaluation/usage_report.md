@@ -1,31 +1,32 @@
 # EraseCase — Usage Report
 
-Status: E05 evaluation measured. The final 518-row run has not been executed.
+Status: final 518-row run measured. No provider was called.
 Blueprint: version 1.4.
-Final output/run ID/time: NOT_RUN.
-Output fingerprint: NOT_RECORDED.
+Final output/run ID/time: run `c0c5643f2c624834b274f14c690f424b`, 39.01 seconds, 518 rows.
+Output fingerprint: `6d28e09ea4308f2acaf4598b0c48554e858fb9ea5edd0b6d601e8d4c51f54c10`.
+Evidence fingerprint: `4a3d1956cbeac82dc72a3e67cabe599970ac5d37db961053134c252dbfa1c82f`.
 Cumulative approved OpenRouter ceiling: $5, subject to actual funded balance. Funded balance remains unverified.
 
-Coding-assistant development usage is not application inference. E05 made no application model calls.
+Coding-assistant development usage is not application inference. The final run made no application model calls.
 
 ## Final-run provider and model totals
 
 | Provider / exact returned model | Calls / attempts | Input tokens | Output tokens | Total tokens | Charged / estimated USD |
 | --- | --- | --- | --- | --- | --- |
-| NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN |
-| Overall | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN |
+| No provider called | 0 / 0 | 0 | 0 | 0 | 0 |
+| Overall | 0 / 0 | 0 | 0 | 0 | 0 |
 
 ## Totals and per-request averages
 
 | Quantity | Value |
 | --- | --- |
 | Expected evaluation requests | 518 |
-| Actually completed requests | NOT_RUN |
-| Final-run input/output/total tokens | NOT_RUN |
-| Average tokens per request | NOT_RUN |
-| Total final-run charged/estimated cost | NOT_RUN |
-| Average cost per request | NOT_RUN |
-| Calls, failed/retried attempts and cache hits | NOT_RUN |
+| Actually completed requests | 518 |
+| Final-run input/output/total tokens | 0 / 0 / 0 |
+| Average tokens per request | 0 |
+| Total final-run charged/estimated cost | 0 |
+| Average cost per request | 0 |
+| Calls, failed/retried attempts and cache hits | 0 / 0 / 0 |
 
 ## Preparation, model selection and cached work
 
@@ -41,11 +42,11 @@ A first schema attempt stopped before vision and has a conservative uncertain re
 
 E05 project-model comparison was not executed. Before the lexicon fix, 29 requests were locally unresolved, but they collapse to five clear deletion or non-deletion phrases. After the fix, a full local pass resolved all 518 request texts with zero `UnresolvedIntent` results. The public sample remained 32/32 on status. Spending the evaluation allocation to ask both semantic candidates about phrases the local rules now decide would not change a plan, a citation, or an operation. No winner is selected because the decision path does not call a model. The E01 probes remain the capability evidence. A later visual shortcoming, if one is measured, is the trigger for another paid check.
 
-E05 offline evaluation and the 518-request timing pass made 0 calls, used 0 tokens, and added $0.
+E05 offline evaluation and the frozen final run made 0 calls, used 0 tokens, and added $0. The run store records 94 extractions, 7,847 observations, 4,011 activity links, and 4,556 identity facts. `model_calls` in that store is 0.
 
 ## Failures and reconciliation
 
-No E05 provider timeout, retry, or missing usage field occurred, because no provider was called. The E01 uncertain reservation stays pending and is not treated as zero. `require_known_cost` rejects a missing charge instead of coercing it to $0.
+No final-run provider timeout, retry, or missing usage field occurred, because no provider was called. The E01 uncertain reservation stays pending and is not treated as zero. `require_known_cost` rejects a missing charge instead of coercing it to $0. Validation recomputed the output hash and re-hashed all 94 evidence files; both matched the manifest.
 
 ## Runtime model selection
 
@@ -53,9 +54,9 @@ No project-specific production model is selected. Intent, policy, order, and ser
 
 ## Release forecast
 
-Measured on this workstation after one evidence load: 518 assessments completed in 35.64 seconds, with 0 unresolved intents and 0 model calls. Load was 0.59 seconds. The deterministic full run fits the local time budget and adds no OpenRouter charge.
+The frozen run completed 518 assessments in 39.01 seconds, with 0 unresolved intents, 0 model calls, and $0 charged. Status counts are COMPLETE 177, INCOMPLETE 335, and NOT_APPLICABLE 6.
 
-This forecast does not include image interpretation. E03 left 11 PNGs at `VISION_REQUIRED`. The E01 image probe cost $0.0012525. Eleven similar calls are not assumed to cost eleven times that amount; E06 must measure any vision pass it actually runs. Hidden-set accuracy is not forecast.
+Eleven PNGs stayed `VISION_REQUIRED`. The run made `vision_calls=0` and did not apply the E01 image-probe price to them. Hidden-set accuracy is not forecast.
 
 ## Verification
 

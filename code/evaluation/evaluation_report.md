@@ -1,7 +1,10 @@
 # EraseCase — Evaluation Report
 
-Status: MEASURED offline public sample and fictional custom cases. The 518-row submission file has not been written.
-Blueprint: version 1.4. Runtime: local deterministic auditor. Model calls during this evaluation: 0.
+Status: MEASURED offline public sample, fictional custom cases, and the frozen 518-row submission.
+Blueprint: version 1.4. Runtime: local deterministic auditor. Model calls during this evaluation and the final run: 0.
+
+Final run: `PYTHONPATH=code .venv/bin/python code/main.py run --run-dir runs/final --budget-usd 4`.
+Run ID `c0c5643f2c624834b274f14c690f424b`. Elapsed 39.01 seconds. Root `output.csv` has 518 sorted rows: COMPLETE 177, INCOMPLETE 335, NOT_APPLICABLE 6. Output SHA-256 `6d28e09ea4308f2acaf4598b0c48554e858fb9ea5edd0b6d601e8d4c51f54c10`. Evidence fingerprint `4a3d1956cbeac82dc72a3e67cabe599970ac5d37db961053134c252dbfa1c82f`. `validate --input output.csv --run-dir runs/final` recomputed both fingerprints and passed. Findings cite evidence (672 cited findings). Future remediation and verification steps on incomplete cases use an empty evidence id (1,529 steps).
 Measurement command: `PYTHONPATH=code .venv/bin/python -m evaluation.main --suite all --run-dir runs/evaluation --budget-usd 0`.
 Public timing on this machine: 8.01 seconds to load evidence and score 32 cases. Full 518-request assessment, without writing `output.csv`: 0.59 seconds to load and 35.64 seconds to assess. Unresolved intents after the lexicon fix: 0.
 
@@ -104,4 +107,4 @@ Retained-record absence: a linked security-audit observation with zero rows was 
 
 ## Verification and limitations
 
-Offline checks for this unit are `pytest -c code/pytest.ini code/tests` and the evaluation command above. No OpenRouter call was made for the score. Hidden-set accuracy is unknown. Eleven PNG evidence files remain marked `VISION_REQUIRED` from E03 and are not interpreted by this deterministic pass. Root `output.csv` was not written.
+Offline checks for this unit are `pytest -c code/pytest.ini code/tests` (53 passed), the evaluation command above, preflight, the final run, and `validate`. No OpenRouter call was made for the score or the 518-row run. Hidden-set accuracy is unknown. Eleven PNG evidence files remain marked `VISION_REQUIRED` and were not sent to a model. The public re-score after the final run stayed 32/32 statuses, 9/32 exact sequences, 158 matched steps, 0 extra steps, and 35 omissions.

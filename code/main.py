@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Sequence
 
 from erasecase.contracts import CONTRACT_VERSION
+from erasecase.final_run import execute_final_run, validate_submission
 from erasecase.fixtures import SCENARIOS, run_fixture_review
 from erasecase.models import (
     ROOT,
@@ -189,6 +190,7 @@ def parser() -> argparse.ArgumentParser:
         epilog=(
             "fixtures publishes a labeled synthetic review under --run-dir.\n"
             "It does not read evaluation requests, call a provider, or write output.csv.\n"
+            "run writes output.csv only after the candidate passes validation.\n"
             "Exit codes: 0 finished; 1 software failure; 2 usage or configuration;\n"
             "3 validation failure; 4 unresolved evidence, provider, or budget;\n"
             "130 keyboard interruption. Ctrl+C prints interrupted and does not\n"
@@ -216,21 +218,50 @@ def parser() -> argparse.ArgumentParser:
         choices=SCENARIOS,
         help="success, or empty, malformed, budget, partial, missing-input, interrupt",
     )
-    for name in ("run", "validate"):
-        subcommands.add_parser(name, help=f"{name} (implemented in a later unit)")
+    run_parser = subcommands.add_parser("run", help="audit every evaluation request and publish output.csv")
+    run_parser.add_argument("--run-dir", default="runs/final")
+    run_parser.add_argument("--budget-usd", type=float, default=4)
+    run_parser.add_argument("--dataset", default=None)
+    run_parser.add_argument("--output", default=None)
+    run_parser.add_argument("--resume", default=None, help="republish a completed run id without model calls")
+    validate_parser = subcommands.add_parser("validate", help="check output.csv against the run manifest")
+    validate_parser.add_argument("--input", required=True)
+    validate_parser.add_argument("--run-dir", required=True)
+    validate_parser.add_argument("--dataset", default=None)
     return result
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parser().parse_args(argv)
-    if args.command is None:
-        return pending("full evaluation run")
+    if args.command is None or args.command == "run":
+        dataset = ROOT / "dataset"
+        output = ROOT / "output.csv"
+        run_dir = ROOT / "runs" / "final"
+        budget = 4.0
+        resume = None
+        if args.command == "run":
+            dataset = Path(args.dataset) if args.dataset else dataset
+            output = Path(args.output) if args.output else output
+            run_dir = Path(args.run_dir)
+            budget = args.budget_usd
+            resume = args.resume
+        return execute_final_run(
+            dataset_root=dataset,
+            run_dir=run_dir,
+            output_path=output,
+            budget_usd=budget,
+            resume_id=resume,
+            repo_root=ROOT,
+        )
     if args.command == "preflight":
         return preflight(online=args.online)
     if args.command == "probe":
         return probe(budget_usd=args.budget_usd)
     if args.command == "fixtures":
         return fixtures_command(args.run_dir, args.scenario)
+    if args.command == "validate":
+        dataset = Path(args.dataset) if args.dataset else ROOT / "dataset"
+        return validate_submission(dataset, Path(args.input), Path(args.run_dir), ROOT)
     return pending(args.command)
 
 

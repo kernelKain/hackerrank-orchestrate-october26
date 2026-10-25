@@ -8,12 +8,12 @@ audit cutoff and produces the required findings, remediation and verification.
 
 ## Current status
 
-**E01–E05 are implemented on main. E06, the final 518-row run, awaits authorization.**
+**E01–E06 are implemented on main. E07 awaits authorization.**
 
-The canonical plan is docs/ENGINEERING_BLUEPRINT.md, version 1.4. E05 adds offline
-public and fictional-case evaluation, intent coverage for the previously unresolved
-phrases, the source packager, and measured reports. Root `output.csv` is not written
-until the final run.
+The canonical plan is docs/ENGINEERING_BLUEPRINT.md, version 1.4. The frozen run
+wrote root `output.csv` with 518 rows and recorded the result in
+`code/evaluation/`. Eleven PNG files remain `VISION_REQUIRED` and were not sent
+to a model. E07 is documentation polish and final inspection.
 
 | Document | Purpose |
 | --- | --- |
@@ -79,7 +79,7 @@ E01 must document the tested platform-specific setup and PDF utility installatio
 
 `fixtures` publishes a labeled synthetic review and does not write `output.csv`.
 `evaluation.main` scores the public sample and fictional cases offline.
-`package.py` writes the source archive. `run` and `validate` remain the final-run unit.
+`package.py` writes the source archive. `run` publishes `output.csv` after validation, and `validate` recomputes its fingerprints.
 
 Use the virtual environment's Python from the repository root:
 

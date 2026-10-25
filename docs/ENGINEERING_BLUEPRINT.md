@@ -4,7 +4,7 @@ Version: 1.4
 Approval: Sections 1–14 approved on 25 October 2026.
 Planning stage: Prompt 1 COMPLETE.
 Planning readiness: READY.
-Execution status: E01–E05 COMPLETE; E06–E07 NOT_STARTED; E06 awaits A1 authorization.
+Execution status: E01–E06 COMPLETE; E07 NOT_STARTED; E07 awaits A1 authorization.
 
 This is the canonical engineering blueprint. It consolidates the approved planning
 sections and user amendments. Planning is complete and E01 has established and
@@ -567,7 +567,7 @@ Accept latest explicit user amendments, record their impact/version and invalida
 only dependent work. Preserve unrelated files and the append-only shared log.
 User uploads and interview completion must be confirmed, never assumed.
 
-Assumptions and defaults: E01–E05 are complete on main; E06–E07 remain NOT_STARTED; E06 begins
+Assumptions and defaults: E01–E06 are complete on main; E07 remains NOT_STARTED; E07 begins
 in Cursor only after A1 authorization. Account access and the E01 semantic/vision
 model probes are verified; project-wide model quality remains unverified.
 VERIFY-EARLY: reconcile actual startup state, local secret exclusions, funded
@@ -623,5 +623,5 @@ Planning blockers: NONE.
 VERIFY-EARLY: credentials/funding, installation, endpoint support, extraction
 quality, runtime model selection, timing/cost forecast and session exports.
 Next Prompt 2 action: read this blueprint and instructions, verify actual state,
-then execute E06 only after its A1 authorization.
-CHECK: READY — E01–E05 complete; E06 awaits authorization.
+then execute E07 only after its A1 authorization.
+CHECK: READY — E01–E06 complete; E07 awaits authorization.
