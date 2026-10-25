@@ -1,12 +1,12 @@
 # EraseCase — Evaluation Report
 
 Status: MEASURED offline public sample, fictional custom cases, and the frozen 518-row submission.
-Blueprint: version 1.4. Runtime: local deterministic auditor. Model calls during this evaluation and the final run: 0.
+Blueprint: version 1.4. Runtime: local auditor. Screenshot reading uses `google/gemini-3.8-flash`. The model does not choose operations, order, or serialization. Final-run model calls: 11 successful screen readings. Public-sample model calls: 0.
 
 Final run: `PYTHONPATH=code .venv/bin/python code/main.py run --run-dir runs/final --budget-usd 4`.
-Run ID `c0c5643f2c624834b274f14c690f424b`. Elapsed 39.01 seconds. Root `output.csv` has 518 sorted rows: COMPLETE 177, INCOMPLETE 335, NOT_APPLICABLE 6. Output SHA-256 `6d28e09ea4308f2acaf4598b0c48554e858fb9ea5edd0b6d601e8d4c51f54c10`. Evidence fingerprint `4a3d1956cbeac82dc72a3e67cabe599970ac5d37db961053134c252dbfa1c82f`. `validate --input output.csv --run-dir runs/final` recomputed both fingerprints and passed. Findings cite evidence (672 cited findings). Future remediation and verification steps on incomplete cases use an empty evidence id (1,529 steps).
+Run ID `bf9de008cf6f42dc9245c62fd4cd2b10`. Elapsed 38.39 seconds. Root `output.csv` has 518 sorted rows: COMPLETE 169, INCOMPLETE 343, NOT_APPLICABLE 6. Output SHA-256 `5c75a2763b3a0ee6902b53fd2d5bc173e006a1504ff518bf54a2ef179c1bdce8`. Evidence fingerprint `4a3d1956cbeac82dc72a3e67cabe599970ac5d37db961053134c252dbfa1c82f`. `validate --input output.csv --run-dir runs/final` recomputed both fingerprints and passed. Findings cite evidence (680 cited findings). Future remediation and verification steps on incomplete cases use an empty evidence id (1,546 steps).
 Measurement command: `PYTHONPATH=code .venv/bin/python -m evaluation.main --suite all --run-dir runs/evaluation --budget-usd 0`.
-Public timing on this machine: 8.01 seconds to load evidence and score 32 cases. Full 518-request assessment, without writing `output.csv`: 0.59 seconds to load and 35.64 seconds to assess. Unresolved intents after the lexicon fix: 0.
+Public timing on this machine: 8.01 seconds to load evidence and score 32 cases. The 518-request final run took 38.39 seconds. Unresolved intents after the lexicon fix: 0.
 
 Reference labels are read only by `code/evaluation/scoring.py`. `code/erasecase/` does not read `sample_output.csv`.
 
@@ -97,6 +97,12 @@ Invalid citations are rejected by the step contract: a finding with an empty `ev
 
 Category counts for the 23 sequence misses: `no_supported_identifier` 15, `no_supported_identifier+only_after_cutoff` 4, `no_supported_identifier+resource_not_in_evidence` 3, `only_after_cutoff` 1. None are `linked_but_omitted` or `extra_step`.
 
+## Screenshot reading and trace links
+
+A log trace with exactly one email, phone, user id, or email hash now copies that value onto the other lines of the same trace as a `link_` field. A trace with two different values for the same kind is left unchanged. `link_` fields can attach a row to a person, and they do not count as stored personal data, so a `rows=0` line stays an absence. Deletion-activity rows still do not create a step by themselves: 1,410 of 1,466 deletion-worker events fall in more than one request window, so a `reported_at` join stays unused.
+
+Eleven PNGs were sent to `google/gemini-3.8-flash`. A record is kept only when the screen shows both a patterned resource id and a strong identifier. Four screens abstained (`evidence_37`, `evidence_42`, `evidence_46`, `evidence_60`). The other seven produced 15 observations. Eight evaluation cases cite one of those screenshots, and those eight moved from COMPLETE to INCOMPLETE. The public 32 do not cite PNGs; their score stayed 32/32 statuses, 9/32 exact sequences, 0 extra steps, and 35 omissions.
+
 ## Failures and improvements
 
 Intent coverage: 29 of 518 requests previously raised `UnresolvedIntent`. They use five repeated phrases: Portuguese permanent account deletion (`exclusão`), Korean permanent deletion (`삭제`), a phone correction that keeps the account active, an invoice-copy request that leaves the profile in place, and an email change that continues the service. The local lexicon now accepts the two deletion phrases and rejects the three keep/correct phrases. After the change, all 518 requests resolve locally. The public 32 were already resolved, and their sequence score stayed 9/32.
@@ -107,4 +113,4 @@ Retained-record absence: a linked security-audit observation with zero rows was 
 
 ## Verification and limitations
 
-Offline checks for this unit are `pytest -c code/pytest.ini code/tests` (53 passed), the evaluation command above, preflight, the final run, and `validate`. No OpenRouter call was made for the score or the 518-row run. Hidden-set accuracy is unknown. Eleven PNG evidence files remain marked `VISION_REQUIRED` and were not sent to a model. The public re-score after the final run stayed 32/32 statuses, 9/32 exact sequences, 158 matched steps, 0 extra steps, and 35 omissions.
+Offline checks for this unit are `pytest -c code/pytest.ini code/tests` (59 passed), preflight is unchanged, the final run, and `validate`. The public re-score stayed 32/32 statuses, 9/32 exact sequences, 158 matched steps, 0 extra steps, and 35 omissions. Screenshot reading is recorded in the usage report. Hidden-set accuracy is unknown.

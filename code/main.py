@@ -203,6 +203,9 @@ def parser() -> argparse.ArgumentParser:
     preflight_parser.add_argument("--online", action="store_true", help="authenticate and check approved model IDs")
     probe_parser = subcommands.add_parser("probe", help="run bounded schema and vision access probes")
     probe_parser.add_argument("--budget-usd", type=float, default=0.25)
+    vision_parser = subcommands.add_parser("vision", help="read PNG evidence within a budget")
+    vision_parser.add_argument("--budget-usd", type=float, default=0.75)
+    vision_parser.add_argument("--dataset", default=None)
     fixtures_parser = subcommands.add_parser(
         "fixtures",
         help="publish a labeled synthetic review without writing output.csv",
@@ -257,6 +260,27 @@ def main(argv: Sequence[str] | None = None) -> int:
         return preflight(online=args.online)
     if args.command == "probe":
         return probe(budget_usd=args.budget_usd)
+    if args.command == "vision":
+        from erasecase.ingest import load_dataset
+        from erasecase.vision import read_screenshots
+
+        dataset = Path(args.dataset) if args.dataset else ROOT / "dataset"
+        bundle = load_dataset(dataset)
+        try:
+            manifest = read_screenshots(
+                bundle.evidence_files,
+                dataset,
+                ROOT / "runs" / "vision",
+                budget_usd=args.budget_usd,
+            )
+        except ProviderError as exc:
+            print(f"vision unresolved: {exc}", file=sys.stderr)
+            return EXIT_UNRESOLVED
+        print(
+            f"vision calls={manifest.get('calls')} cost_usd={manifest.get('cost_usd')} "
+            f"files={len(manifest.get('files') or {})}"
+        )
+        return EXIT_OK
     if args.command == "fixtures":
         return fixtures_command(args.run_dir, args.scenario)
     if args.command == "validate":

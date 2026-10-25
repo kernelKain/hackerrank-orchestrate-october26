@@ -131,3 +131,40 @@ def test_identifier_lookup_respects_capture_and_event_cutoffs(tmp_path: Path) ->
     )
     assert [item.resource_id for item in matched] == ["account_1"]
     assert "account_3" not in {item.resource_id for item in matched}
+
+
+def test_trace_copies_one_identifier_onto_a_later_line(tmp_path: Path) -> None:
+    evidence = tmp_path / "evidence" / "logs"
+    evidence.mkdir(parents=True)
+    (evidence / "trace.log").write_text(
+        "\n".join(
+            [
+                "2026-01-02T00:00:00Z trace_id=tr-1 resource_id=account_1 lookup_key=ada@example.com event=profile_lookup_started",
+                "2026-01-02T00:00:01Z trace_id=tr-1 resource_id=account_9 rows=0 http_status=404 event=profile_lookup_completed",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    _extraction, observations = extract_evidence(entry("evidence/logs/trace.log"), tmp_path)
+    later = next(item for item in observations if item.resource_id == "account_9")
+    assert later.facts["link_email"] == "ada@example.com"
+    assert "email" not in later.facts
+
+
+def test_trace_with_two_identifiers_is_not_propagated(tmp_path: Path) -> None:
+    evidence = tmp_path / "evidence" / "logs"
+    evidence.mkdir(parents=True)
+    (evidence / "trace.log").write_text(
+        "\n".join(
+            [
+                "2026-01-02T00:00:00Z trace_id=tr-2 resource_id=account_1 lookup_key=ada@example.com",
+                "2026-01-02T00:00:01Z trace_id=tr-2 resource_id=account_2 lookup_key=other@example.com",
+                "2026-01-02T00:00:02Z trace_id=tr-2 resource_id=account_3 rows=0",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    _extraction, observations = extract_evidence(entry("evidence/logs/trace.log"), tmp_path)
+    blank = next(item for item in observations if item.resource_id == "account_3")
+    assert "link_email" not in blank.facts
+

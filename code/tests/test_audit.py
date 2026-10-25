@@ -314,3 +314,21 @@ def test_public_sample_evaluation_is_structurally_valid() -> None:
     assert status_hits == 32, f"public status {status_hits}/32 sequence {sequence_hits}/32"
     # Remaining misses have no supported identifier, or their only file is after audit_at.
     assert sequence_hits >= 9, f"public sequence {sequence_hits}/32 status {status_hits}/32"
+
+
+def test_activity_claim_alone_does_not_create_a_step() -> None:
+    activity = _observation(
+        observation_id="activity-observation:activity_1",
+        evidence_id="activity_1",
+        resource_id="account_001",
+        state="SUCCESS",
+        facts={
+            "event_type": "DELETE_RECORD",
+            "reported_result": "SUCCESS",
+            "details": "Target resource: account_001.",
+            "_source_type": "activity_claim",
+        },
+    )
+    result = _auditor(activity).assess(_request("Please delete my account."))
+    assert "account_001" not in {step.resource_id for step in result.case.steps}
+

@@ -292,7 +292,7 @@ def _extract_text(
                 source_location=source_location,
             )
         )
-    return text, observations, ()
+    return text, _propagate_trace_links(observations), ()
 
 
 def _sql_authorizer(action: int, arg1: str | None, arg2: str | None, *_: Any) -> int:
@@ -476,7 +476,12 @@ def _extract_image(
     return "", [], (f"validated PNG {width}x{height} mode={mode}; vision required",)
 
 
-def extract_evidence(entry: EvidenceFile, dataset_root: Path) -> tuple[EvidenceExtraction, tuple[Observation, ...]]:
+def extract_evidence(
+    entry: EvidenceFile,
+    dataset_root: Path,
+    *,
+    image_observations: tuple[Observation, ...] | None = None,
+) -> tuple[EvidenceExtraction, tuple[Observation, ...]]:
     path = _safe_path(dataset_root, entry)
     data = _read_bytes(path)
     source_location = str(Path(entry.file_path).as_posix())
@@ -499,8 +504,14 @@ def extract_evidence(entry: EvidenceFile, dataset_root: Path) -> tuple[EvidenceE
         status = ExtractionStatus.EXTRACTED
     elif suffix == ".png":
         media_type = "image/png"
-        text, observations, diagnostics = _extract_image(path, entry)
-        status = ExtractionStatus.VISION_REQUIRED
+        if image_observations is None:
+            text, observations, diagnostics = _extract_image(path, entry)
+            status = ExtractionStatus.VISION_REQUIRED
+        else:
+            observations = list(image_observations)
+            text = f"vision records={len(observations)}"
+            diagnostics = ("vision accepted" if observations else "vision abstained",)
+            status = ExtractionStatus.EXTRACTED
     else:
         raise EvidenceError(f"{entry.file_id} has unsupported evidence type: {suffix}")
     extraction = EvidenceExtraction(
@@ -560,20 +571,111 @@ def activity_observations(
     return tuple(observations), tuple(links)
 
 
+_TRACE_KEYS = ("trace_id", "trace", "requestId")
+_LINK_FIELDS = (
+    ("email", "link_email", "email"),
+    ("lookup_key", "link_email", "email"),
+    ("page_email", "link_email", "email"),
+    ("phone", "link_phone", "phone"),
+    ("user_id", "link_user_id", "user_id"),
+    ("customer_reference", "link_user_id", "user_id"),
+    ("subject_reference", "link_user_id", "user_id"),
+    ("page_user_id", "link_user_id", "user_id"),
+    ("email_hash", "link_email_hash", "email_hash"),
+)
+
+
+def _trace_key(facts: dict[str, Any]) -> str:
+    for key in _TRACE_KEYS:
+        value = facts.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    return ""
+
+
+def _link_token(kind: str, raw: Any) -> str:
+    if not isinstance(raw, str):
+        return ""
+    text = raw.strip()
+    if not text or text.casefold() in {"null", "none", "nil", "n/a", "undefined"}:
+        return ""
+    if kind == "email":
+        match = EMAIL_PATTERN.search(text)
+        return match.group(0).casefold() if match else ""
+    if kind == "user_id":
+        match = USER_PATTERN.search(text)
+        return match.group(0).casefold() if match else ""
+    if kind == "phone":
+        digits = re.sub(r"\D", "", text)
+        return f"+{digits}" if len(digits) >= 7 else ""
+    if kind == "email_hash" and HASH_PATTERN.fullmatch(text):
+        return text.casefold()
+    return ""
+
+
+def _propagate_trace_links(observations: list[Observation]) -> list[Observation]:
+    """Copy a trace's single identifier onto lines that repeat the trace without it.
+
+    A trace with two different values for the same identifier is left unchanged.
+    Copied values use link_ fields so a rows=0 line is not treated as stored PII.
+    """
+
+    groups: dict[str, list[int]] = defaultdict(list)
+    for index, observation in enumerate(observations):
+        if observation.facts.get("_source_type") == "activity_claim":
+            continue
+        trace = _trace_key(observation.facts)
+        if trace:
+            groups[trace].append(index)
+    updated = list(observations)
+    for indexes in groups.values():
+        found: dict[str, set[str]] = defaultdict(set)
+        for index in indexes:
+            facts = observations[index].facts
+            for source, dest, kind in _LINK_FIELDS:
+                token = _link_token(kind, facts.get(source))
+                if token:
+                    found[dest].add(token)
+        unique = {dest: next(iter(values)) for dest, values in found.items() if len(values) == 1}
+        if not unique:
+            continue
+        for index in indexes:
+            facts = dict(observations[index].facts)
+            changed = False
+            for dest, token in unique.items():
+                if _link_token(
+                    {"link_email": "email", "link_phone": "phone", "link_user_id": "user_id", "link_email_hash": "email_hash"}[dest],
+                    facts.get(dest),
+                ):
+                    continue
+                facts[dest] = token
+                changed = True
+            if changed:
+                updated[index] = observations[index].model_copy(update={"facts": facts})
+    return updated
+
+
 def extract_catalog(
     entries: Iterable[EvidenceFile],
     dataset_root: Path,
     *,
     activities: Iterable[SystemActivity] = (),
+    image_observations: dict[str, tuple[Observation, ...]] | None = None,
 ) -> EvidenceCatalog:
     entry_tuple = tuple(entries)
     extractions: list[EvidenceExtraction] = []
     observations: list[Observation] = []
+    supplied = image_observations or {}
     for entry in entry_tuple:
-        extraction, extracted_observations = extract_evidence(entry, dataset_root)
+        extraction, extracted_observations = extract_evidence(
+            entry,
+            dataset_root,
+            image_observations=supplied.get(entry.file_id),
+        )
         extractions.append(extraction)
         observations.extend(extracted_observations)
     claimed_observations, links = activity_observations(activities)
+    observations = _propagate_trace_links(observations)
     observations.extend(claimed_observations)
     catalog = EvidenceCatalog(tuple(extractions), tuple(observations), links)
     catalog.require_complete(entry_tuple)

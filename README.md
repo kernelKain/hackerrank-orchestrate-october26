@@ -13,10 +13,11 @@ This repository does not record a portal upload.
 
 The canonical plan is [docs/ENGINEERING_BLUEPRINT.md](docs/ENGINEERING_BLUEPRINT.md),
 version 1.4. The frozen local run wrote root `output.csv` with 518 sorted rows:
-COMPLETE 177, INCOMPLETE 335, and NOT_APPLICABLE 6. Output SHA-256
-`6d28e09ea4308f2acaf4598b0c48554e858fb9ea5edd0b6d601e8d4c51f54c10`. Evidence
+COMPLETE 169, INCOMPLETE 343, and NOT_APPLICABLE 6. Output SHA-256
+`5c75a2763b3a0ee6902b53fd2d5bc173e006a1504ff518bf54a2ef179c1bdce8`. Evidence
 fingerprint `4a3d1956cbeac82dc72a3e67cabe599970ac5d37db961053134c252dbfa1c82f`.
-Eleven PNG files remain `VISION_REQUIRED` and were not sent to a model.
+Eleven PNG files were read by `google/gemini-3.8-flash`. Seven contained
+identifiable records and four abstained. The model does not choose steps.
 
 | Document | Purpose |
 | --- | --- |
@@ -121,7 +122,8 @@ $4.9934735 of the ceiling. These figures are not treated as zero and are not
 reset by later units.
 
 No production model is selected. Intent, policy, order, and serialization stay
-in code. The final 518-row run made 0 calls, used 0 tokens, and added $0.
+in code. The final 518-row run read 11 screenshots, used 32,484 tokens
+including one discarded truncated call, and added $0.068787.
 Candidate IDs remain `openai/gpt-6.1-sol`, `anthropic/claude-sonnet-5.5`, and
 `google/gemini-3.8-flash`. Do not purchase credits automatically.
 

@@ -1,18 +1,18 @@
 # EraseCase — Shared Execution and Tool Handoff Notes
 
-Updated: 25 October 2026, 14:40 IST
+Updated: 25 October 2026, 15:25 IST
 Blueprint version: 1.4; approved section content remains v1.1
 Canonical plan: [ENGINEERING_BLUEPRINT.md](ENGINEERING_BLUEPRINT.md)
 Planning: Prompt 1 COMPLETE; all 14 sections APPROVED; CHECK: READY.
-Execution: E07 verified locally. The commit hash is recorded after the push.
+Execution: E07 COMPLETE on main. Screenshot linking is implemented and the 518-row output was regenerated. The user submits.
 Current harness: Cursor.
 Current verified runtime model: Grok 4.7.
-Verified implementation baseline: E06 / 0fb883ff3a46bee441bfd66cc944fbd230a3b4c5.
-Verified implementation remote: origin/main contains E06 / 0fb883ff3a46bee441bfd66cc944fbd230a3b4c5.
+Verified implementation baseline: E07 / 08cd9b9d4137c3b9776075ec3f76f345e39e22b8, plus the screenshot-linking diff.
+Verified implementation remote: origin/main contains E07 / 08cd9b9d4137c3b9776075ec3f76f345e39e22b8.
 Remote policy: push verified step commits directly to origin/main; verify its SHA after every push.
 Legacy branch: build/erasecase is retired by this consolidation after origin/main verification.
-Implementation units: E01 COMMITTED; E02 COMMITTED; E03 COMMITTED; E04 COMMITTED; E05 COMMITTED; E06 COMMITTED; E07 VERIFIED_PENDING_COMMIT.
-Next action: commit and push the verified E07 unit, record its SHA, then the user submits.
+Implementation units: E01 COMMITTED; E02 COMMITTED; E03 COMMITTED; E04 COMMITTED; E05 COMMITTED; E06 COMMITTED; E07 COMMITTED.
+Next action: the user submits output.csv, code.zip, log.txt, and agent-trace.zip. Do not claim the upload.
 
 ## A15 ownership amendment — 25 October 2026, 12:51 IST
 
@@ -177,7 +177,7 @@ submission occurred.
 | E04 | COMPLETE ON MAIN — 246db0f8658445a5df47bce3f1103853fd331d1e | Cursor | KEEP CURSOR for E05 |
 | E05 | COMPLETE ON MAIN — 3341e47788077f1291427adefdede781f2152c58 | Cursor | KEEP CURSOR for E06 |
 | E06 | COMPLETE ON MAIN — 0fb883ff3a46bee441bfd66cc944fbd230a3b4c5 | Cursor | KEEP CURSOR for E07 |
-| E07 | VERIFIED — commit hash recorded after push | Cursor | User submits after the push is verified |
+| E07 | COMPLETE ON MAIN — 08cd9b9d4137c3b9776075ec3f76f345e39e22b8 | Cursor | User submits |
 
 ## Handover template
 
@@ -292,7 +292,11 @@ Codex rollouts that name this repository and the Cursor transcripts for this
 checkout, plus a short export note. The staged copies had one long provider-key
 token replaced. No local secret value, URL-encoded form, Base64 form, or long
 key token remains in the archive. Original harness files were not modified.
-Portal submission was not performed.
+Portal submission was not performed. The reviewed files were committed as
+`08cd9b9d4137c3b9776075ec3f76f345e39e22b8` with subject
+`build: prepare validated submission materials`. Local HEAD, origin/main, and
+the remote main ref were verified equal after the push. This SHA line is
+post-commit bookkeeping and is left uncommitted.
 
 
 ## Baseline preservation and current E01 delta

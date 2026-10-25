@@ -214,7 +214,7 @@ def _stored_pii(observation: Observation) -> bool:
             and not _blank(value)
         ):
             return True
-        if key in _LOOKUP_KEYS or _blank(value):
+        if key.startswith("link_") or key in _LOOKUP_KEYS or _blank(value):
             continue
         if key in _STORED_PII or key.endswith(("_email", "_phone", "_name")):
             return True
@@ -434,7 +434,7 @@ def _treatment(category: str, posture: str) -> tuple[Operation | None, Operation
 
 
 def _trace_id(observation: Observation) -> str:
-    for key in ("trace_id", "trace"):
+    for key in ("trace_id", "trace", "requestId"):
         value = observation.facts.get(key)
         if isinstance(value, str) and value.strip():
             return value.strip()
@@ -442,13 +442,27 @@ def _trace_id(observation: Observation) -> str:
 
 
 def open_auditor(
-    dataset_root: Path, *, classifier: IntentClassifier | None = None
+    dataset_root: Path,
+    *,
+    classifier: IntentClassifier | None = None,
+    vision_dir: Path | None = None,
 ) -> tuple[Auditor, DatasetBundle]:
     """Load participant data once and return an auditor that does not read labels."""
 
+    from erasecase.vision import load_image_observations, vision_cache_dir
+
     bundle = load_dataset(dataset_root)
     identity = build_identity_index(bundle.identities, bundle.identity_events)
-    catalog = extract_catalog(bundle.evidence_files, dataset_root, activities=bundle.activities)
+    cache = vision_dir if vision_dir is not None else vision_cache_dir()
+    image_observations = (
+        load_image_observations(cache, bundle.evidence_files, dataset_root) if cache else {}
+    )
+    catalog = extract_catalog(
+        bundle.evidence_files,
+        dataset_root,
+        activities=bundle.activities,
+        image_observations=image_observations,
+    )
     auditor = Auditor(
         identity,
         EvidenceIndex(catalog),

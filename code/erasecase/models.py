@@ -212,6 +212,61 @@ class OpenRouterClient:
             value=value,
         )
 
+    def read_screen(self, image_data_url: str) -> tuple[dict[str, Any], dict[str, Any]]:
+        """Read one screenshot. The caller validates identifiers before any audit use."""
+
+        from erasecase.vision import VISION_SCHEMA
+
+        instructions = (ROOT / "code" / "prompts" / "vision.md").read_text(encoding="utf-8")
+        body = {
+            "model": VISION_CANDIDATE,
+            "temperature": 0,
+            "max_completion_tokens": 4096,
+            "usage": {"include": True},
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": instructions},
+                        {"type": "image_url", "image_url": {"url": image_data_url}},
+                    ],
+                }
+            ],
+            "response_format": {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "erasecase_screen",
+                    "strict": True,
+                    "schema": VISION_SCHEMA,
+                },
+            },
+        }
+        started = time.monotonic()
+        payload = self._request("POST", "/chat/completions", json=body)
+        usage = payload.get("usage") if isinstance(payload.get("usage"), dict) else {}
+        choices = payload.get("choices")
+        choice = choices[0] if isinstance(choices, list) and choices else {}
+        message = choice.get("message") if isinstance(choice, dict) else {}
+        content = message.get("content") if isinstance(message, dict) else None
+        if isinstance(choice, dict) and choice.get("finish_reason") == "length":
+            raise ProviderError("OpenRouter screen reading stopped before the JSON was complete")
+        try:
+            import json
+
+            parsed = json.loads(content)
+        except (TypeError, ValueError) as exc:
+            raise ProviderError("OpenRouter screen reading violated the strict response contract") from exc
+        if not isinstance(parsed, dict):
+            raise ProviderError("OpenRouter screen reading returned an unexpected shape")
+        return parsed, {
+            "model": str(payload.get("model") or VISION_CANDIDATE),
+            "provider": payload.get("provider") if isinstance(payload.get("provider"), str) else None,
+            "input_tokens": usage.get("prompt_tokens") if isinstance(usage.get("prompt_tokens"), int) else 0,
+            "output_tokens": usage.get("completion_tokens") if isinstance(usage.get("completion_tokens"), int) else 0,
+            "cost_usd": float(usage["cost"]) if isinstance(usage.get("cost"), (int, float)) else None,
+            "latency_ms": int((time.monotonic() - started) * 1000),
+        }
+
 
 INTENT_SCHEMA: dict[str, Any] = {
     "type": "object",

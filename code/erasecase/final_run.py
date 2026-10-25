@@ -15,6 +15,7 @@ from erasecase.contracts import CONTRACT_VERSION, EvidenceFile
 from erasecase.evidence import EvidenceError, _safe_path
 from erasecase.identity import IdentityError
 from erasecase.ingest import DatasetError, load_dataset
+from erasecase.models import ProviderError
 from erasecase.presentation import CommandFailure, render_csv
 from erasecase.storage import RunStore
 from erasecase.validators import (
@@ -34,7 +35,44 @@ CODE_PATHS = (
     "code/erasecase/planner.py",
     "code/erasecase/presentation.py",
     "code/erasecase/validators.py",
+    "code/erasecase/vision.py",
 )
+
+
+def _read_vision(dataset_root: Path, repo_root: Path, budget_usd: float) -> None:
+    """Read screenshots when a key and budget are available. Unread images stay unmarked."""
+
+    from erasecase.models import has_openrouter_key
+    from erasecase.vision import read_screenshots
+
+    if budget_usd <= 0 or not has_openrouter_key():
+        return
+    try:
+        manifest = read_screenshots(
+            load_dataset(dataset_root).evidence_files,
+            dataset_root,
+            repo_root / "runs" / "vision",
+            budget_usd=min(budget_usd, 0.75),
+        )
+    except ProviderError as exc:
+        print(f"vision unresolved: {exc}", file=sys.stderr)
+        return
+    print(
+        "vision complete "
+        f"calls={manifest.get('calls')} cost_usd={manifest.get('cost_usd')} "
+        f"files={len(manifest.get('files') or {})}"
+    )
+
+
+def _vision_usage(repo_root: Path) -> dict[str, object]:
+    path = repo_root / "runs" / "vision" / "manifest.json"
+    if not path.is_file():
+        return {"calls": 0, "cost_usd": 0.0, "input_tokens": 0, "output_tokens": 0}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {"calls": 0, "cost_usd": 0.0, "input_tokens": 0, "output_tokens": 0}
+    return payload if isinstance(payload, dict) else {}
 
 
 def prepare_run_dir(run_dir: Path, repo_root: Path) -> Path:
@@ -265,6 +303,7 @@ def execute_final_run(
 
     started = time.perf_counter()
     try:
+        _read_vision(dataset_root, repo_root, budget_usd)
         auditor, bundle = open_auditor(dataset_root)
         cases = []
         unresolved = 0
@@ -289,21 +328,26 @@ def execute_final_run(
     counts: dict[str, int] = {}
     for case in cases:
         counts[case.deletion_status.value] = counts.get(case.deletion_status.value, 0) + 1
+    vision = _vision_usage(repo_root)
+    vision_calls = int(vision.get("calls") or 0)
+    vision_cost = float(vision.get("cost_usd") or 0)
+    input_tokens = int(vision.get("input_tokens") or 0)
+    output_tokens = int(vision.get("output_tokens") or 0)
     manifest = {
         "run_id": uuid.uuid4().hex,
         "contract_version": CONTRACT_VERSION,
         "rows": len(cases),
         "status_counts": counts,
-        "model_calls": 0,
-        "attempts": 0,
+        "model_calls": vision_calls,
+        "attempts": vision_calls,
         "cache_hits": 0,
-        "input_tokens": 0,
-        "output_tokens": 0,
-        "total_tokens": 0,
-        "cost_usd": 0.0,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "total_tokens": input_tokens + output_tokens,
+        "cost_usd": vision_cost,
         "budget_usd": budget_usd,
         "vision_required": sum(1 for item in records if item["status"] == "VISION_REQUIRED"),
-        "vision_calls": 0,
+        "vision_calls": vision_calls,
         "elapsed_seconds": elapsed,
         "output_sha256": submission_digest,
         "evidence_fingerprint": file_digest,
@@ -324,7 +368,7 @@ def execute_final_run(
         "final run complete "
         f"run_id={manifest['run_id']} rows={manifest['rows']} "
         f"statuses={json.dumps(counts, sort_keys=True)} "
-        f"model_calls=0 cost_usd=0 output_sha256={submission_digest} "
+        f"model_calls={vision_calls} cost_usd={vision_cost} output_sha256={submission_digest} "
         f"evidence_fingerprint={file_digest} vision_required={manifest['vision_required']} "
         f"elapsed_seconds={elapsed}"
     )
