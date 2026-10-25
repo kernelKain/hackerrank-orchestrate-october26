@@ -7,7 +7,8 @@ Planning: Prompt 1 COMPLETE; all 14 sections APPROVED; CHECK: READY.
 Execution: E01 COMPLETE; consolidated onto main; stopped at the A1 unit boundary before E02.
 Current harness: Codex.
 Current verified runtime model: gpt-5.6-sol.
-Observed branch/base before this workflow-record commit: main / d85468763d46a25b8ec59139d87aa6cc9ca77acd.
+Verified consolidation commit: main / a2de2cd21eed7f66eef3c561dccb464c52658ffd.
+Verified remote state: origin/main / a2de2cd21eed7f66eef3c561dccb464c52658ffd.
 Remote policy: push verified step commits directly to origin/main; verify its SHA after every push.
 Legacy branch: build/erasecase is retired by this consolidation after origin/main verification.
 Implementation units: E01 COMMITTED; E02–E07 NOT_STARTED.
@@ -31,9 +32,11 @@ Google AI Studio for $0.0012525. A first schema attempt stopped before vision
 and has a conservative uncertain reservation of at most $0.005056. Measured
 successful cost is $0.0014705; conservative cumulative E01 exposure is at most
 $0.0065265, leaving at least $4.9934735 of the project ceiling. E01 and the
-approved planning/documentation changes are consolidated directly onto main.
-The obsolete build/erasecase branch is removed only after origin/main is verified.
-No submission occurred.
+approved planning/documentation changes are consolidated directly onto main in
+a2de2cd21eed7f66eef3c561dccb464c52658ffd. Local HEAD, its upstream and the remote
+main ref were verified equal. The required current-turn bookkeeping is committed
+and pushed next; only then is the obsolete build/erasecase branch removed. No
+submission occurred.
 
 ## Current decisions
 
