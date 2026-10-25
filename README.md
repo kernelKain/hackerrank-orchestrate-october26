@@ -78,6 +78,10 @@ E01 must document the tested platform-specific setup and PDF utility installatio
 
 ## Planned commands
 
+The `fixtures` command is available and publishes a labeled synthetic review.
+It does not read evaluation requests, call OpenRouter, or write `output.csv`.
+The other commands below remain later units.
+
 Use the virtual environment's Python from the repository root:
 
     python3 code/main.py preflight

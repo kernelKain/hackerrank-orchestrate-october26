@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Sequence
 
 from erasecase.contracts import CONTRACT_VERSION
+from erasecase.fixtures import SCENARIOS, run_fixture_review
 from erasecase.models import (
     ROOT,
     SEMANTIC_CANDIDATES,
@@ -21,6 +22,7 @@ from erasecase.models import (
     has_openrouter_key,
     synthetic_probe_image,
 )
+from erasecase.presentation import CommandFailure, format_check
 
 EXIT_OK = 0
 EXIT_SOFTWARE = 1
@@ -79,7 +81,7 @@ def preflight(*, online: bool) -> int:
 
     print("EraseCase preflight")
     for label, ok, detail in checks:
-        print(f"[{'PASS' if ok else 'FAIL'}] {label}: {detail}")
+        print(format_check(label, ok, detail))
     if not online:
         print("[SKIP] OpenRouter access: use preflight --online when credentials are configured")
     required_failures = [label for label, ok, _ in checks if not ok]
@@ -169,17 +171,52 @@ def pending(command: str) -> int:
     return EXIT_UNRESOLVED
 
 
+def fixtures_command(run_dir: str, scenario: str) -> int:
+    try:
+        review = run_fixture_review(Path(run_dir), ROOT, scenario)
+    except CommandFailure as exc:
+        print(exc.render(), file=sys.stderr)
+        return exc.exit_code
+    for line in review.lines:
+        print(line)
+    return EXIT_OK
+
+
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(
         prog="erasecase",
         description="Evidence-grounded personal-data deletion auditor.",
+        epilog=(
+            "fixtures publishes a labeled synthetic review under --run-dir.\n"
+            "It does not read evaluation requests, call a provider, or write output.csv.\n"
+            "Exit codes: 0 finished; 1 software failure; 2 usage or configuration;\n"
+            "3 validation failure; 4 unresolved evidence, provider, or budget;\n"
+            "130 keyboard interruption. Ctrl+C prints interrupted and does not\n"
+            "replace a previously valid submission."
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     subcommands = result.add_subparsers(dest="command")
     preflight_parser = subcommands.add_parser("preflight", help="check local or online prerequisites")
     preflight_parser.add_argument("--online", action="store_true", help="authenticate and check approved model IDs")
     probe_parser = subcommands.add_parser("probe", help="run bounded schema and vision access probes")
     probe_parser.add_argument("--budget-usd", type=float, default=0.25)
-    for name in ("fixtures", "run", "validate"):
+    fixtures_parser = subcommands.add_parser(
+        "fixtures",
+        help="publish a labeled synthetic review without writing output.csv",
+    )
+    fixtures_parser.add_argument(
+        "--run-dir",
+        required=True,
+        help="isolated directory under runs/ or outside the repository",
+    )
+    fixtures_parser.add_argument(
+        "--scenario",
+        default="success",
+        choices=SCENARIOS,
+        help="success, or empty, malformed, budget, partial, missing-input, interrupt",
+    )
+    for name in ("run", "validate"):
         subcommands.add_parser(name, help=f"{name} (implemented in a later unit)")
     return result
 
@@ -192,12 +229,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         return preflight(online=args.online)
     if args.command == "probe":
         return probe(budget_usd=args.budget_usd)
+    if args.command == "fixtures":
+        return fixtures_command(args.run_dir, args.scenario)
     return pending(args.command)
 
 
-if __name__ == "__main__":
+def run(argv: Sequence[str] | None = None) -> int:
     try:
-        raise SystemExit(main())
+        return main(argv)
     except KeyboardInterrupt:
         print("interrupted", file=sys.stderr)
-        raise SystemExit(130)
+        return 130
+
+
+if __name__ == "__main__":
+    raise SystemExit(run())
