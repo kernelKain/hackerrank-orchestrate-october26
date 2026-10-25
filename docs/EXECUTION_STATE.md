@@ -1,18 +1,18 @@
 # EraseCase — Shared Execution and Tool Handoff Notes
 
-Updated: 25 October 2026, 15:25 IST
+Updated: 25 October 2026, 15:31 IST
 Blueprint version: 1.4; approved section content remains v1.1
 Canonical plan: [ENGINEERING_BLUEPRINT.md](ENGINEERING_BLUEPRINT.md)
 Planning: Prompt 1 COMPLETE; all 14 sections APPROVED; CHECK: READY.
 Execution: E07 COMPLETE on main. Screenshot linking is implemented and the 518-row output was regenerated. The user submits.
 Current harness: Cursor.
 Current verified runtime model: Grok 4.7.
-Verified implementation baseline: E07 / 08cd9b9d4137c3b9776075ec3f76f345e39e22b8, plus the screenshot-linking diff.
-Verified implementation remote: origin/main contains E07 / 08cd9b9d4137c3b9776075ec3f76f345e39e22b8.
+Verified implementation baseline: screenshot linking / 9b73affcb90840d6a2da1327fb3022b1697d2651.
+Verified implementation remote: origin/main contains screenshot linking / 9b73affcb90840d6a2da1327fb3022b1697d2651.
 Remote policy: push verified step commits directly to origin/main; verify its SHA after every push.
 Legacy branch: build/erasecase is retired by this consolidation after origin/main verification.
 Implementation units: E01 COMMITTED; E02 COMMITTED; E03 COMMITTED; E04 COMMITTED; E05 COMMITTED; E06 COMMITTED; E07 COMMITTED.
-Next action: the user submits output.csv, code.zip, log.txt, and agent-trace.zip. Do not claim the upload.
+Next action: the user submits output.csv and the rebuilt code.zip. log.txt is separate. The stale agent-trace.zip was removed and must be rebuilt before that upload. Do not claim the upload.
 
 ## A15 ownership amendment — 25 October 2026, 12:51 IST
 

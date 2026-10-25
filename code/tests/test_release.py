@@ -19,6 +19,7 @@ def test_package_allowlist_excludes_secrets_and_duplicates_reports(tmp_path: Pat
     output = tmp_path / "code.zip"
     names = package(output, run_dir, ROOT)
     assert "README.md" in names
+    assert "code/README.md" in names
     assert "code/evaluation/evaluation_report.md" in names
     assert "evaluation/evaluation_report.md" in names
     assert "code/evaluation/usage_report.md" in names

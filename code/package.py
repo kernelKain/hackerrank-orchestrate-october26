@@ -16,6 +16,7 @@ ALLOWLIST = (
     Path("README.md"),
     Path(".gitignore"),
     Path(".env.example"),
+    Path("code/README.md"),
     Path("code/main.py"),
     Path("code/package.py"),
     Path("code/requirements.txt"),

@@ -249,6 +249,10 @@ Submission page:
 
 ## Next action
 
-Upload `output.csv`, `code.zip`, `log.txt`, and `agent-trace.zip` when you are
-ready. Interview notes can use CUSTOM-03 and the intent-lexicon correction
-above. Do not describe the 9/32 public sequence score as a hidden-set result.
+Upload `output.csv` and the rebuilt `code.zip`. The code archive includes
+`README.md` and `code/README.md`, with setup instructions and the audit
+approach. `log.txt` is submitted separately. The 14:31 `agent-trace.zip` was
+removed because it predates the screenshot-linking session; rebuild it before
+that separate upload. Interview notes can use CUSTOM-03 and the intent-lexicon
+correction above. Do not describe the 9/32 public sequence score as a hidden-set
+result.
